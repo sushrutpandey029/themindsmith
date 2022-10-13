@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "864564123733",
+    "project_id": "the-mindsmith",
+    "storage_bucket": "the-mindsmith.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:864564123733:android:eb2f14daeffd6efa91dcdc",
+        "android_client_info": {
+          "package_name": "com.example.the_mindsmith"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "864564123733-nieuibp2g577cf29qlsup87m7fd7sae7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.the_mindsmith",
+            "certificate_hash": "88ff90d1d19354bbd1f5ad9e86c296a5e85139bb"
+          }
+        },
+        {
+          "client_id": "864564123733-rmc9gqc94uilqi7o7qkl0gj833dstncr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPTvbgn6EICumbbhg7Nt6V2edlESJ9j_8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "864564123733-rmc9gqc94uilqi7o7qkl0gj833dstncr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
