@@ -17,9 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Future.microtask(() {
-      Timer(
-          const Duration(seconds: 6),
-          () =>authHandler(context));
+      Timer(const Duration(seconds: 6), () => authHandler(context));
     });
   }
 
@@ -28,22 +26,29 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    
-   Future.microtask(() {
-      Timer(Duration(seconds: 2), () {
-      setState(() {
-        _offset = Offset.zero;
-        _isVisible = true;
-      });
-    });
-   },);
+    Future.microtask(
+      () {
+        Timer(Duration(seconds: 2), () {
+          if (mounted) {
+            setState(() {
+              _offset = Offset.zero;
+              _isVisible = true;
+            });
+          }
+        });
+      },
+    );
     return Scaffold(
       body: Center(
         child: Column(
-
           children: [
-            SizedBox(height: MediaQuery.of(context).size.height/3,),
-           Image.asset('assets/images/mindsmith-logo.png',width: 180,),
+            SizedBox(
+              height: MediaQuery.of(context).size.height / 3,
+            ),
+            Image.asset(
+              'assets/images/mindsmith-logo.png',
+              width: 180,
+            ),
             SizedBox(
               height: 15,
             ),

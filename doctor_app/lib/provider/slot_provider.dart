@@ -27,6 +27,7 @@ class SlotProvider extends ChangeNotifier {
               .difference(DateTime.now()) >
           Duration(minutes: int.parse(element.timeSlot.split(" ")[0]))) {
         upcomingslot = element;
+        break;
       }
     }
     print("slotup $upcomingslot");

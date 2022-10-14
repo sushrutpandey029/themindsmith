@@ -20,7 +20,7 @@ class EditProfilePage extends StatefulWidget {
 }
 
 class _EditProfilePageState extends State<EditProfilePage> {
-  UpdateRepo _updateRepo = UpdateRepo();
+  final UpdateRepo _updateRepo = UpdateRepo();
   TextEditingController emailController = TextEditingController();
   TextEditingController nameController = TextEditingController();
   TextEditingController numController = TextEditingController();
@@ -119,6 +119,30 @@ class _EditProfilePageState extends State<EditProfilePage> {
     readFromStorage();
   }
 
+  AlertDialog logoutalert() {
+    return AlertDialog(
+      title: const Text(
+        'You are about to get logged out!',
+        textAlign: TextAlign.center,
+      ),
+      content: const Text(
+        'Login again.',
+        textAlign: TextAlign.center,
+      ),
+      actions: [
+        TextButton(
+          child: const Text(
+            'OK',
+            style: TextStyle(color: Colors.grey),
+          ),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     DoctorModel doctorModel =
@@ -131,221 +155,223 @@ class _EditProfilePageState extends State<EditProfilePage> {
       body: Padding(
         padding: const EdgeInsets.all(18.0),
         child: Center(
-          child: Column(
-            children: [
-              Column(
-                children: [
-                  Stack(
-                    alignment: Alignment.bottomRight,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: CircleAvatar(
-                          backgroundColor: Colors.grey[300],
-                          radius: 40,
-                          child: image != null
-                              ? Image.file(image!)
-                              : const FlutterLogo(),
-                        ),
-                      ),
-                      Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(100),
-                              color: Colors.black),
-                          child: GestureDetector(
-                            onTap: () {
-                              showProfilePictureDialog(context);
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.all(4.0),
-                              child: Icon(
-                                Icons.edit,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ))
-                    ],
-                  ),
-                ],
-              ),
-              // SizedBox(height: 20,),
-              SingleChildScrollView(
-                child: Column(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Column(
                   children: [
-                    Card(
-                      margin: EdgeInsets.all(8),
-                      elevation: 6,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20)),
-                      child: ListTile(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15.0),
-                        ),
-                        title: Text("Name : ${doctorModel.doctorName}"),
-                        trailing: GestureDetector(
-                          onTap: () {
-                            showNameDialog(context);
-                          },
-                          child: const Padding(
-                            padding: EdgeInsets.all(4.0),
-                            child: Icon(
-                              Icons.edit,
-                              color: Colors.black,
-                            ),
+                    Stack(
+                      alignment: Alignment.bottomRight,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: CircleAvatar(
+                            backgroundColor: Colors.grey[300],
+                            radius: 40,
+                            child: image != null
+                                ? Image.file(image!)
+                                : const FlutterLogo(),
                           ),
                         ),
-                      ),
+                        Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(100),
+                                color: Colors.black),
+                            child: GestureDetector(
+                              onTap: () {
+                                showProfilePictureDialog(context);
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: Icon(
+                                  Icons.edit,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ))
+                      ],
                     ),
-                    Card(
-                      margin: EdgeInsets.all(8),
-                      elevation: 6,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20)),
-                      child: ListTile(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15.0),
-                        ),
-                        title: Text("Email id : ${doctorModel.doctorEmail}"),
-                        trailing: GestureDetector(
-                          onTap: () {
-                            showEmailDialog(context);
-                          },
-                          child: const Padding(
-                            padding: EdgeInsets.all(4.0),
-                            child: Icon(
-                              Icons.edit,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Card(
-                      margin: EdgeInsets.all(8),
-                      elevation: 6,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20)),
-                      child: ListTile(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15.0),
-                        ),
-                        title: Text("Phone : ${doctorModel.doctorNumber}"),
-                        trailing: GestureDetector(
-                          onTap: () {
-                            showNumDialog(context);
-                          },
-                          child: const Padding(
-                            padding: EdgeInsets.all(4.0),
-                            child: Icon(
-                              Icons.edit,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Card(
-                      margin: EdgeInsets.all(8),
-                      elevation: 6,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20)),
-                      child: ListTile(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15.0),
-                        ),
-                        title:
-                            Text("Specialty : ${doctorModel.doctorSpeciality}"),
-                        trailing: GestureDetector(
-                          onTap: () {
-                            showSpecialityDialog(context);
-                          },
-                          child: const Padding(
-                            padding: EdgeInsets.all(4.0),
-                            child: Icon(
-                              Icons.edit,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Card(
-                      margin: EdgeInsets.all(8),
-                      elevation: 6,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20)),
-                      child: ListTile(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15.0),
-                        ),
-                        title: Text("Address : ${doctorModel.doctorAddress}"),
-                        trailing: GestureDetector(
-                          onTap: () {
-                            showAddressDialog(context);
-                          },
-                          child: const Padding(
-                            padding: EdgeInsets.all(4.0),
-                            child: Icon(
-                              Icons.edit,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Card(
-                      margin: EdgeInsets.all(8),
-                      elevation: 6,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20)),
-                      child: ListTile(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15.0),
-                        ),
-                        title: Text("Fee : ${doctorModel.doctorFee}"),
-                        trailing: GestureDetector(
-                          onTap: () {
-                            showFeeDialog(context);
-                          },
-                          child: const Padding(
-                            padding: EdgeInsets.all(4.0),
-                            child: Icon(
-                              Icons.edit,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Card(
-                      margin: EdgeInsets.all(8),
-                      elevation: 6,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20)),
-                      child: ListTile(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15.0),
-                        ),
-                        title: Text(
-                            "Experience : ${doctorModel.doctorExperience}"),
-                        trailing: GestureDetector(
-                          onTap: () {
-                            showExperienceDialog(context);
-                          },
-                          child: const Padding(
-                            padding: EdgeInsets.all(4.0),
-                            child: Icon(
-                              Icons.edit,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ),
-                      ),
-                    )
                   ],
                 ),
-              )
-            ],
+                // SizedBox(height: 20,),
+                SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Card(
+                        margin: EdgeInsets.all(8),
+                        elevation: 6,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)),
+                        child: ListTile(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                          title: Text("Name : ${doctorModel.doctorName}"),
+                          trailing: GestureDetector(
+                            onTap: () {
+                              showNameDialog(context);
+                            },
+                            child: const Padding(
+                              padding: EdgeInsets.all(4.0),
+                              child: Icon(
+                                Icons.edit,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Card(
+                        margin: EdgeInsets.all(8),
+                        elevation: 6,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)),
+                        child: ListTile(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                          title: Text("Email id : ${doctorModel.doctorEmail}"),
+                          trailing: GestureDetector(
+                            onTap: () {
+                              showEmailDialog(context);
+                            },
+                            child: const Padding(
+                              padding: EdgeInsets.all(4.0),
+                              child: Icon(
+                                Icons.edit,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Card(
+                        margin: EdgeInsets.all(8),
+                        elevation: 6,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)),
+                        child: ListTile(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                          title: Text("Phone : ${doctorModel.doctorNumber}"),
+                          trailing: GestureDetector(
+                            onTap: () {
+                              showNumDialog(context);
+                            },
+                            child: const Padding(
+                              padding: EdgeInsets.all(4.0),
+                              child: Icon(
+                                Icons.edit,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Card(
+                        margin: EdgeInsets.all(8),
+                        elevation: 6,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)),
+                        child: ListTile(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                          title: Text(
+                              "Specialty : ${doctorModel.doctorSpeciality}"),
+                          trailing: GestureDetector(
+                            onTap: () {
+                              showSpecialityDialog(context);
+                            },
+                            child: const Padding(
+                              padding: EdgeInsets.all(4.0),
+                              child: Icon(
+                                Icons.edit,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Card(
+                        margin: EdgeInsets.all(8),
+                        elevation: 6,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)),
+                        child: ListTile(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                          title: Text("Address : ${doctorModel.doctorAddress}"),
+                          trailing: GestureDetector(
+                            onTap: () {
+                              showAddressDialog(context);
+                            },
+                            child: const Padding(
+                              padding: EdgeInsets.all(4.0),
+                              child: Icon(
+                                Icons.edit,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Card(
+                        margin: EdgeInsets.all(8),
+                        elevation: 6,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)),
+                        child: ListTile(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                          title: Text("Fee : ${doctorModel.doctorFee}"),
+                          trailing: GestureDetector(
+                            onTap: () {
+                              showFeeDialog(context);
+                            },
+                            child: const Padding(
+                              padding: EdgeInsets.all(4.0),
+                              child: Icon(
+                                Icons.edit,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Card(
+                        margin: EdgeInsets.all(8),
+                        elevation: 6,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)),
+                        child: ListTile(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                          title: Text(
+                              "Experience : ${doctorModel.doctorExperience}"),
+                          trailing: GestureDetector(
+                            onTap: () {
+                              showExperienceDialog(context);
+                            },
+                            child: const Padding(
+                              padding: EdgeInsets.all(4.0),
+                              child: Icon(
+                                Icons.edit,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
@@ -401,8 +427,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                     .doctorModel!
                                     .doctorId,
                                 emailController.text);
+
                             Provider.of<AuthProvider>(context, listen: false)
-                                .logOut(context);
+                                .logOut(context)
+                                .then((value) {
+                              logoutalert();
+                            });
                             Navigator.pop(context);
                           },
                         ),
@@ -475,7 +505,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                     .doctorId,
                                 nameController.text);
                             Provider.of<AuthProvider>(context, listen: false)
-                                .logOut(context);
+                                .logOut(context)
+                                .then((value) {
+                              logoutalert();
+                            });
                             Navigator.pop(context);
                           },
                         ),
@@ -548,7 +581,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                     .doctorId,
                                 numController.text);
                             Provider.of<AuthProvider>(context, listen: false)
-                                .logOut(context);
+                                .logOut(context)
+                                .then((value) {
+                              logoutalert();
+                            });
                             Navigator.pop(context);
                           },
                         ),
@@ -621,7 +657,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                     .doctorId,
                                 addressController.text);
                             Provider.of<AuthProvider>(context, listen: false)
-                                .logOut(context);
+                                .logOut(context)
+                                .then((value) {
+                              logoutalert();
+                            });
                             Navigator.pop(context);
                           },
                         ),
@@ -694,7 +733,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                     .doctorId,
                                 feeController.text);
                             Provider.of<AuthProvider>(context, listen: false)
-                                .logOut(context);
+                                .logOut(context)
+                                .then((value) {
+                              logoutalert();
+                            });
                             Navigator.pop(context);
                           },
                         ),
@@ -767,7 +809,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                     .doctorId,
                                 specialityController.text);
                             Provider.of<AuthProvider>(context, listen: false)
-                                .logOut(context);
+                                .logOut(context)
+                                .then((value) {
+                              logoutalert();
+                            });
                             Navigator.pop(context);
                           },
                         ),
@@ -833,12 +878,20 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         child: ElevatedButton(
                           child: const Text("Update"),
                           onPressed: () async {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return logoutalert();
+                              },
+                            );
+
                             await _updateRepo.updateDocExperience(
                                 Provider.of<AuthProvider>(context,
                                         listen: false)
                                     .doctorModel!
                                     .doctorId,
                                 experienceController.text);
+
                             Provider.of<AuthProvider>(context, listen: false)
                                 .logOut(context);
                             Navigator.pop(context);

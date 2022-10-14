@@ -1,5 +1,3 @@
-
-
 import 'dart:async';
 
 import 'package:doctor_app/ui/screens/login_screen.dart';
@@ -19,10 +17,9 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-   Future.microtask(() {
+    Future.microtask(() {
       Timer(
-          const Duration(seconds: 6),
-          () => SharedPref().authHandler(context));
+          const Duration(seconds: 6), () => SharedPref().authHandler(context));
     });
   }
 
@@ -31,22 +28,29 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    
-   Future.microtask(() {
-      Timer(Duration(seconds: 2), () {
-      setState(() {
-        _offset = Offset.zero;
-        _isVisible = true;
-      });
-    });
-   },);
+    Future.microtask(
+      () {
+        Timer(Duration(seconds: 2), () {
+          if (mounted) {
+            setState(() {
+              _offset = Offset.zero;
+              _isVisible = true;
+            });
+          }
+        });
+      },
+    );
     return Scaffold(
       body: Center(
         child: Column(
-
           children: [
-            SizedBox(height: MediaQuery.of(context).size.height/3,),
-           Image.asset('assets/images/mindsmith-logo.png',width: 180,),
+            SizedBox(
+              height: MediaQuery.of(context).size.height / 3,
+            ),
+            Image.asset(
+              'assets/images/mindsmith-logo.png',
+              width: 180,
+            ),
             SizedBox(
               height: 15,
             ),
