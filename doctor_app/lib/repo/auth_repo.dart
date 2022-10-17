@@ -1,5 +1,6 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
-import 'package:doctor_app/model/doctor_model.dart';
 
 import '../constants/url_constant.dart';
 
@@ -19,6 +20,7 @@ class AuthRepo {
       rethrow;
     }
   }
+
   Future<Map<String, dynamic>> readDoc(String jwt) async {
     String url = "$_doctorApi/readdoc";
     try {
@@ -34,8 +36,7 @@ class AuthRepo {
 
   Future<void> logOut() async {
     String url = "$_doctorApi/doc_logout";
-    Response response =await Dio().get(url);
+    Response response = await Dio().get(url);
     print(response.data);
-
   }
 }

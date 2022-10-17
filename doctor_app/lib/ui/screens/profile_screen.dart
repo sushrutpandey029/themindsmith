@@ -2,7 +2,6 @@ import 'package:doctor_app/constants/text_style.dart';
 import 'package:doctor_app/model/doctor_model.dart';
 import 'package:doctor_app/provider/auth_provider.dart';
 import 'package:doctor_app/ui/screens/customer_support.dart';
-import 'package:doctor_app/ui/screens/support_screen.dart';
 import 'package:doctor_app/ui/screens/faqs_screen.dart';
 import 'package:doctor_app/ui/screens/my_consultations_screen.dart';
 import 'package:doctor_app/ui/screens/settings_screen.dart';
@@ -12,7 +11,6 @@ import 'package:provider/provider.dart';
 import '../../constants/url_constant.dart';
 import '../widgets/comman/app_bar.dart';
 import 'edit_profile_screen.dart';
-import 'login_screen.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -46,11 +44,16 @@ class _ProfilePageState extends State<ProfilePage> {
                           Image.asset('assets/images/user2.png')),
                     ),
                   ),
-                  Text(doctor.doctorName,style: text3,),
-                  Text(doctor.doctorQualification,style: text3,)
+                  Text(
+                    doctor.doctorName,
+                    style: text3,
+                  ),
+                  Text(
+                    doctor.doctorQualification,
+                    style: text3,
+                  )
                 ],
               ),
-             
               Column(
                 children: [
                   Card(
@@ -63,7 +66,8 @@ class _ProfilePageState extends State<ProfilePage> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const EditProfilePage()));
+                                  builder: (context) =>
+                                      const EditProfilePage()));
                         },
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15.0),
@@ -81,7 +85,8 @@ class _ProfilePageState extends State<ProfilePage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: ((context) => const ConsulationPage())));
+                                builder: ((context) =>
+                                    const ConsulationPage())));
                       },
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15.0),
@@ -100,7 +105,8 @@ class _ProfilePageState extends State<ProfilePage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: ((context) => const CustomerSupportPage())));
+                                builder: ((context) =>
+                                    const CustomerSupportPage())));
                       },
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15.0),

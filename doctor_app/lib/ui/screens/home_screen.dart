@@ -77,10 +77,10 @@ class _HomePageState extends State<HomePage>
             }),
             child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.black,
                     fixedSize: const Size.fromHeight(60),
+                    backgroundColor: const Color.fromARGB(255, 227, 247, 255),
                     elevation: 10,
-                    primary: const Color.fromARGB(255, 227, 247, 255),
-                    onPrimary: Colors.black,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
                         side: const BorderSide(width: 2))),
@@ -97,10 +97,11 @@ class _HomePageState extends State<HomePage>
         ),
         Consumer<SlotProvider>(
           builder: (context, value, widget) {
+            SlotModel? upcomingslot;
             if (!value.isSingleLoading) {
               _runAnimation();
             }
-            SlotModel? upcomingslot =
+            upcomingslot =
                 Provider.of<SlotProvider>(context, listen: false).upcomingslot;
             return value.isSingleLoading
                 ? const Padding(

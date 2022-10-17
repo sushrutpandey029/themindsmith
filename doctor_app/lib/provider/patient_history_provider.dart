@@ -6,20 +6,20 @@ import 'package:flutter/material.dart';
 
 class PatientHistoryProvider extends ChangeNotifier {
   UserModel? user;
-  final PatientHistoryRepo _historyRepo= PatientHistoryRepo();
-  
-  void selectUser (UserModel userModel) {
-    user=userModel;
+  final PatientHistoryRepo _historyRepo = PatientHistoryRepo();
+
+  void selectUser(UserModel userModel) {
+    user = userModel;
     notifyListeners();
   }
 
-  Future<void> addHistory(BuildContext context,PatientHistoryModel patientHistory) async {
-     showDialog(
+  Future<void> addHistory(
+      BuildContext context, PatientHistoryModel patientHistory) async {
+    showDialog(
         context: context,
-        builder: (context) => Center(child: CircularProgressIndicator()));
-    String response =await _historyRepo.addHistory(patientHistory);
+        builder: (context) => const Center(child: CircularProgressIndicator()));
+    String response = await _historyRepo.addHistory(patientHistory);
     Navigator.pop(context);
-    errorDialogue(context: context,  message: response);
+    errorDialogue(context: context, message: response);
   }
-
 }

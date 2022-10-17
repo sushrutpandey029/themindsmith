@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -40,8 +41,7 @@ class AchievementProvider extends ChangeNotifier {
         .doctorName;
     showDialog(
         context: context,
-        builder: (context) => Center(
-                child: const CircularProgressIndicator()));
+        builder: (context) => const Center(child: CircularProgressIndicator()));
     if (path != null) {
       try {
         String response = await _achievementRepo.uploadAchievement(
@@ -51,19 +51,11 @@ class AchievementProvider extends ChangeNotifier {
         errorDialogue(context: context, message: response);
       } on DioError catch (e) {
         Navigator.pop(context);
-        errorDialogue(
-            context: context,
-           
-            message: e.response!.data['message']);
+        errorDialogue(context: context, message: e.response!.data['message']);
       }
     } else {
       Navigator.pop(context);
-      errorDialogue(
-          context: context,
-        
-          message: "please provide the file.");
+      errorDialogue(context: context, message: "please provide the file.");
     }
   }
-
-
 }

@@ -1,9 +1,9 @@
+import 'dart:developer';
+
 import 'package:doctor_app/model/slot_model.dart';
 import 'package:doctor_app/provider/auth_provider.dart';
 import 'package:doctor_app/repo/slot_repo.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../model/user_model.dart';

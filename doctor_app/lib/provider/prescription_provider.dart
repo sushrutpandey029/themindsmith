@@ -12,8 +12,6 @@ import 'package:provider/provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import '../constants/text_style.dart';
-
 class PrescriptionProvider extends ChangeNotifier {
   UserModel? selectedUser;
   final PrescriptionRepo _prescriptionRepo = PrescriptionRepo();
@@ -70,7 +68,8 @@ class PrescriptionProvider extends ChangeNotifier {
     await file.writeAsBytes(await _pdf!.save());
 
     final MailOptions mailOptions = MailOptions(
-      body: 'Dear Sir/Madam\nPlease find Your prescription attached with this mail.\nThanks & Regards\nTheMindSmith',
+      body:
+          'Dear Sir/Madam\nPlease find Your prescription attached with this mail.\nThanks & Regards\nTheMindSmith',
       subject: 'Prescription | TheMindSmith',
       recipients: [selectedPrescription!.userEmail],
       attachments: [

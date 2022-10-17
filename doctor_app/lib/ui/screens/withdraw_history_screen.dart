@@ -1,11 +1,10 @@
 //unused code
 
-import 'package:doctor_app/ui/screens/my_wallet_screen.dart';
 import 'package:doctor_app/ui/widgets/withdraw_history_screen_widgets/withdraw_history_tile_widget.dart';
 import 'package:flutter/material.dart';
 
 class WithdrawHistoryPage extends StatefulWidget {
-  WithdrawHistoryPage({Key? key}) : super(key: key);
+  const WithdrawHistoryPage({Key? key}) : super(key: key);
 
   @override
   State<WithdrawHistoryPage> createState() => _WithdrawHistoryPageState();
@@ -22,7 +21,7 @@ class _WithdrawHistoryPageState extends State<WithdrawHistoryPage> {
               onTap: () {
                 Navigator.pop(context);
               },
-              child: ImageIcon(AssetImage('assets/icons/previous.png'))),
+              child: const ImageIcon(AssetImage('assets/icons/previous.png'))),
         ),
         title: Row(
           children: [
@@ -33,7 +32,7 @@ class _WithdrawHistoryPageState extends State<WithdrawHistoryPage> {
                 width: 40,
               ),
             ),
-            Text('Withdraw history'),
+            const Text('Withdraw history'),
           ],
         ),
         backgroundColor: Colors.transparent,
@@ -43,16 +42,34 @@ class _WithdrawHistoryPageState extends State<WithdrawHistoryPage> {
       body: Padding(
         padding: const EdgeInsets.all(18.0),
         child: Column(
-          children: [
-             SizedBox(height: 20,),
-            WithdrawHistoryTileWidget(days: '1',amount: '500',),
-            WithdrawHistoryTileWidget(days: '1',amount: '100',),
-            WithdrawHistoryTileWidget(days: '2',amount: '800',),
-            WithdrawHistoryTileWidget(days: '2',amount: '200',),
-            WithdrawHistoryTileWidget(days: '3',amount: '100',),
-            WithdrawHistoryTileWidget(days: '4',amount: '300',),
-            
-            
+          children: const [
+            SizedBox(
+              height: 20,
+            ),
+            WithdrawHistoryTileWidget(
+              days: '1',
+              amount: '500',
+            ),
+            WithdrawHistoryTileWidget(
+              days: '1',
+              amount: '100',
+            ),
+            WithdrawHistoryTileWidget(
+              days: '2',
+              amount: '800',
+            ),
+            WithdrawHistoryTileWidget(
+              days: '2',
+              amount: '200',
+            ),
+            WithdrawHistoryTileWidget(
+              days: '3',
+              amount: '100',
+            ),
+            WithdrawHistoryTileWidget(
+              days: '4',
+              amount: '300',
+            ),
           ],
         ),
       ),

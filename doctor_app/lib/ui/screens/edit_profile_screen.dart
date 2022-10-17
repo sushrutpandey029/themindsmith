@@ -7,8 +7,6 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:image_picker/image_picker.dart';
-import '../../constants/text_style.dart';
-import '../../constants/url_constant.dart';
 import '../../provider/auth_provider.dart';
 import '../widgets/comman/app_bar.dart';
 
@@ -41,20 +39,21 @@ class _EditProfilePageState extends State<EditProfilePage> {
       //     child: CircularProgressIndicator(),
       //   ),
       // );
-      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      final XFile? image =
+          await ImagePicker().pickImage(source: ImageSource.gallery);
       if (image == null) {
         return;
       } else {
-        final imageTemp = File(image.path);
+        final imageTemp = XFile(image.path);
         setState(() {
-          this.image = imageTemp;
+          this.image = imageTemp as File;
         });
 
         _updateRepo.uploadImage(
             Provider.of<AuthProvider>(context, listen: false)
                 .doctorModel!
                 .doctorId,
-            image as File);
+            image);
         Provider.of<AuthProvider>(context, listen: false).logOut(context);
       }
     } on PlatformException catch (e) {
@@ -71,24 +70,25 @@ class _EditProfilePageState extends State<EditProfilePage> {
       showDialog(
         context: context,
         barrierDismissible: false,
-        builder: (context) => Center(
+        builder: (context) => const Center(
           child: CircularProgressIndicator(),
         ),
       );
-      final image = await ImagePicker().pickImage(source: ImageSource.camera);
+      final XFile? image =
+          await ImagePicker().pickImage(source: ImageSource.camera);
       if (image == null) {
         return;
       } else {
-        final imageTemp = File(image.path);
+        final imageTemp = XFile(image.path);
         setState(() {
-          this.image = imageTemp;
+          this.image = imageTemp as File?;
         });
 
         _updateRepo.uploadImage(
             Provider.of<AuthProvider>(context, listen: false)
                 .doctorModel!
                 .doctorId,
-            image as File);
+            image);
       }
     } on PlatformException catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -114,7 +114,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     readFromStorage();
   }
@@ -181,8 +180,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               onTap: () {
                                 showProfilePictureDialog(context);
                               },
-                              child: Padding(
-                                padding: const EdgeInsets.all(4.0),
+                              child: const Padding(
+                                padding: EdgeInsets.all(4.0),
                                 child: Icon(
                                   Icons.edit,
                                   color: Colors.white,
@@ -198,7 +197,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   child: Column(
                     children: [
                       Card(
-                        margin: EdgeInsets.all(8),
+                        margin: const EdgeInsets.all(8),
                         elevation: 6,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20)),
@@ -222,7 +221,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         ),
                       ),
                       Card(
-                        margin: EdgeInsets.all(8),
+                        margin: const EdgeInsets.all(8),
                         elevation: 6,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20)),
@@ -246,7 +245,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         ),
                       ),
                       Card(
-                        margin: EdgeInsets.all(8),
+                        margin: const EdgeInsets.all(8),
                         elevation: 6,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20)),
@@ -270,7 +269,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         ),
                       ),
                       Card(
-                        margin: EdgeInsets.all(8),
+                        margin: const EdgeInsets.all(8),
                         elevation: 6,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20)),
@@ -295,7 +294,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         ),
                       ),
                       Card(
-                        margin: EdgeInsets.all(8),
+                        margin: const EdgeInsets.all(8),
                         elevation: 6,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20)),
@@ -319,7 +318,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         ),
                       ),
                       Card(
-                        margin: EdgeInsets.all(8),
+                        margin: const EdgeInsets.all(8),
                         elevation: 6,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20)),
@@ -343,7 +342,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         ),
                       ),
                       Card(
-                        margin: EdgeInsets.all(8),
+                        margin: const EdgeInsets.all(8),
                         elevation: 6,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20)),
@@ -421,7 +420,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         child: ElevatedButton(
                           child: const Text("Update"),
                           onPressed: () async {
-                             showDialog(
+                            showDialog(
                               context: context,
                               builder: (BuildContext context) {
                                 return logoutalert();
@@ -435,8 +434,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                 emailController.text);
 
                             Provider.of<AuthProvider>(context, listen: false)
-                                .logOut(context)
-                                ;
+                                .logOut(context);
                             Navigator.pop(context);
                           },
                         ),
@@ -502,7 +500,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         child: ElevatedButton(
                           child: const Text("Update"),
                           onPressed: () async {
-                             showDialog(
+                            showDialog(
                               context: context,
                               builder: (BuildContext context) {
                                 return logoutalert();
@@ -515,8 +513,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                     .doctorId,
                                 nameController.text);
                             Provider.of<AuthProvider>(context, listen: false)
-                                .logOut(context)
-                               ;
+                                .logOut(context);
                             Navigator.pop(context);
                           },
                         ),
@@ -582,7 +579,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         child: ElevatedButton(
                           child: const Text("Update"),
                           onPressed: () async {
-                             showDialog(
+                            showDialog(
                               context: context,
                               builder: (BuildContext context) {
                                 return logoutalert();
@@ -595,8 +592,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                     .doctorId,
                                 numController.text);
                             Provider.of<AuthProvider>(context, listen: false)
-                                .logOut(context)
-                                ;
+                                .logOut(context);
                             Navigator.pop(context);
                           },
                         ),
@@ -662,7 +658,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         child: ElevatedButton(
                           child: const Text("Update"),
                           onPressed: () async {
-                             showDialog(
+                            showDialog(
                               context: context,
                               builder: (BuildContext context) {
                                 return logoutalert();
@@ -675,8 +671,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                     .doctorId,
                                 addressController.text);
                             Provider.of<AuthProvider>(context, listen: false)
-                                .logOut(context)
-                                ;
+                                .logOut(context);
                             Navigator.pop(context);
                           },
                         ),
@@ -742,7 +737,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         child: ElevatedButton(
                           child: const Text("Update"),
                           onPressed: () async {
-                             showDialog(
+                            showDialog(
                               context: context,
                               builder: (BuildContext context) {
                                 return logoutalert();
@@ -755,8 +750,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                     .doctorId,
                                 feeController.text);
                             Provider.of<AuthProvider>(context, listen: false)
-                                .logOut(context)
-                               ;
+                                .logOut(context);
                             Navigator.pop(context);
                           },
                         ),
@@ -822,7 +816,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         child: ElevatedButton(
                           child: const Text("Update"),
                           onPressed: () async {
-                             showDialog(
+                            showDialog(
                               context: context,
                               builder: (BuildContext context) {
                                 return logoutalert();
@@ -835,8 +829,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                     .doctorId,
                                 specialityController.text);
                             Provider.of<AuthProvider>(context, listen: false)
-                                .logOut(context)
-                                ;
+                                .logOut(context);
                             Navigator.pop(context);
                           },
                         ),
@@ -961,7 +954,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             child: Padding(
               padding: const EdgeInsets.all(4.0),
               child: Container(
-                height: height - 650,
+                height: height * 0.25,
                 width: width,
                 color: Colors.white,
                 child: Form(
@@ -980,11 +973,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             TextButton(
                               child: const Text(
                                 "Camera",
-                                style: TextStyle(fontSize: 24),
+                                style: TextStyle(fontSize: 16),
                               ),
                               onPressed: () {
                                 pickImageFromCamera();
@@ -996,7 +990,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             TextButton(
                               child: const Text(
                                 "Gallery",
-                                style: TextStyle(fontSize: 24),
+                                style: TextStyle(fontSize: 16),
                               ),
                               onPressed: () {
                                 pickImageFromGallery();
@@ -1010,7 +1004,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         child: ElevatedButton(
                           child: const Text("Update"),
                           onPressed: () {
-                             showDialog(
+                            showDialog(
                               context: context,
                               builder: (BuildContext context) {
                                 return logoutalert();

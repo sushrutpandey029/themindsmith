@@ -2,18 +2,18 @@ import 'package:doctor_app/constants/text_style.dart';
 import 'package:flutter/material.dart';
 
 class PayoutHistoryTileWidget extends StatelessWidget {
-  PayoutHistoryTileWidget(
+  const PayoutHistoryTileWidget(
       {Key? key,
       required this.name,
       required this.amount,
       required this.bankName})
       : super(key: key);
-  String name, amount, bankName;
+  final String name, amount, bankName;
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.all(12),
+      margin: const EdgeInsets.all(12),
       elevation: 8,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: ListTile(
@@ -21,7 +21,7 @@ class PayoutHistoryTileWidget extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15.0),
           ),
-          title: Text('Received from'),
+          title: const Text('Received from'),
           subtitle: Text(name),
           trailing: SizedBox(
             width: 100,
@@ -34,7 +34,7 @@ class PayoutHistoryTileWidget extends StatelessWidget {
                 ),
                 Text(
                   'Certified to $bankName',
-                  style: TextStyle(fontSize: 12),
+                  style: const TextStyle(fontSize: 12),
                 ),
               ],
             ),

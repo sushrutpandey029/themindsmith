@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:doctor_app/model/doctor_model.dart';
@@ -15,16 +16,14 @@ import 'slot_provider.dart';
 
 class AuthProvider extends ChangeNotifier {
   final AuthRepo _authApi = AuthRepo();
-  DoctorModel? doctorModel ;
+  DoctorModel? doctorModel;
   final SharedPref _pref = SharedPref();
-
-
 
   Future<void> loginWithEmail(
       String email, String password, BuildContext context) async {
     showDialog(
         context: context,
-        builder: (context) => Center(child: CircularProgressIndicator()));
+        builder: (context) => const Center(child: CircularProgressIndicator()));
     try {
       Map<String, dynamic> response =
           await _authApi.loginWithEmail(email, password);
@@ -33,45 +32,52 @@ class AuthProvider extends ChangeNotifier {
         if (response['jwt'] != null) {
           // print(res['users']['user_name']);
           String jwt = response['jwt'];
-          Map<String,dynamic> map=await _authApi.readDoc(jwt);
+          Map<String, dynamic> map = await _authApi.readDoc(jwt);
           // print(map);
-          doctorModel= DoctorModel.fromMap(map['users']);
+          doctorModel = DoctorModel.fromMap(map['users']);
 
           print(doctorModel);
-           await _pref.setData(json.encode(doctorModel?.toMap()));
-             await _pref.setDate();
+          await _pref.setData(json.encode(doctorModel?.toMap()));
+          await _pref.setDate();
           notifyListeners();
 
-          Provider.of<SlotProvider>(context,listen: false).fetchSingleSlot(context);
-     Provider.of<SlotProvider>(context,listen: false).fetchSlots(context);
-     Provider.of<NotificationProvider>(context,listen: false).fetchNotification(context);
+          Provider.of<SlotProvider>(context, listen: false)
+              .fetchSingleSlot(context);
+          Provider.of<SlotProvider>(context, listen: false).fetchSlots(context);
+          Provider.of<NotificationProvider>(context, listen: false)
+              .fetchNotification(context);
 
           Navigator.pop(context);
-          Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: ((context) => Wrapper())));
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: ((context) => const Wrapper())),
+            (Route<dynamic> route) => false,
+          );
         }
       } else {
         Navigator.pop(context);
-        errorDialogue(
-            context: context,
-          
-            message: response['message']);
+        errorDialogue(context: context, message: response['message']);
       }
     } on DioError catch (e) {
-       Navigator.pop(context);
-      errorDialogue(
-          context: context, message: e.message);
+      Navigator.pop(context);
+      errorDialogue(context: context, message: e.message);
     }
   }
-   Future<void> logOut (BuildContext context) async {
-     showDialog(
+
+  Future<void> logOut(BuildContext context) async {
+    showDialog(
         context: context,
-        builder: (context) => Center(child: CircularProgressIndicator()));
+        builder: (context) => const Center(child: CircularProgressIndicator()));
     await _authApi.logOut();
-    doctorModel=null;
+    doctorModel = null;
     await _pref.removeData();
     Navigator.pop(context);
-     Navigator.pushAndRemoveUntil(context,  MaterialPageRoute(builder: (context)=>LogInPage()), (route) => route.isCurrent==MaterialPageRoute(builder: (context)=>LogInPage()));
+    Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => const LogInPage()),
+        (route) =>
+            route.isCurrent ==
+            MaterialPageRoute(builder: (context) => const LogInPage()));
     notifyListeners();
-   }
+  }
 }

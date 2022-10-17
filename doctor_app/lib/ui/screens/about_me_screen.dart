@@ -1,10 +1,6 @@
 import 'package:doctor_app/constants/url_constant.dart';
 import 'package:doctor_app/model/doctor_model.dart';
 import 'package:doctor_app/provider/auth_provider.dart';
-import 'package:doctor_app/ui/screens/my_wallet_screen.dart';
-import 'package:doctor_app/ui/screens/payout_history_screen.dart';
-import 'package:doctor_app/ui/screens/transaction_history_screen.dart';
-import 'package:doctor_app/ui/screens/withdraw_history_screen.dart';
 import 'package:doctor_app/ui/widgets/comman/app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -49,7 +45,7 @@ class _AboutMePageState extends State<AboutMePage> {
                   // Text('click to change profile image')
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 40,
               ),
               Column(
@@ -59,7 +55,7 @@ class _AboutMePageState extends State<AboutMePage> {
                       borderRadius: BorderRadius.circular(15.0),
                     ),
                     elevation: 8,
-                    margin: EdgeInsets.all(12),
+                    margin: const EdgeInsets.all(12),
                     child: ListTile(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15.0),
@@ -72,7 +68,7 @@ class _AboutMePageState extends State<AboutMePage> {
                       borderRadius: BorderRadius.circular(15.0),
                     ),
                     elevation: 8,
-                    margin: EdgeInsets.all(12),
+                    margin: const EdgeInsets.all(12),
                     child: ListTile(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15.0),
@@ -85,7 +81,7 @@ class _AboutMePageState extends State<AboutMePage> {
                       borderRadius: BorderRadius.circular(15.0),
                     ),
                     elevation: 8,
-                    margin: EdgeInsets.all(12),
+                    margin: const EdgeInsets.all(12),
                     child: ListTile(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15.0),
@@ -99,12 +95,12 @@ class _AboutMePageState extends State<AboutMePage> {
                       borderRadius: BorderRadius.circular(15.0),
                     ),
                     elevation: 8,
-                    margin: EdgeInsets.all(12),
+                    margin: const EdgeInsets.all(12),
                     child: ListTile(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15.0),
                       ),
-                      title: Text("languages"),
+                      title: const Text("languages"),
                     ),
                   ),
                   Card(
@@ -112,12 +108,12 @@ class _AboutMePageState extends State<AboutMePage> {
                       borderRadius: BorderRadius.circular(15.0),
                     ),
                     elevation: 8,
-                    margin: EdgeInsets.all(12),
+                    margin: const EdgeInsets.all(12),
                     child: ListTile(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15.0),
                       ),
-                      title: Text("short bio"),
+                      title: const Text("short bio"),
                     ),
                   ),
                 ],

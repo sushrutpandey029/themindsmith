@@ -1,6 +1,5 @@
 import 'package:badges/badges.dart';
 import 'package:doctor_app/provider/slot_provider.dart';
-import 'package:doctor_app/ui/screens/appointment_schedule_screen.dart';
 import 'package:doctor_app/ui/screens/resources_screen.dart';
 import 'package:doctor_app/ui/screens/prescriptions_locker_screen.dart';
 import 'package:doctor_app/ui/screens/profile_screen.dart';
@@ -8,7 +7,6 @@ import 'package:doctor_app/ui/screens/weekly_schedule_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../provider/chat_provider.dart';
 import '../../provider/notification_provider.dart';
 import 'e_wallet_screen.dart';
 import 'home_screen.dart';
@@ -25,19 +23,18 @@ class _WrapperState extends State<Wrapper> {
     return (await showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20)
-            ),
-            title: Text('Are you sure?'),
-            content: Text('Do you want to exit from App'),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            title: const Text('Are you sure?'),
+            content: const Text('Do you want to exit from App'),
             actions: <Widget>[
               TextButton(
                 onPressed: () => Navigator.of(context).pop(false),
-                child: Text('No'),
+                child: const Text('No'),
               ),
               TextButton(
                 onPressed: () => Navigator.of(context).pop(true),
-                child: Text('Yes'),
+                child: const Text('Yes'),
               ),
             ],
           ),
@@ -56,14 +53,13 @@ class _WrapperState extends State<Wrapper> {
           width: 30,
         ),
       ),
-      title: Text('e-Wallet'),
+      title: const Text('e-Wallet'),
       backgroundColor: Colors.white,
       foregroundColor: Colors.black,
       // elevation: 0,
     ),
     AppBar(
       leading: Padding(
-        
         padding: const EdgeInsets.only(left: 8.0),
         child: Image.asset(
           'assets/images/mindsmith-logo.png',
@@ -71,7 +67,7 @@ class _WrapperState extends State<Wrapper> {
         ),
       ),
       title: const Text('Resources'),
-       toolbarHeight: 70,
+      toolbarHeight: 70,
       backgroundColor: Colors.white,
       foregroundColor: Colors.black,
       // elevation: 0,
@@ -84,18 +80,18 @@ class _WrapperState extends State<Wrapper> {
           width: 30,
         ),
       ),
-      title: Text('Prescription'),
+      title: const Text('Prescription'),
       toolbarHeight: 70,
       foregroundColor: Colors.black,
       backgroundColor: Colors.white,
       // elevation: 0,
     ),
   ];
-  List<Widget> Elements = [
-    HomePage(),
+  List<Widget> elements = [
+    const HomePage(),
     EWalletPage(),
     ResourcesPage(),
-    PrescriptionLockerPage(),
+    const PrescriptionLockerPage(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -122,18 +118,19 @@ class _WrapperState extends State<Wrapper> {
                           .fetchNotification(context);
                     },
                     icon: Consumer<NotificationProvider>(
-                      builder: (context,value,widget) {
-                        return Badge(
-                          elevation: 8,
-                          badgeColor: Colors.black,
-                          badgeContent: Text(value.unreadNotificationCount.toString(),style: TextStyle(color:Colors.white)),
-                          child: Icon(
-                            Icons.notifications,
-                            size: 30,
-                          ),
-                        );
-                      }
-                    ),
+                        builder: (context, value, widget) {
+                      return Badge(
+                        elevation: 8,
+                        badgeColor: Colors.black,
+                        badgeContent: Text(
+                            value.unreadNotificationCount.toString(),
+                            style: const TextStyle(color: Colors.white)),
+                        child: const Icon(
+                          Icons.notifications,
+                          size: 30,
+                        ),
+                      );
+                    }),
                     color: Colors.black,
                   ),
                   IconButton(
@@ -141,9 +138,9 @@ class _WrapperState extends State<Wrapper> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: ((context) => ProfilePage())));
+                              builder: ((context) => const ProfilePage())));
                     },
-                    icon: ImageIcon(AssetImage('assets/icons/user.png')),
+                    icon: const ImageIcon(AssetImage('assets/icons/user.png')),
                     color: Colors.black,
                   ),
                   IconButton(
@@ -151,37 +148,41 @@ class _WrapperState extends State<Wrapper> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: ((context) => WeeklySchedulePage())));
+                              builder: ((context) =>
+                                  const WeeklySchedulePage())));
                     },
-                    icon: ImageIcon(AssetImage('assets/icons/calendar.png')),
+                    icon: const ImageIcon(
+                        AssetImage('assets/icons/calendar.png')),
                     color: Colors.black,
                   ),
                 ],
               )
             : appBars.elementAt(_selectedIndex - 1),
-        body: Elements.elementAt(_selectedIndex),
+        body: elements.elementAt(_selectedIndex),
         bottomNavigationBar: Container(
-         decoration: BoxDecoration(
-          boxShadow: <BoxShadow>[
-            BoxShadow(
-              color: Colors.black,
-              blurRadius: 10,
-            ),
-          ],),
+          decoration: const BoxDecoration(
+            boxShadow: <BoxShadow>[
+              BoxShadow(
+                color: Colors.black,
+                blurRadius: 10,
+              ),
+            ],
+          ),
           child: BottomNavigationBar(
-            selectedLabelStyle:TextStyle(fontWeight: FontWeight.bold),
+              selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
               currentIndex: _selectedIndex,
               selectedItemColor: Colors.black,
               onTap: (index) {
                 setState(() {
-                  if(index==3) {
-                     Provider.of<SlotProvider>(context,listen: false).fetchSlots(context);
+                  if (index == 3) {
+                    Provider.of<SlotProvider>(context, listen: false)
+                        .fetchSlots(context);
                   }
                   _selectedIndex = index;
                 });
               },
               type: BottomNavigationBarType.fixed,
-              items: [
+              items: const [
                 BottomNavigationBarItem(
                     icon: ImageIcon(AssetImage('assets/icons/home.png')),
                     label: 'Home'),

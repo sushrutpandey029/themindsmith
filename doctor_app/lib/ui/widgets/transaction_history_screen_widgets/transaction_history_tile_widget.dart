@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
 class TransactionHistoryTileWidget extends StatelessWidget {
-   TransactionHistoryTileWidget({Key? key,required this.amount,required this.name}) : super(key: key);
-  String amount,name;
+  const TransactionHistoryTileWidget(
+      {Key? key, required this.amount, required this.name})
+      : super(key: key);
+  final String amount, name;
 
   @override
   Widget build(BuildContext context) {
@@ -14,12 +16,11 @@ class TransactionHistoryTileWidget extends StatelessWidget {
         ),
         elevation: 2,
         child: ListTile(
-            onTap: () {
-            },
+            onTap: () {},
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15.0),
             ),
-            title: Text('Paid to'),
+            title: const Text('Paid to'),
             subtitle: Text(name),
             trailing: SizedBox(
               width: 80,
@@ -27,7 +28,7 @@ class TransactionHistoryTileWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Text('Rs $amount'),
-                  Icon(Icons.arrow_forward_ios),
+                  const Icon(Icons.arrow_forward_ios),
                 ],
               ),
             )),

@@ -1,3 +1,5 @@
+import 'package:doctor_app/model/appointment_notification_model.dart';
+import 'package:doctor_app/util/date_time_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -23,9 +25,9 @@ class _NotificationPageState extends State<NotificationPage> {
       ),
       body: Consumer<NotificationProvider>(builder: (context, value, widget) {
         return Padding(
-          padding: EdgeInsets.all(8),
+          padding: const EdgeInsets.all(8),
           child: RefreshIndicator(
-            onRefresh: ()async{
+            onRefresh: () async {
               value.fetchNotification(context);
             },
             child: ListView(
@@ -38,19 +40,19 @@ class _NotificationPageState extends State<NotificationPage> {
                         borderRadius: BorderRadius.circular(20)),
                     child: TextField(
                       decoration: InputDecoration(
-                          prefixIcon: Icon(Icons.search),
+                          prefixIcon: const Icon(Icons.search),
                           hintText: 'Search',
                           border: OutlineInputBorder(
-                              borderSide: BorderSide(width: 2),
+                              borderSide: const BorderSide(width: 2),
                               borderRadius: BorderRadius.circular(20)),
                           enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(width: 2),
+                              borderSide: const BorderSide(width: 2),
                               borderRadius: BorderRadius.circular(20))),
                     ),
                   ),
                 ),
                 if (value.isLoading)
-                  Align(
+                  const Align(
                     alignment: Alignment.center,
                     child: SizedBox(
                         height: 30,
@@ -59,10 +61,35 @@ class _NotificationPageState extends State<NotificationPage> {
                           color: Colors.black,
                         )),
                   ),
+                for (AllotmentNotificationModel allotmentNotificationModel
+                    in value.allotmentNotificationList)
+                  Card(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20)),
+                    elevation: 8,
+                    margin: const EdgeInsets.all(12),
+                    child: ListTile(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20)),
+                      tileColor: allotmentNotificationModel.readStatus == "read"
+                          ? Colors.transparent
+                          : const Color.fromARGB(255, 141, 190, 231),
+                      onTap: () {
+                        Provider.of<NotificationProvider>(context,
+                                listen: false)
+                            .selectAllotment(
+                                allotmentNotificationModel, context);
+                      },
+                      leading: const Icon(Icons.person),
+                      title: Text(allotmentNotificationModel.userName),
+                      subtitle: Text(formateDate1(
+                          allotmentNotificationModel.appointmentDate)),
+                    ),
+                  ),
                 for (NotificationModel notificationModel
                     in value.notificationList)
                   Card(
-                    margin: EdgeInsets.all(12),
+                    margin: const EdgeInsets.all(12),
                     elevation: 8,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20)),
@@ -71,7 +98,7 @@ class _NotificationPageState extends State<NotificationPage> {
                           borderRadius: BorderRadius.circular(20)),
                       tileColor: notificationModel.status == 'read'
                           ? Colors.transparent
-                          : Color.fromARGB(255, 141, 190, 231),
+                          : const Color.fromARGB(255, 141, 190, 231),
                       onTap: (() async {
                         await context
                             .read<NotificationProvider>()
@@ -84,9 +111,9 @@ class _NotificationPageState extends State<NotificationPage> {
                                       notificationModel: notificationModel,
                                     ))));
                       }),
-                      leading: Icon(Icons.person),
+                      leading: const Icon(Icons.person),
                       subtitle: Text(notificationModel.notificationText),
-                      title: Text('Admin Notification'),
+                      title: const Text('Admin Notification'),
                       trailing: Text(notificationModel.date),
                     ),
                   ),

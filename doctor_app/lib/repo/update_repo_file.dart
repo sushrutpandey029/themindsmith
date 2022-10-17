@@ -1,8 +1,7 @@
-import 'package:flutter/material.dart';
-
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:image_picker/image_picker.dart';
 
 class UpdateRepo {
   Future<bool> updateDocEmail(
@@ -117,8 +116,8 @@ class UpdateRepo {
     return true;
   }
 
-  Future<bool> uploadImage(String id, File file) async {
-    String fileName = file.path.split('/').last;
+  Future<bool> uploadImage(String id, XFile file) async {
+    String fileName = file.name;
     String baseUrl =
         'http://44.209.72.97/themindsmith/Userapi_controller/update_user_image';
     FormData formData = FormData.fromMap({

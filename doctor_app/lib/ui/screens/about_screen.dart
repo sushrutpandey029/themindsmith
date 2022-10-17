@@ -11,7 +11,7 @@ class AboutScreen extends StatelessWidget {
     return Scaffold(
       appBar: customAppBar(context, 'About'),
       body: Padding(
-        padding: EdgeInsets.all(18),
+        padding: const EdgeInsets.all(18),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -22,7 +22,7 @@ class AboutScreen extends StatelessWidget {
                 style: heading2,
               ),
             ),
-            Divider(
+            const Divider(
               color: Colors.black,
               thickness: 2,
             ),

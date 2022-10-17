@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:doctor_app/constants/url_constant.dart';
 import 'package:doctor_app/model/slot_model.dart';
@@ -28,6 +30,7 @@ class SlotRepo {
       // print(SlotModel.fromMap(response.data['data']));
       return SlotModel.fromMap(response.data['data'][0]);
     }
+    return null;
   }
 
   Future<void> updateReadStatus(String appointmentId) async {

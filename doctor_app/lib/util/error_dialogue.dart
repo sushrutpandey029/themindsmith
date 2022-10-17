@@ -8,7 +8,7 @@ void errorDialogue({required BuildContext context, required String? message}) {
       context: context,
       builder: (context) => AlertDialog(
             // title: Text(title),
-            contentPadding: EdgeInsets.all(30),
+            contentPadding: const EdgeInsets.all(30),
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
             elevation: 5,
@@ -20,7 +20,7 @@ void errorDialogue({required BuildContext context, required String? message}) {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: Text('OK'))
+                  child: const Text('OK'))
             ],
           ));
 }

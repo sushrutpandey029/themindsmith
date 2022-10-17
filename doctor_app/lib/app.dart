@@ -1,5 +1,3 @@
-
-
 import 'package:doctor_app/constants/theme_constant.dart';
 import 'package:doctor_app/provider/achievement_provider.dart';
 import 'package:doctor_app/provider/articles_provider.dart';
@@ -22,22 +20,22 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: ((context) => AuthProvider())),
-        ChangeNotifierProvider(create: ((context) => NotificationProvider())),
-        ChangeNotifierProvider(create: ((context) => VideoLinkProvider())),
-        ChangeNotifierProvider(create: ((context) => ArticlesProvider())),
-        ChangeNotifierProvider(create: ((context) => AchievementProvider())),
-        ChangeNotifierProvider(create: ((context) => SlotProvider())),
-        ChangeNotifierProvider(create: ((context) => VideoCallProvider())),
-        ChangeNotifierProvider(create: ((context) => ChatProvider())),
-        ChangeNotifierProvider(create: ((context) => PrescriptionProvider())),
-        ChangeNotifierProvider(create: ((context) => PatientHistoryProvider())),
-      ],
-      child:  MaterialApp(
-        home: SplashScreen(),
-        theme: lightTheme,
-      )
-    );
+        providers: [
+          ChangeNotifierProvider(create: ((context) => AuthProvider())),
+          ChangeNotifierProvider(create: ((context) => NotificationProvider())),
+          ChangeNotifierProvider(create: ((context) => VideoLinkProvider())),
+          ChangeNotifierProvider(create: ((context) => ArticlesProvider())),
+          ChangeNotifierProvider(create: ((context) => AchievementProvider())),
+          ChangeNotifierProvider(create: ((context) => SlotProvider())),
+          ChangeNotifierProvider(create: ((context) => VideoCallProvider())),
+          ChangeNotifierProvider(create: ((context) => ChatProvider())),
+          ChangeNotifierProvider(create: ((context) => PrescriptionProvider())),
+          ChangeNotifierProvider(
+              create: ((context) => PatientHistoryProvider())),
+        ],
+        child: MaterialApp(
+          home: const SplashScreen(),
+          theme: lightTheme,
+        ));
   }
 }

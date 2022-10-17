@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:doctor_app/model/doctor_model.dart';
 import 'package:doctor_app/provider/notification_provider.dart';
@@ -15,7 +16,7 @@ class SharedPref {
   Future<void> setData(String doctorModel) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     bool status = await preferences.setString('doctorModel', doctorModel);
-    print(status);
+    print(status.toString());
   }
 
   Future<String?> getData() async {
@@ -33,7 +34,7 @@ class SharedPref {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     bool status = await preferences.setInt(
         'dateTime', DateTime.now().millisecondsSinceEpoch);
-    print(status);
+    print(status.toString());
   }
 
   Future<int?> getDate() async {
@@ -50,8 +51,11 @@ class SharedPref {
         dateTime == null ||
         DateTime.now().millisecondsSinceEpoch - dateTime > 864000000) {
       removeData();
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => const LogInPage()));
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => const LogInPage()),
+        (Route<dynamic> route) => false,
+      );
     } else {
       Provider.of<AuthProvider>(context, listen: false).doctorModel =
           DoctorModel.fromMap(json.decode(doctorModel));
@@ -63,8 +67,11 @@ class SharedPref {
           .fetchNotification(context);
       Provider.of<SlotProvider>(context, listen: false)
           .setnextappointementdatetime();
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => const Wrapper()));
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => const Wrapper()),
+        (Route<dynamic> route) => false,
+      );
     }
   }
 }

@@ -1,3 +1,4 @@
+import 'package:doctor_app/provider/chat_provider.dart';
 import 'package:doctor_app/ui/screens/chat_screen.dart';
 import 'package:doctor_app/ui/screens/patient_messages_list.dart';
 import 'package:doctor_app/ui/screens/user_listing.dart';
@@ -27,18 +28,20 @@ class _ConsulationPageState extends State<ConsulationPage> {
         child: Center(
           child: Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 40,
               ),
               Column(
                 children: [
                   Card(
-                    margin: EdgeInsets.all(12),
+                    margin: const EdgeInsets.all(12),
                     elevation: 8,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20)),
                     child: ListTile(
                       onTap: () {
+                        Provider.of<ChatProvider>(context, listen: false)
+                            .fetchReceivedChat(context);
                         Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -48,11 +51,11 @@ class _ConsulationPageState extends State<ConsulationPage> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15.0),
                       ),
-                      title: Text('Check the conversation'),
+                      title: const Text('Check the conversation'),
                     ),
                   ),
                   Card(
-                    margin: EdgeInsets.all(12),
+                    margin: const EdgeInsets.all(12),
                     elevation: 8,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20)),
@@ -69,7 +72,7 @@ class _ConsulationPageState extends State<ConsulationPage> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15.0),
                       ),
-                      title: Text('Patients History'),
+                      title: const Text('Patients History'),
                     ),
                   ),
                 ],

@@ -5,14 +5,15 @@ import 'package:provider/provider.dart';
 
 class VideoLinkProvider extends ChangeNotifier {
   bool isLoading = false;
-  VideoLinkRepo _videoLinkRepo = VideoLinkRepo();
+  final VideoLinkRepo _videoLinkRepo = VideoLinkRepo();
   List<String> videoLink = [];
 
   Future<void> fetchLink(BuildContext context) async {
-    isLoading=true;
-    String doctorId = Provider.of<AuthProvider>(context,listen: false).doctorModel!.doctorId;
-    videoLink= await _videoLinkRepo.fetchLink(doctorId);
-    isLoading=false;
-   notifyListeners();
+    isLoading = true;
+    String doctorId =
+        Provider.of<AuthProvider>(context, listen: false).doctorModel!.doctorId;
+    videoLink = await _videoLinkRepo.fetchLink(doctorId);
+    isLoading = false;
+    notifyListeners();
   }
 }

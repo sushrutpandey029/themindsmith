@@ -1,10 +1,9 @@
-import 'package:doctor_app/constants/button_style.dart';
 import 'package:doctor_app/constants/text_style.dart';
 import 'package:doctor_app/ui/widgets/comman/app_bar.dart';
 import 'package:flutter/material.dart';
 
 class ComplainPage extends StatefulWidget {
-  ComplainPage({Key? key}) : super(key: key);
+  const ComplainPage({Key? key}) : super(key: key);
 
   @override
   State<ComplainPage> createState() => _ComplainPageState();
@@ -16,7 +15,7 @@ class _ComplainPageState extends State<ComplainPage> {
     return Scaffold(
       appBar: customAppBar(context, 'Customer Support'),
       body: Padding(
-        padding: EdgeInsets.all(18),
+        padding: const EdgeInsets.all(18),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -27,7 +26,7 @@ class _ComplainPageState extends State<ComplainPage> {
                 style: heading2,
               ),
             ),
-            Divider(
+            const Divider(
               color: Colors.black,
               thickness: 2,
             ),
