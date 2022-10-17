@@ -421,6 +421,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         child: ElevatedButton(
                           child: const Text("Update"),
                           onPressed: () async {
+                             showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return logoutalert();
+                              },
+                            );
                             await _updateRepo.updateDocEmail(
                                 Provider.of<AuthProvider>(context,
                                         listen: false)
@@ -430,9 +436,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
                             Provider.of<AuthProvider>(context, listen: false)
                                 .logOut(context)
-                                .then((value) {
-                              logoutalert();
-                            });
+                                ;
                             Navigator.pop(context);
                           },
                         ),
@@ -498,6 +502,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         child: ElevatedButton(
                           child: const Text("Update"),
                           onPressed: () async {
+                             showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return logoutalert();
+                              },
+                            );
                             await _updateRepo.updateDocName(
                                 Provider.of<AuthProvider>(context,
                                         listen: false)
@@ -506,9 +516,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                 nameController.text);
                             Provider.of<AuthProvider>(context, listen: false)
                                 .logOut(context)
-                                .then((value) {
-                              logoutalert();
-                            });
+                               ;
                             Navigator.pop(context);
                           },
                         ),
@@ -574,6 +582,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         child: ElevatedButton(
                           child: const Text("Update"),
                           onPressed: () async {
+                             showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return logoutalert();
+                              },
+                            );
                             await _updateRepo.updateDocNumber(
                                 Provider.of<AuthProvider>(context,
                                         listen: false)
@@ -582,9 +596,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                 numController.text);
                             Provider.of<AuthProvider>(context, listen: false)
                                 .logOut(context)
-                                .then((value) {
-                              logoutalert();
-                            });
+                                ;
                             Navigator.pop(context);
                           },
                         ),
@@ -650,6 +662,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         child: ElevatedButton(
                           child: const Text("Update"),
                           onPressed: () async {
+                             showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return logoutalert();
+                              },
+                            );
                             await _updateRepo.updateDocAddress(
                                 Provider.of<AuthProvider>(context,
                                         listen: false)
@@ -658,9 +676,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                 addressController.text);
                             Provider.of<AuthProvider>(context, listen: false)
                                 .logOut(context)
-                                .then((value) {
-                              logoutalert();
-                            });
+                                ;
                             Navigator.pop(context);
                           },
                         ),
@@ -726,6 +742,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         child: ElevatedButton(
                           child: const Text("Update"),
                           onPressed: () async {
+                             showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return logoutalert();
+                              },
+                            );
                             await _updateRepo.updateDocFee(
                                 Provider.of<AuthProvider>(context,
                                         listen: false)
@@ -734,9 +756,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                 feeController.text);
                             Provider.of<AuthProvider>(context, listen: false)
                                 .logOut(context)
-                                .then((value) {
-                              logoutalert();
-                            });
+                               ;
                             Navigator.pop(context);
                           },
                         ),
@@ -802,6 +822,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         child: ElevatedButton(
                           child: const Text("Update"),
                           onPressed: () async {
+                             showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return logoutalert();
+                              },
+                            );
                             await _updateRepo.updateDocSpeciality(
                                 Provider.of<AuthProvider>(context,
                                         listen: false)
@@ -810,9 +836,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                 specialityController.text);
                             Provider.of<AuthProvider>(context, listen: false)
                                 .logOut(context)
-                                .then((value) {
-                              logoutalert();
-                            });
+                                ;
                             Navigator.pop(context);
                           },
                         ),
@@ -986,6 +1010,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         child: ElevatedButton(
                           child: const Text("Update"),
                           onPressed: () {
+                             showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return logoutalert();
+                              },
+                            );
                             Navigator.pop(context);
                           },
                         ),

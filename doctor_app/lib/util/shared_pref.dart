@@ -61,6 +61,8 @@ class SharedPref {
       Provider.of<SlotProvider>(context, listen: false).fetchSlots(context);
       Provider.of<NotificationProvider>(context, listen: false)
           .fetchNotification(context);
+      Provider.of<SlotProvider>(context, listen: false)
+          .setnextappointementdatetime();
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => const Wrapper()));
     }

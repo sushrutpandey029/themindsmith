@@ -100,8 +100,8 @@ class _HomePageState extends State<HomePage>
             if (!value.isSingleLoading) {
               _runAnimation();
             }
-            Provider.of<SlotProvider>(context, listen: false)
-                .setnextappointementdatetime();
+            SlotModel? upcomingslot =
+                Provider.of<SlotProvider>(context, listen: false).upcomingslot;
             return value.isSingleLoading
                 ? const Padding(
                     padding: EdgeInsets.all(8.0),
@@ -145,17 +145,15 @@ class _HomePageState extends State<HomePage>
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  Provider.of<SlotProvider>(context,
-                                          listen: false)
-                                      .upcomingslot!
-                                      .userName,
+                                  upcomingslot?.userName ??
+                                      'No upcoming appointment',
                                   style: text2,
                                 ),
                                 Text(
-                                    'Date           : ${Provider.of<SlotProvider>(context, listen: false).upcomingslot!.appointmentDate}',
+                                    'Date           : ${upcomingslot?.appointmentDate ?? ' '}',
                                     style: text3),
                                 Text(
-                                    'Start time  : ${formateTime(Provider.of<SlotProvider>(context, listen: false).upcomingslot!.startedTime)}',
+                                    'Start time  : ${formateTime(upcomingslot?.startedTime ?? ' ')}',
                                     style: text3),
                               ],
                             ),
