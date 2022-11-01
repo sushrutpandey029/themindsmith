@@ -16,7 +16,7 @@ class SlotProvider extends ChangeNotifier {
   final BookSlotRepo _bookSlotRepo = BookSlotRepo();
   final AgoraTokenRepo _tokenRepo = AgoraTokenRepo();
 
-  PaymentRepo _paymentRepo = PaymentRepo();
+  final PaymentRepo _paymentRepo = PaymentRepo();
 
   void selectSlot(SlotModel slotModel) {
     selectedSlot = slotModel;

@@ -45,12 +45,12 @@ class _VideoCallPageState extends State<VideoCallPage> {
                   padding: const EdgeInsets.only(top: 18.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      const ImageIcon(
+                    children: const [
+                      ImageIcon(
                         AssetImage('assets/icons/mute.png'),
                         size: 35,
                       ),
-                      const ImageIcon(
+                      ImageIcon(
                         AssetImage('assets/icons/end-call.png'),
                         size: 35,
                       ),
@@ -74,31 +74,27 @@ class AgoraVideoCall extends StatefulWidget {
 }
 
 class _AgoraVideoCallState extends State<AgoraVideoCall> {
-//   // Instantiate the client
-// final AgoraClient client = AgoraClient(
-//   agoraConnectionData: AgoraConnectionData(
-//     appId: "<--Add Your App Id Here-->",
-//     channelName: widget.selectedAllotment.slotId,
-//   ),
-// );
-
-// void initAgora() async {
-//   await client.initialize();
-// }
-
-// @override
-//   void initState() {
-//     super.initState();
-//     initAgora();
-//   }
   @override
   Widget build(BuildContext context) {
     return Consumer<VideoCallProvider>(
       builder: (context, value, widget) {
         return Stack(
           children: [
-            AgoraVideoViewer(client: value.agoraClient!),
-            AgoraVideoButtons(client: value.agoraClient!),
+            AgoraVideoViewer(
+              client: value.agoraClient!,
+              disabledVideoWidget: Container(
+                color: Colors.black,
+                padding: const EdgeInsets.all(8.0),
+                child: Center(
+                  child: Image.asset(
+                    'assets/images/mindsmith-logo.png',
+                  ),
+                ),
+              ),
+            ),
+            AgoraVideoButtons(
+              client: value.agoraClient!,
+            ),
           ],
         );
       },
