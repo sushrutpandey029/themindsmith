@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:the_mindsmith/constants/text_style.dart';
 import 'package:the_mindsmith/providers/notification_provider.dart';
+import 'package:the_mindsmith/ui/screens/upload_medical_history_screen.dart';
 import 'package:the_mindsmith/ui/screens/video_consultation_screen.dart';
 import 'package:the_mindsmith/util/custom_appbar.dart';
 
@@ -50,7 +51,7 @@ class _AppointmentDetailsPageState extends State<AppointmentDetailsPage> {
                             //     child: Text(formateDate(value.selectedAllotment!.appointmentDate),style: text2,),
                             //   ),
                             // ),
-      
+
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
@@ -64,8 +65,8 @@ class _AppointmentDetailsPageState extends State<AppointmentDetailsPage> {
                                 'Your Appointment with ${value.selectedAllotment!.doctorName} is booked successfully and Scheduled on ${formateDate(value.selectedAllotment!.appointmentDate)} at  ${formateTime(value.selectedAllotment!.startedTime)} for ${value.selectedAllotment!.timeSlot}.',
                                 style: text2,
                               ),
-                            ), 
-                           
+                            ),
+
                             Divider(
                               height: 30,
                               thickness: 2,
@@ -93,24 +94,32 @@ class _AppointmentDetailsPageState extends State<AppointmentDetailsPage> {
                       padding: const EdgeInsets.only(top: 58.0),
                       child: ElevatedButton(
                           style: smallBlackButtonStyle1,
-                          onPressed:compareDate(value.selectedAllotment!.appointmentDate)?
-                           () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: ((context) =>
-                                        VideoConsultationPage())));
-                          }:null,
+                          onPressed: compareDate(
+                                  value.selectedAllotment!.appointmentDate)
+                              ? () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: ((context) =>
+                                              VideoConsultationPage())));
+                                }
+                              : null,
                           child: Text(
                             'Join Call',
                             style: heading3,
                           )),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top:20.0),
+                      padding: const EdgeInsets.only(top: 20.0),
                       child: ElevatedButton(
                           style: smallBlackButtonStyle1,
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: ((context) =>
+                                        UploadMedicalHistoryPage())));
+                          },
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Text(

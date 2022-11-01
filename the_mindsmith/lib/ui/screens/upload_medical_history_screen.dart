@@ -1,6 +1,3 @@
-import 'dart:io';
-
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:the_mindsmith/constants/button_style.dart';
@@ -18,7 +15,7 @@ class UploadMedicalHistoryPage extends StatefulWidget {
 }
 
 class _UploadMedicalHistoryPageState extends State<UploadMedicalHistoryPage> {
-  TextEditingController _remarks = TextEditingController();
+  final TextEditingController _remarks = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,8 +24,7 @@ class _UploadMedicalHistoryPageState extends State<UploadMedicalHistoryPage> {
         padding: const EdgeInsets.all(18.0),
         child: Center(
           child: Consumer<PrescriptionProvider>(
-           
-            builder: (context, value,widget) {
+            builder: (context, value, widget) {
               return Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -37,10 +33,11 @@ class _UploadMedicalHistoryPageState extends State<UploadMedicalHistoryPage> {
                     width: MediaQuery.of(context).size.width - 60,
                     child: ElevatedButton(
                         style: fullButtonStyleWhite,
-                        onPressed: ()  {
+                        onPressed: () {
                           value.selectFile();
                         },
-                        child:  Text(value.fileName??'Upload Previous prescription')),
+                        child: Text(
+                            value.fileName ?? 'Upload Previous prescription')),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -54,19 +51,19 @@ class _UploadMedicalHistoryPageState extends State<UploadMedicalHistoryPage> {
                     child: Container(
                       decoration:
                           BoxDecoration(color: Colors.white, boxShadow: [
-                        BoxShadow(
+                        const BoxShadow(
                             offset: Offset(2, 2),
                             color: Colors.black26,
                             blurRadius: 6),
                         BoxShadow(
-                            offset: Offset(-10, -10),
+                            offset: const Offset(-10, -10),
                             color: Colors.white.withOpacity(0.85),
                             blurRadius: 20)
                       ]),
                       child: TextField(
                         controller: _remarks,
-                        decoration:
-                            inputDecoration2('Remarks', Icon(Icons.feedback)),
+                        decoration: inputDecoration2(
+                            'Remarks', const Icon(Icons.feedback)),
                       ),
                     ),
                   ),
@@ -78,9 +75,9 @@ class _UploadMedicalHistoryPageState extends State<UploadMedicalHistoryPage> {
                       child: ElevatedButton(
                           style: fullButtonStyleWhite,
                           onPressed: () {
-                            value.uploadPrescription(context,_remarks.text);
+                            value.uploadPrescription(context, _remarks.text);
                           },
-                          child: Text('Submit')),
+                          child: const Text('Submit')),
                     ),
                   )
                 ],

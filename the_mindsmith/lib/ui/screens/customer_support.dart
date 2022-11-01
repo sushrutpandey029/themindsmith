@@ -25,20 +25,18 @@ class _CustomerSportState extends State<CustomerSport> {
                 ElevatedButton(
                     style: halfButtonStyle1,
                     onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => HelpPage()));
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => HelpPage()));
                     },
                     child: Text('Help')),
-                ElevatedButton(
-                    style: halfButtonStyle1,
-                    onPressed: () {},
-                    child: Text('Ratings')),
-                ElevatedButton(
-                    style: halfButtonStyle1,
-                    onPressed: () {},
-                    child: Text('Suggestion')),
+                // ElevatedButton(
+                //     style: halfButtonStyle1,
+                //     onPressed: () {},
+                //     child: Text('Ratings')),
+                // ElevatedButton(
+                //     style: halfButtonStyle1,
+                //     onPressed: () {},
+                //     child: Text('Suggestion')),
                 ElevatedButton(
                     style: halfButtonStyle1,
                     onPressed: () {

@@ -15,12 +15,20 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
     return Scaffold(
       appBar: customAppBar(context, "Privacy Policy"),
       body: Padding(
-        padding: EdgeInsets.all(18),
+        padding: const EdgeInsets.all(18),
         child: Column(
           children: [
-            Text('Our Privacy Policy',style: heading2,),
-            SizedBox(height: 30,),
-            Text('this is our privacy policy',style: text1,),
+            Text(
+              'Our Privacy Policy',
+              style: heading2,
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+            Text(
+              'this is our privacy policy',
+              style: text1,
+            ),
           ],
         ),
       ),

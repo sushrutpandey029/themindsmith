@@ -30,23 +30,22 @@ class _PrescriptionLockerPageState extends State<PrescriptionLockerPage> {
               child: Material(
                 elevation: 10,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20)
-                ),
+                    borderRadius: BorderRadius.circular(20)),
                 child: TextField(
                   decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.search),
+                      prefixIcon: const Icon(Icons.search),
                       hintText: 'Search',
                       border: OutlineInputBorder(
-                        borderSide: BorderSide(width: 2),
+                          borderSide: const BorderSide(width: 2),
                           borderRadius: BorderRadius.circular(20)),
-                          enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(width: 2),
+                      enabledBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(width: 2),
                           borderRadius: BorderRadius.circular(20))),
                 ),
               ),
             ),
             if (value.isLoading)
-              Align(
+              const Align(
                 alignment: Alignment.center,
                 child: SizedBox(
                     height: 30,
@@ -60,7 +59,7 @@ class _PrescriptionLockerPageState extends State<PrescriptionLockerPage> {
                   itemCount: value.userList.length,
                   itemBuilder: ((context, index) {
                     return Card(
-                      margin: EdgeInsets.all(12),
+                      margin: const EdgeInsets.all(12),
                       elevation: 8,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20)),
