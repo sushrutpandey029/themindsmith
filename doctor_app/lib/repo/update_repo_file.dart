@@ -116,8 +116,8 @@ class UpdateRepo {
     return true;
   }
 
-  Future<bool> uploadImage(String id, XFile file) async {
-    String fileName = file.name;
+  Future<bool> uploadImage(String id, File file) async {
+    String fileName = file.path.split('/').last;
     String baseUrl =
         'http://44.209.72.97/themindsmith/Userapi_controller/update_user_image';
     FormData formData = FormData.fromMap({

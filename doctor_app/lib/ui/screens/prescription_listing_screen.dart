@@ -7,8 +7,9 @@ import 'package:provider/provider.dart';
 import 'download_prescription_screen.dart';
 
 class PrescriptionListingPage extends StatefulWidget {
-  PrescriptionListingPage({Key? key, required this.isHistoryPage}) : super(key: key);
-bool isHistoryPage;
+  const PrescriptionListingPage({Key? key, required this.isHistoryPage})
+      : super(key: key);
+  final bool isHistoryPage;
   @override
   State<PrescriptionListingPage> createState() =>
       _PrescriptionListingPageState(isHistoryPage);
@@ -22,13 +23,13 @@ class _PrescriptionListingPageState extends State<PrescriptionListingPage> {
     return Scaffold(
       appBar: customAppBar(context, 'Prescriptions'),
       body: Padding(
-        padding: EdgeInsets.all(18),
+        padding: const EdgeInsets.all(18),
         child:
             Consumer<PrescriptionProvider>(builder: (context, value, widget) {
           return Column(
             children: [
               if (value.isLoading)
-                Align(
+                const Align(
                   alignment: Alignment.center,
                   child: SizedBox(
                       height: 30,
@@ -42,7 +43,7 @@ class _PrescriptionListingPageState extends State<PrescriptionListingPage> {
                     itemCount: value.prescriptionList.length,
                     itemBuilder: ((context, index) {
                       return Card(
-                        margin: EdgeInsets.all(12),
+                        margin: const EdgeInsets.all(12),
                         elevation: 8,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20)),
@@ -50,18 +51,17 @@ class _PrescriptionListingPageState extends State<PrescriptionListingPage> {
                           onTap: () {
                             value.selectPrescription(
                                 value.prescriptionList.elementAt(index));
-                                isHistoryPage?
-                                 Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: ((context) =>
-                                        PatientHistoryPage())))
-                                :
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: ((context) =>
-                                        DownloadPrescriptionPage())));
+                            isHistoryPage
+                                ? Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: ((context) =>
+                                            const PatientHistoryPage())))
+                                : Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: ((context) =>
+                                            DownloadPrescriptionPage())));
                           },
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15.0),

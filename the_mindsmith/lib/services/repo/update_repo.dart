@@ -27,10 +27,11 @@ class UpdateRepo {
         'http://44.209.72.97/themindsmith/Userapi_controller/update_user_name';
     FormData formData = FormData.fromMap({
       "user_id": id,
-      "user_email": userName,
+      "user_name": userName,
     });
 
     Response response = await Dio().post(baseUrl, data: formData);
+    print(response);
 
     return true;
   }
@@ -43,7 +44,7 @@ class UpdateRepo {
         'http://44.209.72.97/themindsmith/Userapi_controller/update_user_age';
     FormData formData = FormData.fromMap({
       "user_id": id,
-      "user_email": userAge,
+      "user_age": userAge,
     });
 
     Response response = await Dio().post(baseUrl, data: formData);

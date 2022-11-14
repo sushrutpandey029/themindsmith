@@ -5,8 +5,6 @@ import 'package:the_mindsmith/providers/auth_provider.dart';
 
 import '../../constants/button_style.dart';
 import '../../constants/input_decoration.dart';
-import 'ask_details_screen.dart';
-import 'id_verification_screen.dart';
 
 class AskMobilePage extends StatefulWidget {
   const AskMobilePage({Key? key}) : super(key: key);
@@ -44,8 +42,10 @@ class _AskMobilePageState extends State<AskMobilePage> {
                     'Welcome to healthy life',
                     style: heading1,
                   ),
-                  Text(
-                      'certified doctors, home delivery of medicines, NABL accerdited labs and more',textAlign: TextAlign.center,),
+                  const Text(
+                    'certified doctors, home delivery of medicines, NABL accerdited labs and more',
+                    textAlign: TextAlign.center,
+                  ),
                 ],
               ),
               value.isOtpSent
@@ -55,7 +55,7 @@ class _AskMobilePageState extends State<AskMobilePage> {
                       decoration: inputDecoration1('OTP', null),
                     )
                   : TextField(
-                    maxLength: 10,
+                      maxLength: 10,
                       controller: phone,
                       keyboardType: TextInputType.number,
                       decoration: inputDecoration1('Mobile Number', null),
@@ -66,15 +66,15 @@ class _AskMobilePageState extends State<AskMobilePage> {
                 child: ElevatedButton(
                   style: fullButtonStyle,
                   onPressed: () {
-                  // value.userModel?.userPhone = phone.text;
-          //            Navigator.of(context)
-          // .push(MaterialPageRoute(builder: (context) => IdVerificationPage()));
+                    // value.userModel?.userPhone = phone.text;
+                    //            Navigator.of(context)
+                    // .push(MaterialPageRoute(builder: (context) => IdVerificationPage()));
                     value.isOtpSent
                         ? value.verifyOtp(otp.text, context)
                         : value.verifyPhoneNumber(phone.text, context);
                     //  Navigator.of(context).push(MaterialPageRoute(builder: (context)=>AskDetailsPage()));
                   },
-                  child: Text('Continue'),
+                  child: const Text('Continue'),
                 ),
               ),
             ],

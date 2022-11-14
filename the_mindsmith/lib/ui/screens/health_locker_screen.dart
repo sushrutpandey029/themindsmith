@@ -4,10 +4,7 @@ import 'package:the_mindsmith/constants/button_style.dart';
 import 'package:the_mindsmith/constants/text_style.dart';
 import 'package:the_mindsmith/providers/prescription_provider.dart';
 import 'package:the_mindsmith/ui/screens/upload_medical_history_screen.dart';
-import 'package:url_launcher/url_launcher.dart';
 
-import '../../constants/url_constant.dart';
-import '../../models/user_prescription_model.dart';
 import 'prescriptions_screen.dart';
 
 class HealthLockerPage extends StatefulWidget {
@@ -37,7 +34,7 @@ class _HealthLockerPageState extends State<HealthLockerPage> {
                 height: 70,
                 width: 300,
                 child: ElevatedButton(
-                  style: fullButtonStyleWhite,
+                    style: fullButtonStyleWhite,
                     onPressed: () {
                       Provider.of<PrescriptionProvider>(context, listen: false)
                           .fetchPrescription(context);
@@ -46,7 +43,10 @@ class _HealthLockerPageState extends State<HealthLockerPage> {
                           MaterialPageRoute(
                               builder: (context) => PrescriptionPage()));
                     },
-                    child:  Text('All Prescriptions',style: text2,)),
+                    child: Text(
+                      'All Prescriptions',
+                      style: text2,
+                    )),
               ),
             ),
             Padding(
@@ -57,16 +57,21 @@ class _HealthLockerPageState extends State<HealthLockerPage> {
                 child: ElevatedButton(
                     style: fullButtonStyleWhite,
                     onPressed: () {
-                      
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const UploadMedicalHistoryPage()));
+                              builder: (context) =>
+                                  const UploadMedicalHistoryPage()));
                     },
-                    child:  Text('Upload Medical History',style: text2,)),
+                    child: Text(
+                      'Upload Medical History',
+                      style: text2,
+                    )),
               ),
             ),
-            SizedBox(width: MediaQuery.of(context).size.width,)
+            SizedBox(
+              width: MediaQuery.of(context).size.width,
+            )
           ],
         ));
   }

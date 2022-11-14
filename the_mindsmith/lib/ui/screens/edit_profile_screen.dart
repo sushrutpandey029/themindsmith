@@ -18,7 +18,7 @@ class EditProfilePage extends StatefulWidget {
 }
 
 class _EditProfilePageState extends State<EditProfilePage> {
-  UpdateRepo _updateRepo = UpdateRepo();
+  final UpdateRepo _updateRepo = UpdateRepo();
   TextEditingController emailController = TextEditingController();
   TextEditingController nameController = TextEditingController();
   TextEditingController ageController = TextEditingController();
@@ -43,10 +43,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
           this.image = imageTemp;
         });
 
-        _updateRepo.uploadImage(
-            Provider.of<AuthProvider>(context, listen: false)
-                .userResponse!['users']['id'],
-            image as File);
         // Provider.of<AuthProvider>(context, listen: false).signOut(context);
       }
     } on PlatformException catch (e) {
@@ -63,7 +59,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
       showDialog(
         context: context,
         barrierDismissible: false,
-        builder: (context) => Center(
+        builder: (context) => const Center(
           child: CircularProgressIndicator(),
         ),
       );
@@ -71,7 +67,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
       if (image == null) {
         return;
       } else {
-//TODO
+        final imageTemp = File(image.path);
+        setState(() {
+          this.image = imageTemp;
+        });
       }
     } on PlatformException catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -97,9 +96,32 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     readFromStorage();
+  }
+
+  AlertDialog logoutalert() {
+    return AlertDialog(
+      title: const Text(
+        'You are about to get logged out!',
+        textAlign: TextAlign.center,
+      ),
+      content: const Text(
+        'Login again.',
+        textAlign: TextAlign.center,
+      ),
+      actions: [
+        TextButton(
+          child: const Text(
+            'OK',
+            style: TextStyle(color: Colors.grey),
+          ),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+      ],
+    );
   }
 
   @override
@@ -123,10 +145,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         child: CircleAvatar(
                           backgroundColor: Colors.grey[300],
                           radius: 40,
-                          //TODO:MAke this dynamic and make sure the pic gets updated
                           child: image != null
                               ? Image.file(image!)
-                              : FlutterLogo(),
+                              : const FlutterLogo(),
                         ),
                       ),
                       GestureDetector(
@@ -323,6 +344,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                         listen: false)
                                     .userResponse!['users']['id'],
                                 emailController.text);
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return logoutalert();
+                              },
+                            );
                             Provider.of<AuthProvider>(context, listen: false)
                                 .signOut(context);
                             Navigator.pop(context);
@@ -395,6 +422,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                         listen: false)
                                     .userResponse!['users']['id'],
                                 nameController.text);
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return logoutalert();
+                              },
+                            );
                             Provider.of<AuthProvider>(context, listen: false)
                                 .signOut(context);
                             Navigator.pop(context);
@@ -467,6 +500,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                         listen: false)
                                     .userResponse!['users']['id'],
                                 ageController.text);
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return logoutalert();
+                              },
+                            );
                             Provider.of<AuthProvider>(context, listen: false)
                                 .signOut(context);
                             Navigator.pop(context);
@@ -512,7 +551,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             child: Padding(
               padding: const EdgeInsets.all(4.0),
               child: Container(
-                height: height - 650,
+                height: height * 0.25,
                 width: width,
                 color: Colors.white,
                 child: Form(
@@ -560,8 +599,22 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         padding: const EdgeInsets.all(8.0),
                         child: ElevatedButton(
                           child: const Text("Update"),
-                          onPressed: () {
+                          onPressed: () async {
                             Navigator.pop(context);
+
+                            await _updateRepo.uploadImage(
+                                Provider.of<AuthProvider>(context,
+                                        listen: false)
+                                    .userResponse!['users']['id'],
+                                image!);
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return logoutalert();
+                              },
+                            );
+                            Provider.of<AuthProvider>(context, listen: false)
+                                .signOut(context);
                           },
                         ),
                       ),
@@ -593,14 +646,14 @@ class _EditProfilePageState extends State<EditProfilePage> {
   TextField buildNameFormField() {
     return TextField(
       controller: nameController,
-      decoration: const InputDecoration(hintText: 'Enter Your Email'),
+      decoration: const InputDecoration(hintText: 'Enter Your Username'),
     );
   }
 
   TextField buildAgeFormField() {
     return TextField(
       controller: ageController,
-      decoration: const InputDecoration(hintText: 'Enter Your Email'),
+      decoration: const InputDecoration(hintText: 'Enter Your Age'),
     );
   }
 }

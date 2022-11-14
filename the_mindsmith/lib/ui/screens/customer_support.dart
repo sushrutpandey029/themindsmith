@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:the_mindsmith/constants/button_style.dart';
 import 'package:the_mindsmith/ui/screens/help_screen.dart';
+// ignore: unused_import
 import 'package:the_mindsmith/ui/screens/privacy_policy_screen.dart';
 import 'package:the_mindsmith/util/custom_appbar.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CustomerSport extends StatefulWidget {
   const CustomerSport({Key? key}) : super(key: key);
@@ -28,7 +30,7 @@ class _CustomerSportState extends State<CustomerSport> {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) => HelpPage()));
                     },
-                    child: Text('Help')),
+                    child: const Text('Help')),
                 // ElevatedButton(
                 //     style: halfButtonStyle1,
                 //     onPressed: () {},
@@ -40,12 +42,16 @@ class _CustomerSportState extends State<CustomerSport> {
                 ElevatedButton(
                     style: halfButtonStyle1,
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => PrivacyPolicyPage()));
+                      // Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //         builder: (context) => PrivacyPolicyPage()));
+                      launchUrl(
+                          Uri.parse(
+                              'https://drive.google.com/file/d/12G6R3auEPP49dwsqN-D8VBAunUjFkiG9/view?usp=share_link'),
+                          mode: LaunchMode.externalNonBrowserApplication);
                     },
-                    child: Text('Privacy Policy')),
+                    child: const Text('Privacy Policy')),
               ],
             ),
           ),

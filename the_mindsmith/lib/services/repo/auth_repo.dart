@@ -8,7 +8,7 @@ import '../api/auth_api.dart';
 
 class AuthRepo implements AuthApi {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final String _userApi = baseUrl+"/Userapi_controller";
+  final String _userApi = "$baseUrl/Userapi_controller";
 
   @override
   Future<UserCredential> signInWithGoogle() async {
@@ -31,12 +31,12 @@ class AuthRepo implements AuthApi {
 
   @override
   Future<void> signOut() async {
-    String url = _userApi + "/logout";
+    String url = "$_userApi/logout";
     try {
       await _auth.signOut();
       await GoogleSignIn().signOut();
-     Response response= await Dio().post(url);
-     print(response.data);
+      Response response = await Dio().post(url);
+      print(response.data);
       //GoogleSignIn().disconnect();
     } on FirebaseAuthException catch (e) {
       print(e.message);
@@ -54,13 +54,13 @@ class AuthRepo implements AuthApi {
     print('firebase phone auth');
     try {
       await _auth.verifyPhoneNumber(
-        phoneNumber: '+91' + phoneNumber,
+        phoneNumber: '+91$phoneNumber',
         verificationCompleted: verificationCompleted,
         verificationFailed: verificationFailed,
         codeSent: codeSent,
         codeAutoRetrievalTimeout: codeAutoRetrievalTimeout,
       );
-    } on FirebaseAuthException catch (e) {
+    } on FirebaseAuthException {
       rethrow;
     }
   }
@@ -73,7 +73,7 @@ class AuthRepo implements AuthApi {
       PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.credential(
           verificationId: verificationId, smsCode: smsCode);
       return await _auth.signInWithCredential(phoneAuthCredential);
-    } on FirebaseAuthException catch (e) {
+    } on FirebaseAuthException {
       rethrow;
     }
   }
@@ -81,7 +81,7 @@ class AuthRepo implements AuthApi {
   @override
   Future<Map<String, dynamic>> loginWithEmail(
       String email, String password) async {
-    String url = _userApi + "/login";
+    String url = "$_userApi/login";
     try {
       final responce = await Dio().post(url,
           data: {"user_email": email, "user_password": password},
@@ -94,58 +94,61 @@ class AuthRepo implements AuthApi {
       print(responce.statusCode);
       print(responce.data);
       return responce.data;
-    } on Exception catch (e) {
+    } on Exception {
       rethrow;
-    } 
+    }
   }
 
   @override
   Future<Map<String, dynamic>> readUser(String jwt) async {
-    String url = _userApi + "/readuser";
+    String url = "$_userApi/readuser";
     try {
       final response = await Dio()
           .post(url, options: Options(headers: {"Authorization": jwt}));
 
       // print(response.data);
       return response.data;
-    } on Exception catch (e) {
+    } on Exception {
       rethrow;
     }
   }
 
   @override
   Future<Map<String, dynamic>> insertUser(UserModel userModel) async {
-    String url = _userApi + "/insert";
+    String url = "$_userApi/insert";
     try {
       String fileNameFrontAadhar = userModel.frontImageAadhar.split('/').last;
       String fileNameBackAadhar = userModel.backImageAadhar.split('/').last;
       String fileNamepanImage = userModel.panCardImage.split('/').last;
 
-    FormData formData = FormData.fromMap(
-      {
-      'user_reg_no': userModel.userRegNo,
-      'user_name': userModel.userName,
-      'user_email':userModel. userEmail,
-      'user_phone': userModel.userPhone,
-      'user_password': userModel.userPassword,
-      'user_confirm_password': userModel.userConfirmPassword,
-      'aadhar_name': userModel.aadharName,
-      'aadhar_card_no': userModel.aadharCardNo,
-      'gender': userModel.gender,
-      'user_age': userModel.userAge,
-      'front_image_aadhar' :  await MultipartFile.fromFile(userModel.frontImageAadhar, filename:fileNameFrontAadhar),
-      'back_image_aadhar' :  await MultipartFile.fromFile(userModel.backImageAadhar, filename:fileNameBackAadhar),
-      'pencard_image':  await MultipartFile.fromFile(userModel.panCardImage, filename:fileNamepanImage),
-    
-    });
+      FormData formData = FormData.fromMap({
+        'user_reg_no': userModel.userRegNo,
+        'user_name': userModel.userName,
+        'user_email': userModel.userEmail,
+        'user_phone': userModel.userPhone,
+        'user_password': userModel.userPassword,
+        'user_confirm_password': userModel.userConfirmPassword,
+        'aadhar_name': userModel.aadharName,
+        'aadhar_card_no': userModel.aadharCardNo,
+        'gender': userModel.gender,
+        'user_age': userModel.userAge,
+        'front_image_aadhar': await MultipartFile.fromFile(
+            userModel.frontImageAadhar,
+            filename: fileNameFrontAadhar),
+        'back_image_aadhar': await MultipartFile.fromFile(
+            userModel.backImageAadhar,
+            filename: fileNameBackAadhar),
+        'pencard_image': await MultipartFile.fromFile(userModel.panCardImage,
+            filename: fileNamepanImage),
+      });
       Response response = await Dio().post(url,
           data: formData,
           options: Options(
             validateStatus: (status) => true,
           ));
-          print(response.data);
+      print(response.data);
       return response.data;
-    } on Exception catch (e) {
+    } on Exception {
       rethrow;
     }
   }

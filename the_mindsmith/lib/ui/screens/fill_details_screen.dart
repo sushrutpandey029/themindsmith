@@ -17,9 +17,9 @@ class _FillDetailsPageState extends State<FillDetailsPage> {
   // for male : 1 for female : 2
   int maleOrFemale = 0;
 
-  TextEditingController _name = TextEditingController();
-  TextEditingController _aadharNo = TextEditingController();
-  TextEditingController _age = TextEditingController();
+  final TextEditingController _name = TextEditingController();
+  final TextEditingController _aadharNo = TextEditingController();
+  final TextEditingController _age = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey();
 
   @override
@@ -63,7 +63,7 @@ class _FillDetailsPageState extends State<FillDetailsPage> {
                         validator: (input) {
                           if (input!.isEmpty) {
                             return 'Required';
-                          }else if(input.length<12) {
+                          } else if (input.length < 12) {
                             return '12 Digit Aadhar No. is required';
                           }
                           return null;
@@ -91,17 +91,17 @@ class _FillDetailsPageState extends State<FillDetailsPage> {
                           children: [
                             ElevatedButton(
                                 style: ElevatedButton.styleFrom(
+                                    foregroundColor: Colors.grey,
                                     shape: RoundedRectangleBorder(
                                         side: maleOrFemale == 1
                                             ? const BorderSide(width: 2)
                                             : BorderSide.none,
                                         borderRadius:
                                             BorderRadius.circular(10)),
+                                    backgroundColor: Colors.white,
                                     fixedSize: Size.fromWidth(
                                         MediaQuery.of(context).size.width /
-                                            2.4),
-                                    primary: Colors.white,
-                                    onPrimary: Colors.grey),
+                                            2.4)),
                                 onPressed: () {
                                   setState(() {
                                     maleOrFemale = 1;
@@ -110,6 +110,8 @@ class _FillDetailsPageState extends State<FillDetailsPage> {
                                 child: const Text('Male')),
                             ElevatedButton(
                                 style: ElevatedButton.styleFrom(
+                                    foregroundColor: Colors.grey,
+                                    backgroundColor: Colors.white,
                                     shape: RoundedRectangleBorder(
                                         side: maleOrFemale == 2
                                             ? const BorderSide(width: 2)
@@ -118,9 +120,7 @@ class _FillDetailsPageState extends State<FillDetailsPage> {
                                             BorderRadius.circular(10)),
                                     fixedSize: Size.fromWidth(
                                         MediaQuery.of(context).size.width /
-                                            2.4),
-                                    primary: Colors.white,
-                                    onPrimary: Colors.grey),
+                                            2.4)),
                                 onPressed: () {
                                   setState(() {
                                     maleOrFemale = 2;

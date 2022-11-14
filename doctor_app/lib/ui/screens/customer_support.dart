@@ -32,16 +32,18 @@ class _CustomerSupportPageState extends State<CustomerSupportPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => ComplainPage()));
+                              builder: (context) => const ComplainPage()));
                     },
-                    child: Text('Issues')),
+                    child: const Text('Issues')),
                 ElevatedButton(
                     style: halfButtonStyle1,
                     onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => HelpPage()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const HelpPage()));
                     },
-                    child: Text('Help')),
+                    child: const Text('Help')),
               ],
             ),
           ),

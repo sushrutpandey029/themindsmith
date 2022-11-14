@@ -21,10 +21,9 @@ class _VideoConsultationPageState extends State<VideoConsultationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:customAppBar(context, null),
+      appBar: customAppBar(context, null),
       body: Consumer<NotificationProvider>(
-       
-        builder: (context, value,widget) {
+        builder: (context, value, widget) {
           // DoctorModel doctorModel = Provider.of<DoctorProvider>(context,listen: false).doctorList.where((element) => element.doctorId==value.selectedAllotment!.doctorsId,).first;
           return Column(
             children: [
@@ -61,21 +60,23 @@ class _VideoConsultationPageState extends State<VideoConsultationPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  ImageIcon(
+                  const ImageIcon(
                     AssetImage('assets/icons/mute.png'),
                     size: 35,
                   ),
                   ElevatedButton(
                       style: smallBlackButtonStyle,
-                      onPressed: () async{
-                        await Provider.of<VideoCallProvider>(context,listen: false).connectCall(context);
+                      onPressed: () async {
+                        await Provider.of<VideoCallProvider>(context,
+                                listen: false)
+                            .connectCall(context);
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: ((context) => VideoCallPage())));
+                                builder: ((context) => const VideoCallPage())));
                       },
-                      child: Text('Join Call')),
-                  ImageIcon(
+                      child: const Text('Join Call')),
+                  const ImageIcon(
                     AssetImage('assets/icons/end-call.png'),
                     size: 35,
                   ),

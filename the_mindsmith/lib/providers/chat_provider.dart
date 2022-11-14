@@ -53,9 +53,8 @@ class ChatProvider extends ChangeNotifier {
     initialIndex = finalChatList.length - 20;
 
     // finalIndex = finalChatList.length;
-    if(initialIndex!<0)
-    {
-      initialIndex=0;
+    if (initialIndex! < 0) {
+      initialIndex = 0;
     }
 
     print(finalChatList);
@@ -66,13 +65,16 @@ class ChatProvider extends ChangeNotifier {
   Future<void> sendMessage(BuildContext context, String message) async {
     isSending = true;
     print(isSending);
-    notifyListeners();
 
     Map<String, dynamic> userMap =
         Provider.of<AuthProvider>(context, listen: false).userResponse!;
-    await _chatRepo.sendMessage(userMap["users"]["id"], userMap["users"]["user_name"],
-        selectedDoctor!.doctorId, selectedDoctor!.doctorName, message);
-    await fetchChat(userMap["users"]["id"]);
+    await _chatRepo.sendMessage(
+        userMap['users']['id'],
+        userMap['users']['user_name'],
+        selectedDoctor!.doctorId,
+        selectedDoctor!.doctorName,
+        message);
+    await fetchChat(userMap['users']['id']);
     // initialIndex = finalChatList.length - 10;
     // finalIndex = finalChatList.length;
     isSending = false;
@@ -81,7 +83,7 @@ class ChatProvider extends ChangeNotifier {
   }
 
   void previousChat() {
-    isClosed=true;
+    isClosed = true;
     initialIndex = initialIndex! - 20;
     // finalIndex = finalIndex! - 10;
     if (initialIndex! < 0) {
@@ -129,9 +131,9 @@ class ChatProvider extends ChangeNotifier {
 
         // finalIndex = finalChatList.length;
         // if(initialIndex!<0)
-    // {
-    //   initialIndex=0;
-    // }
+        // {
+        //   initialIndex=0;
+        // }
 
         print(finalChatList);
         notifyListeners();

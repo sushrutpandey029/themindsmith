@@ -11,9 +11,9 @@ import 'package:the_mindsmith/util/error_dialogue.dart';
 import 'package:the_mindsmith/util/shared_pref.dart';
 
 import '../models/user_model.dart';
+import '../ui/screens/fill_details_screen.dart';
 import '../ui/screens/wrapper.dart';
 import '../util/phone_number_validator.dart';
-import 'articles_provider.dart';
 import 'notification_provider.dart';
 
 class AuthProvider extends ChangeNotifier {
@@ -33,10 +33,40 @@ class AuthProvider extends ChangeNotifier {
           builder: (context) =>
               const Center(child: CircularProgressIndicator()));
       UserCredential userCredential = await _authApi.signInWithGoogle();
-      _currentUser = userCredential.user;
-      Navigator.pop(context);
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: ((context) => const Wrapper())));
+      final currentUser = userCredential.user;
+      final usertime = currentUser!.metadata.creationTime;
+      if (DateTime.now().difference(usertime!).inSeconds < 10) {
+        context.read<AuthProvider>().userModel = UserModel(
+            userRegNo: '',
+            userName: currentUser.displayName!,
+            userEmail: currentUser.email!,
+            userPhone: "",
+            userPassword: 'google',
+            userConfirmPassword: 'google',
+            aadharName: '',
+            aadharCardNo: '',
+            gender: '',
+            userAge: '',
+            frontImageAadhar: '',
+            backImageAadhar: '',
+            panCardImage: '');
+
+        print(context.read<AuthProvider>().userModel);
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => const FillDetailsPage()));
+      } else {
+        userResponse = await _authApi.readUser(jwt!);
+        await _pref.setData(json.encode(userResponse));
+        await _pref.setDate();
+        print(userResponse);
+        Provider.of<NotificationProvider>(context, listen: false)
+            .fetchNotification(context);
+        print(' done at sign in');
+        Navigator.pop(context);
+
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: ((context) => const Wrapper())));
+      }
     } on FirebaseAuthException catch (e) {
       errorDialogue(context: context, title: e.code, message: e.message);
     }
@@ -124,7 +154,7 @@ class AuthProvider extends ChangeNotifier {
       await _authApi.signOut();
       await _pref.removeData();
       await Future.delayed(const Duration(seconds: 1));
-      _currentUser = FirebaseAuth.instance.currentUser;
+      // _currentUser = FirebaseAuth.instance.currentUser;
       Navigator.pushAndRemoveUntil(
           context, MaterialPageRoute(builder: ((context) => const LogInPage())),
           (route) {
@@ -192,7 +222,18 @@ class AuthProvider extends ChangeNotifier {
             context: context,
             title: 'Success!!',
             message: 'User created Successful');
-        await Future.delayed(const Duration(seconds: 2));
+        // userResponse = await _authApi.readUser(jwt!);
+        // await _pref.setData(json.encode(userResponse));
+        // await _pref.setDate();
+        // print(userResponse);
+        // Provider.of<NotificationProvider>(context, listen: false)
+        //     .fetchNotification(context);
+        // print(' done at sign in');
+        Navigator.pop(context);
+
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: ((context) => const LogInPage())));
+
         //  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("User Create Successfully"),duration: Duration(seconds: 2),));
       } else {
         Navigator.pop(context);
@@ -200,7 +241,7 @@ class AuthProvider extends ChangeNotifier {
             context: context,
             title: 'Error!!',
             message: json.encode(response['messages']),
-            route: LogInPage());
+            route: const LogInPage());
         // await Future.delayed(const Duration(seconds: 2));
 
         //  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("There is a problem in Creating Account for you"),duration: Duration(seconds: 5),));

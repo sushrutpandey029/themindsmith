@@ -16,8 +16,8 @@ class DoctorSelectionCard extends StatefulWidget {
       required this.doctorModel,
       required this.index})
       : super(key: key);
-  bool isChat;
-  DoctorModel doctorModel;
+  final bool isChat;
+  final DoctorModel doctorModel;
 
   int index;
 
@@ -41,15 +41,17 @@ class _DoctorSelectionCardState extends State<DoctorSelectionCard> {
         },
         child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
           Container(
-            margin: EdgeInsets.only(left: 18),
+            margin: const EdgeInsets.only(left: 18),
             decoration: BoxDecoration(
-                color: Color.fromARGB(255, 240, 242, 233),
+                color: const Color.fromARGB(255, 240, 242, 233),
                 borderRadius: BorderRadius.circular(10),
-                boxShadow: [BoxShadow(blurRadius: 8, offset: Offset(3, 3))]),
+                boxShadow: const [
+                  BoxShadow(blurRadius: 8, offset: Offset(3, 3))
+                ]),
             child: Column(
               children: [
                 Padding(
-                  padding: EdgeInsets.all(18.0),
+                  padding: const EdgeInsets.all(18.0),
                   child: Image.network(
                     '$imgUrl/${widget.doctorModel.doctorImage}',
                     fit: BoxFit.fill,

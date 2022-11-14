@@ -6,16 +6,17 @@ import '../../constants/url_constant.dart';
 class ChatRepo {
   final String _userApi = "$baseUrl/Userapi_controller";
   final String _docApi = "$baseUrl/Doctorapi_controller";
-  Future<void> sendMessage(String userId, String userName, String doctorId, String doctorName , String message) async {
-     String url = "$_userApi/user_chat_with_doc";
-     Response response =  await Dio().post(url, data: {
-      "user_id" : userId,
+  Future<void> sendMessage(String userId, String userName, String doctorId,
+      String doctorName, String message) async {
+    String url = "$_userApi/user_chat_with_doc";
+    Response response = await Dio().post(url, data: {
+      "user_id": userId,
       "user_name": userName,
       "doctor_id": doctorId,
-      "doctor_name":doctorName,
+      "doctor_name": doctorName,
       "text_message": message
-      });
-      print(response.data);
+    });
+    print(response.data);
   }
 
   Future<List<ChatModel>> fetchDoctorChat(String doctorId) async {
@@ -23,11 +24,11 @@ class ChatRepo {
     List<ChatModel> list = [];
 
     Response response = await Dio().post(url, data: {"doctor_id": doctorId});
-if(response.data["txt_msg"]!=null) {
-  for (Map<String, dynamic> element in response.data["txt_msg"]) {
-      list.add(ChatModel.fromMap(element));
+    if (response.data["txt_msg"] != null) {
+      for (Map<String, dynamic> element in response.data["txt_msg"]) {
+        list.add(ChatModel.fromMap(element));
+      }
     }
-}
     // print(list);
 
     return list;
@@ -40,10 +41,10 @@ if(response.data["txt_msg"]!=null) {
     Response response = await Dio().post(url, data: {"user_id": userId});
     // print(userId);
     // print(response);
-    if(response.data["txt_msg"]!=null) {
+    if (response.data["txt_msg"] != null) {
       for (Map<String, dynamic> element in response.data["txt_msg"]) {
-      list.add(ChatModel.fromMap(element));
-    }
+        list.add(ChatModel.fromMap(element));
+      }
     }
     // print(list);
 

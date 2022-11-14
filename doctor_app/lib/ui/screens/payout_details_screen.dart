@@ -10,7 +10,7 @@ import '../../model/doctor_model.dart';
 import '../../provider/auth_provider.dart';
 
 class PayOutDetailsPage extends StatefulWidget {
-  PayOutDetailsPage({Key? key}) : super(key: key);
+  const PayOutDetailsPage({Key? key}) : super(key: key);
 
   @override
   State<PayOutDetailsPage> createState() => _PayOutDetailsPageState();
@@ -18,12 +18,12 @@ class PayOutDetailsPage extends StatefulWidget {
 
 class _PayOutDetailsPageState extends State<PayOutDetailsPage> {
   TextEditingController accNumberController = TextEditingController();
-  TextEditingController IFSCController = TextEditingController();
+  TextEditingController iFSCController = TextEditingController();
   TextEditingController branchNameController = TextEditingController();
   TextEditingController beneficiaryController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    PayoutRepo _payoutRepo = PayoutRepo();
+    final PayoutRepo payoutRepo = PayoutRepo();
     DoctorModel doctorModel =
         Provider.of<AuthProvider>(context, listen: false).doctorModel!;
 
@@ -53,7 +53,7 @@ class _PayOutDetailsPageState extends State<PayOutDetailsPage> {
                   borderRadius: BorderRadius.circular(20)),
               child: TextField(
                 decoration: inputDecoration1('IFSC', null),
-                controller: IFSCController,
+                controller: iFSCController,
               ),
             ),
             Material(
@@ -80,14 +80,14 @@ class _PayOutDetailsPageState extends State<PayOutDetailsPage> {
               child: ElevatedButton(
                   style: fullButtonStyle,
                   onPressed: () {
-                    _payoutRepo.payRequest(
+                    payoutRepo.payRequest(
                       doctorModel.doctorId,
                       doctorModel.doctorName,
                       doctorModel.doctorNumber,
                       doctorModel.doctorEmail,
                       doctorModel.doctorFee,
                       accNumberController.text,
-                      IFSCController.text,
+                      iFSCController.text,
                       branchNameController.text,
                       beneficiaryController.text,
                     );

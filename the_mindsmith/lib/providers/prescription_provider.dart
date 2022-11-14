@@ -8,7 +8,6 @@ import 'package:the_mindsmith/providers/auth_provider.dart';
 import 'package:the_mindsmith/services/repo/prescription_repo.dart';
 import 'package:the_mindsmith/util/error_dialogue.dart';
 
-
 class PrescriptionProvider extends ChangeNotifier {
   String? path;
   String? fileName;
@@ -34,15 +33,16 @@ class PrescriptionProvider extends ChangeNotifier {
 
   Future<void> uploadPrescription(BuildContext context, String remarks) async {
     String userId = Provider.of<AuthProvider>(context, listen: false)
-        .userResponse!['user_id'];
+        .userResponse!['users']['id'];
     String userName = Provider.of<AuthProvider>(context, listen: false)
-        .userResponse!['user_name'];
+        .userResponse!['users']['user_name'];
     showDialog(
         context: context,
-        builder: (context) => const Center(child: const CircularProgressIndicator()));
+        builder: (context) => const Center(child: CircularProgressIndicator()));
     if (path != null && remarks.isNotEmpty) {
       String response = await _prescriptionRepo.uploadPrescription(
           userId, userName, path!, remarks);
+      Navigator.pop(context);
       Navigator.pop(context);
       errorDialogue(context: context, title: "success!!", message: response);
     } else {

@@ -5,18 +5,11 @@ import 'package:doctor_app/constants/button_style.dart';
 import 'package:doctor_app/constants/text_style.dart';
 import 'package:doctor_app/provider/chat_provider.dart';
 import 'package:doctor_app/provider/slot_provider.dart';
-import 'package:doctor_app/repo/slot_repo.dart';
 import 'package:doctor_app/ui/screens/about_me_screen.dart';
-import 'package:doctor_app/ui/screens/chat_screen.dart';
-import 'package:doctor_app/ui/screens/patient_history_screen.dart';
 import 'package:doctor_app/ui/screens/patient_messages_list.dart';
-import 'package:doctor_app/ui/screens/prescription_genration_screen.dart';
 import 'package:doctor_app/ui/screens/upcoming_appointment_screen.dart';
 import 'package:doctor_app/ui/screens/user_listing.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
 
 import '../../util/date_time_helper.dart';
@@ -30,7 +23,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
-  late AnimationController _animationController = AnimationController(
+  late final AnimationController _animationController = AnimationController(
       vsync: this, duration: const Duration(milliseconds: 1000));
 
   void _runAnimation() async {
@@ -43,12 +36,6 @@ class _HomePageState extends State<HomePage>
   @override
   void initState() {
     super.initState();
-
-    print(now.hour.toString() +
-        ":" +
-        now.minute.toString() +
-        ":" +
-        now.second.toString());
   }
 
   @override

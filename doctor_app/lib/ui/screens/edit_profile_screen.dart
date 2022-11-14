@@ -44,17 +44,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
       if (image == null) {
         return;
       } else {
-        final imageTemp = XFile(image.path);
+        final imageTemp = File(image.path);
         setState(() {
-          this.image = imageTemp as File;
+          this.image = imageTemp;
         });
-
-        _updateRepo.uploadImage(
-            Provider.of<AuthProvider>(context, listen: false)
-                .doctorModel!
-                .doctorId,
-            image);
-        Provider.of<AuthProvider>(context, listen: false).logOut(context);
       }
     } on PlatformException catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -83,12 +76,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
         setState(() {
           this.image = imageTemp as File?;
         });
-
-        _updateRepo.uploadImage(
-            Provider.of<AuthProvider>(context, listen: false)
-                .doctorModel!
-                .doctorId,
-            image);
       }
     } on PlatformException catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -254,18 +241,18 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             borderRadius: BorderRadius.circular(15.0),
                           ),
                           title: Text("Phone : ${doctorModel.doctorNumber}"),
-                          trailing: GestureDetector(
-                            onTap: () {
-                              showNumDialog(context);
-                            },
-                            child: const Padding(
-                              padding: EdgeInsets.all(4.0),
-                              child: Icon(
-                                Icons.edit,
-                                color: Colors.black,
-                              ),
-                            ),
-                          ),
+                          // trailing: GestureDetector(
+                          //   onTap: () {
+                          //     showNumDialog(context);
+                          //   },
+                          //   child: const Padding(
+                          //     padding: EdgeInsets.all(4.0),
+                          //     child: Icon(
+                          //       Icons.edit,
+                          //       color: Colors.black,
+                          //     ),
+                          //   ),
+                          // ),
                         ),
                       ),
                       Card(
@@ -1003,13 +990,21 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         padding: const EdgeInsets.all(8.0),
                         child: ElevatedButton(
                           child: const Text("Update"),
-                          onPressed: () {
+                          onPressed: () async {
+                            await _updateRepo.uploadImage(
+                                Provider.of<AuthProvider>(context,
+                                        listen: false)
+                                    .doctorModel!
+                                    .doctorId,
+                                image!);
                             showDialog(
                               context: context,
                               builder: (BuildContext context) {
                                 return logoutalert();
                               },
                             );
+                            Provider.of<AuthProvider>(context, listen: false)
+                                .logOut(context);
                             Navigator.pop(context);
                           },
                         ),

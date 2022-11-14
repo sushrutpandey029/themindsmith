@@ -5,6 +5,7 @@ import 'package:doctor_app/ui/screens/prescriptions_locker_screen.dart';
 import 'package:doctor_app/ui/screens/profile_screen.dart';
 import 'package:doctor_app/ui/screens/weekly_schedule_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
 import '../../provider/notification_provider.dart';
@@ -125,10 +126,15 @@ class _WrapperState extends State<Wrapper> {
                         badgeContent: Text(
                             value.unreadNotificationCount.toString(),
                             style: const TextStyle(color: Colors.white)),
-                        child: const Icon(
-                          Icons.notifications,
-                          size: 30,
-                        ),
+                        child: Lottie.network(
+                            'https://assets9.lottiefiles.com/private_files/lf30_ggnpo3y5.json',
+                            height: 40,
+                            fit: BoxFit.fitHeight,
+                            animate: true),
+                        // const Icon(
+                        //   Icons.notifications,
+                        //   size: 30,
+                        // ),
                       );
                     }),
                     color: Colors.black,
@@ -143,18 +149,18 @@ class _WrapperState extends State<Wrapper> {
                     icon: const ImageIcon(AssetImage('assets/icons/user.png')),
                     color: Colors.black,
                   ),
-                  IconButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: ((context) =>
-                                  const WeeklySchedulePage())));
-                    },
-                    icon: const ImageIcon(
-                        AssetImage('assets/icons/calendar.png')),
-                    color: Colors.black,
-                  ),
+                  // IconButton(
+                  //   onPressed: () {
+                  //     Navigator.push(
+                  //         context,
+                  //         MaterialPageRoute(
+                  //             builder: ((context) =>
+                  //                 const WeeklySchedulePage())));
+                  //   },
+                  //   icon: const ImageIcon(
+                  //       AssetImage('assets/icons/calendar.png')),
+                  //   color: Colors.black,
+                  // ),
                 ],
               )
             : appBars.elementAt(_selectedIndex - 1),

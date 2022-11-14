@@ -23,7 +23,7 @@ class _AppointmentDetailsPageState extends State<AppointmentDetailsPage> {
       appBar: customAppBar(context, 'Appointment Detail'),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(18),
+          padding: const EdgeInsets.all(18),
           child: Consumer<NotificationProvider>(
             builder: (context, value, widget) {
               return Center(
@@ -31,7 +31,7 @@ class _AppointmentDetailsPageState extends State<AppointmentDetailsPage> {
                   // mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 40,
                     ),
                     Material(
@@ -67,7 +67,7 @@ class _AppointmentDetailsPageState extends State<AppointmentDetailsPage> {
                               ),
                             ),
 
-                            Divider(
+                            const Divider(
                               height: 30,
                               thickness: 2,
                               color: Color.fromARGB(200, 0, 0, 0),
@@ -101,7 +101,7 @@ class _AppointmentDetailsPageState extends State<AppointmentDetailsPage> {
                                       context,
                                       MaterialPageRoute(
                                           builder: ((context) =>
-                                              VideoConsultationPage())));
+                                              const VideoConsultationPage())));
                                 }
                               : null,
                           child: Text(
@@ -118,7 +118,7 @@ class _AppointmentDetailsPageState extends State<AppointmentDetailsPage> {
                                 context,
                                 MaterialPageRoute(
                                     builder: ((context) =>
-                                        UploadMedicalHistoryPage())));
+                                        const UploadMedicalHistoryPage())));
                           },
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),

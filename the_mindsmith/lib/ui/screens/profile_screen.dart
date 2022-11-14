@@ -6,6 +6,7 @@ import 'package:the_mindsmith/providers/notification_provider.dart';
 import 'package:the_mindsmith/ui/screens/consulation_screen.dart';
 import 'package:the_mindsmith/ui/screens/order_screen.dart';
 
+import '../../constants/url_constant.dart';
 import 'edit_profile_screen.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -18,6 +19,7 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
+    print(Provider.of<AuthProvider>(context, listen: false).userResponse!);
     return Padding(
       padding: const EdgeInsets.all(18.0),
       child: Center(
@@ -26,10 +28,13 @@ class _ProfilePageState extends State<ProfilePage> {
             Column(
               children: [
                 CircleAvatar(
-                  backgroundColor: Colors.grey[300],
-                  radius: 40,
-                  child: Image.asset('assets/images/user2.png'),
-                ),
+                    backgroundColor: Colors.grey[300],
+                    radius: 40,
+                    child: Image.network(
+                      '$imgUrl/${Provider.of<AuthProvider>(context, listen: false).userResponse!['users']['user_image']}',
+                      errorBuilder: ((context, error, stackTrace) =>
+                          Image.asset('assets/images/user2.png')),
+                    )),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
@@ -42,13 +47,13 @@ class _ProfilePageState extends State<ProfilePage> {
                     .userResponse!['users']['user_reg_no'])
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 40,
             ),
             Column(
               children: [
                 Card(
-                  margin: EdgeInsets.all(8),
+                  margin: const EdgeInsets.all(8),
                   elevation: 10,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15.0),
@@ -58,17 +63,17 @@ class _ProfilePageState extends State<ProfilePage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => EditProfilePage()));
+                              builder: (context) => const EditProfilePage()));
                     },
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15.0),
                     ),
-                    title: Text('Edit Profile'),
-                    trailing: Icon(Icons.arrow_forward),
+                    title: const Text('Edit Profile'),
+                    trailing: const Icon(Icons.arrow_forward),
                   ),
                 ),
                 Card(
-                   margin: EdgeInsets.all(8),
+                  margin: const EdgeInsets.all(8),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15.0),
                   ),
@@ -78,36 +83,35 @@ class _ProfilePageState extends State<ProfilePage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: ((context) => OrderPage())));
+                              builder: ((context) => const OrderPage())));
                     },
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15.0),
                     ),
-                    title: Text('My Orders'),
-                    trailing: Icon(Icons.arrow_forward),
+                    title: const Text('My Orders'),
+                    trailing: const Icon(Icons.arrow_forward),
                   ),
                 ),
                 Card(
-                   margin: EdgeInsets.all(8),
-                   shape: RoundedRectangleBorder(
+                  margin: const EdgeInsets.all(8),
+                  shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15.0),
                   ),
                   elevation: 10,
                   child: ListTile(
                     onTap: () {
-                      Provider.of<NotificationProvider>(context,
-                              listen: false)
+                      Provider.of<NotificationProvider>(context, listen: false)
                           .fetchNotification(context);
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: ((context) => ConsulationPage())));
+                              builder: ((context) => const ConsulationPage())));
                     },
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15.0),
                     ),
-                    title: Text('My Consultations'),
-                    trailing: Icon(Icons.arrow_forward),
+                    title: const Text('My Consultations'),
+                    trailing: const Icon(Icons.arrow_forward),
                   ),
                 ),
                 //  Padding(
@@ -128,8 +132,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 // ),
                 //  ),
                 Card(
-                   margin: EdgeInsets.all(8),
-                   shape: RoundedRectangleBorder(
+                  margin: const EdgeInsets.all(8),
+                  shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15.0),
                   ),
                   elevation: 10,
@@ -141,8 +145,8 @@ class _ProfilePageState extends State<ProfilePage> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15.0),
                     ),
-                    title: Text('Log Out'),
-                    trailing: Icon(Icons.arrow_forward),
+                    title: const Text('Log Out'),
+                    trailing: const Icon(Icons.arrow_forward),
                   ),
                 )
               ],

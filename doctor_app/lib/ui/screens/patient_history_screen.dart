@@ -18,13 +18,13 @@ class PatientHistoryPage extends StatefulWidget {
 }
 
 class _PatientHistoryPageState extends State<PatientHistoryPage> {
-  TextEditingController _city = TextEditingController();
-  TextEditingController _treatmentStartDate = TextEditingController();
-  TextEditingController _diagnosis = TextEditingController();
-  TextEditingController _age = TextEditingController();
-  TextEditingController _gender = TextEditingController();
-  TextEditingController _weight = TextEditingController();
-  TextEditingController _notes = TextEditingController();
+  final TextEditingController _city = TextEditingController();
+  final TextEditingController _treatmentStartDate = TextEditingController();
+  final TextEditingController _diagnosis = TextEditingController();
+  final TextEditingController _age = TextEditingController();
+  final TextEditingController _gender = TextEditingController();
+  final TextEditingController _weight = TextEditingController();
+  final TextEditingController _notes = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,31 +52,39 @@ class _PatientHistoryPageState extends State<PatientHistoryPage> {
                     value: value.user!.userRegNo,
                     width: MediaQuery.of(context).size.width),
               ),
-            
-            
+
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: CustomBox(
                     title: 'Age/Sex',
-                    value: context.watch<PrescriptionProvider>().selectedPrescription!.userAgeGender,
+                    value: context
+                        .watch<PrescriptionProvider>()
+                        .selectedPrescription!
+                        .userAgeGender,
                     width: MediaQuery.of(context).size.width),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: CustomBox(
                     title: 'Diagnosis',
-                    value: context.watch<PrescriptionProvider>().selectedPrescription!.userSymptoms,
+                    value: context
+                        .watch<PrescriptionProvider>()
+                        .selectedPrescription!
+                        .userSymptoms,
                     width: MediaQuery.of(context).size.width),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: CustomBox(
                     title: 'Notes',
-                    value: context.watch<PrescriptionProvider>().selectedPrescription!.medicalHistory,
+                    value: context
+                        .watch<PrescriptionProvider>()
+                        .selectedPrescription!
+                        .medicalHistory,
                     width: MediaQuery.of(context).size.width),
               ),
 
-                Padding(
+              Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 18, vertical: 8.0),
                 child: TextFormField(
@@ -87,18 +95,18 @@ class _PatientHistoryPageState extends State<PatientHistoryPage> {
                       border: OutlineInputBorder(
                           gapPadding: 2,
                           borderRadius: BorderRadius.circular(10),
-                          borderSide:
-                              BorderSide(color: Color.fromARGB(255, 0, 0, 0))),
+                          borderSide: const BorderSide(
+                              color: Color.fromARGB(255, 0, 0, 0))),
                       enabledBorder: OutlineInputBorder(
                           gapPadding: 2,
                           borderRadius: BorderRadius.circular(10),
-                          borderSide:
-                              BorderSide(color: Color.fromARGB(255, 0, 0, 0))),
+                          borderSide: const BorderSide(
+                              color: Color.fromARGB(255, 0, 0, 0))),
                       focusedBorder: OutlineInputBorder(
                           gapPadding: 2,
                           borderRadius: BorderRadius.circular(10),
-                          borderSide:
-                              BorderSide(color: Color.fromARGB(255, 0, 0, 0)))),
+                          borderSide: const BorderSide(
+                              color: Color.fromARGB(255, 0, 0, 0)))),
                 ),
               ),
               Padding(
@@ -112,18 +120,18 @@ class _PatientHistoryPageState extends State<PatientHistoryPage> {
                       border: OutlineInputBorder(
                           gapPadding: 2,
                           borderRadius: BorderRadius.circular(10),
-                          borderSide:
-                              BorderSide(color: Color.fromARGB(255, 0, 0, 0))),
+                          borderSide: const BorderSide(
+                              color: Color.fromARGB(255, 0, 0, 0))),
                       enabledBorder: OutlineInputBorder(
                           gapPadding: 2,
                           borderRadius: BorderRadius.circular(10),
-                          borderSide:
-                              BorderSide(color: Color.fromARGB(255, 0, 0, 0))),
+                          borderSide: const BorderSide(
+                              color: Color.fromARGB(255, 0, 0, 0))),
                       focusedBorder: OutlineInputBorder(
                           gapPadding: 2,
                           borderRadius: BorderRadius.circular(10),
-                          borderSide:
-                              BorderSide(color: Color.fromARGB(255, 0, 0, 0)))),
+                          borderSide: const BorderSide(
+                              color: Color.fromARGB(255, 0, 0, 0)))),
                 ),
               ),
               // Padding(
@@ -281,7 +289,7 @@ class _PatientHistoryPageState extends State<PatientHistoryPage> {
                               gender: _gender.text,
                               note: _notes.text));
                     },
-                    child: Text('Add To Patient History')),
+                    child: const Text('Add To Patient History')),
               ))
             ]);
           }),

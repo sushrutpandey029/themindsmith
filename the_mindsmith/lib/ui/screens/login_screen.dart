@@ -1,14 +1,9 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 // import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:the_mindsmith/constants/button_style.dart';
 import 'package:the_mindsmith/constants/input_decoration.dart';
-import 'package:the_mindsmith/models/user_model.dart';
-import 'package:the_mindsmith/services/repo/auth_repo.dart';
-import 'package:the_mindsmith/ui/screens/wrapper.dart';
-import '../../services/api/auth_api.dart';
+import 'package:the_mindsmith/ui/screens/help_screen.dart';
 
 import '../../providers/auth_provider.dart';
 
@@ -23,8 +18,8 @@ class LogInPage extends StatefulWidget {
 
 class _LogInPageState extends State<LogInPage> {
   bool? _isChecked = false;
-  TextEditingController _email = TextEditingController();
-  TextEditingController _password = TextEditingController();
+  final TextEditingController _email = TextEditingController();
+  final TextEditingController _password = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +31,7 @@ class _LogInPageState extends State<LogInPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Spacer(
+            const Spacer(
               flex: 3,
             ),
             Material(
@@ -47,7 +42,7 @@ class _LogInPageState extends State<LogInPage> {
                   'assets/images/mindsmith-logo.png',
                   width: 120,
                 )),
-            Spacer(
+            const Spacer(
               flex: 3,
             ),
             Form(
@@ -57,15 +52,17 @@ class _LogInPageState extends State<LogInPage> {
                 TextFormField(
                   keyboardType: TextInputType.emailAddress,
                   controller: _email,
-                  decoration: inputDecoration1('Email', Icon(Icons.person)),
+                  decoration:
+                      inputDecoration1('Email', const Icon(Icons.person)),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 TextFormField(
                   obscureText: true,
                   controller: _password,
-                  decoration: inputDecoration1('Password', Icon(Icons.lock)),
+                  decoration:
+                      inputDecoration1('Password', const Icon(Icons.lock)),
                 ),
                 Row(
                   children: [
@@ -76,10 +73,10 @@ class _LogInPageState extends State<LogInPage> {
                             _isChecked = value;
                           });
                         }),
-                    Text('keep me signed')
+                    const Text('Remember Me')
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 40,
                 ),
                 SizedBox(
@@ -95,7 +92,7 @@ class _LogInPageState extends State<LogInPage> {
 
                       //  Navigator.pushReplacement(context, MaterialPageRoute(builder: ((context) => Wrapper())));
                     },
-                    child: Text('Get to App'),
+                    child: const Text('Get Started'),
                   ),
                 ),
                 Padding(
@@ -104,12 +101,12 @@ class _LogInPageState extends State<LogInPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Material(
-                         color: Colors.transparent,
+                        color: Colors.transparent,
                         elevation: 10,
-                        shape: CircleBorder(),
+                        shape: const CircleBorder(),
                         child: IconButton(
-                          padding: EdgeInsets.zero,
-                          iconSize:40,
+                            padding: EdgeInsets.zero,
+                            iconSize: 40,
                             onPressed: () {
                               Provider.of<AuthProvider>(context, listen: false)
                                   .signInWithGoogle(context);
@@ -117,15 +114,14 @@ class _LogInPageState extends State<LogInPage> {
                             icon: Image.asset(
                               'assets/icons/icons8-google-96.png',
                             )),
-                      )
-                          ,
+                      ),
                       Material(
                         color: Colors.transparent,
                         elevation: 10,
-                        shape: CircleBorder(),
+                        shape: const CircleBorder(),
                         child: IconButton(
-                          padding: EdgeInsets.zero,
-                          iconSize: 40,
+                            padding: EdgeInsets.zero,
+                            iconSize: 40,
                             onPressed: () {},
                             icon: Image.asset(
                               'assets/icons/icons8-facebook-96.png',
@@ -136,7 +132,7 @@ class _LogInPageState extends State<LogInPage> {
                 )
               ],
             )),
-            Spacer(
+            const Spacer(
               flex: 2,
             ),
             Row(
@@ -145,23 +141,32 @@ class _LogInPageState extends State<LogInPage> {
                 TextButton(
                     onPressed: () {
                       Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => SignUpPage()));
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const SignUpPage(),
+                        ),
+                      );
                     },
-                    child: Text(
+                    child: const Text(
                       'Create account',
                       style: TextStyle(color: Colors.black),
                     )),
                 TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      'Need help?',
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HelpPage(),
+                        ),
+                      );
+                    },
+                    child: const Text(
+                      'FAQs',
                       style: TextStyle(color: Colors.black),
                     ))
               ],
             ),
-            Spacer(
+            const Spacer(
               flex: 1,
             ),
           ],

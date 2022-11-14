@@ -19,10 +19,10 @@ class SignUpPage extends StatefulWidget {
 
 class _SignUpPageState extends State<SignUpPage> {
   bool? _isChecked = false;
-  TextEditingController _email = TextEditingController();
-  TextEditingController _userName = TextEditingController();
-  TextEditingController _password = TextEditingController();
-  TextEditingController _confirmPassword = TextEditingController();
+  final TextEditingController _email = TextEditingController();
+  final TextEditingController _userName = TextEditingController();
+  final TextEditingController _password = TextEditingController();
+  final TextEditingController _confirmPassword = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
@@ -42,8 +42,9 @@ class _SignUpPageState extends State<SignUpPage> {
                       Padding(
                         padding: const EdgeInsets.only(bottom: 48.0),
                         child: Material(
-                           elevation:20,
-              shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
+                          elevation: 20,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(100)),
                           child: Image.asset(
                             'assets/images/mindsmith-logo.png',
                             width: 120,
@@ -61,23 +62,25 @@ class _SignUpPageState extends State<SignUpPage> {
                         },
                         controller: _email,
                         decoration:
-                            inputDecoration1('Email', Icon(Icons.person)),
+                            inputDecoration1('Email', const Icon(Icons.person)),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       TextFormField(
                         validator: (value) {
-                          if (value!.isEmpty||value.length<5||value.length>50) {
+                          if (value!.isEmpty ||
+                              value.length < 5 ||
+                              value.length > 50) {
                             return 'User name required (Between 5 to 50)';
                           }
                           return null;
                         },
                         controller: _userName,
-                        decoration:
-                            inputDecoration1('User Name', Icon(Icons.verified)),
+                        decoration: inputDecoration1(
+                            'User Name', const Icon(Icons.verified)),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       TextFormField(
@@ -89,10 +92,10 @@ class _SignUpPageState extends State<SignUpPage> {
                         },
                         obscureText: true,
                         controller: _password,
-                        decoration:
-                            inputDecoration1('Password', Icon(Icons.lock)),
+                        decoration: inputDecoration1(
+                            'Password', const Icon(Icons.lock)),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       TextFormField(
@@ -105,7 +108,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         obscureText: true,
                         controller: _confirmPassword,
                         decoration: inputDecoration1(
-                            'Confirm Password', Icon(Icons.lock)),
+                            'Confirm Password', const Icon(Icons.lock)),
                       ),
                       Row(
                         children: [
@@ -116,10 +119,10 @@ class _SignUpPageState extends State<SignUpPage> {
                                   _isChecked = value;
                                 });
                               }),
-                          Text('keep me signed')
+                          const Text('keep me signed')
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 30,
                       ),
                       SizedBox(
@@ -131,7 +134,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             if (formKey.currentState!.validate()) {
                               context.read<AuthProvider>().userModel =
                                   UserModel(
-                                    userRegNo: '',
+                                      userRegNo: '',
                                       userName: _userName.text,
                                       userEmail: _email.text,
                                       userPhone: "",
@@ -148,10 +151,11 @@ class _SignUpPageState extends State<SignUpPage> {
 
                               print(context.read<AuthProvider>().userModel);
                               Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => FillDetailsPage()));
+                                  builder: (context) =>
+                                      const FillDetailsPage()));
                             }
                           },
-                          child: Text('Create Account'),
+                          child: const Text('Create Account'),
                         ),
                       ),
                     ],
@@ -164,15 +168,15 @@ class _SignUpPageState extends State<SignUpPage> {
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => LogInPage()));
+                                builder: (context) => const LogInPage()));
                       },
-                      child: Text(
+                      child: const Text(
                         'Login to App',
                         style: TextStyle(color: Colors.black),
                       )),
                   TextButton(
                       onPressed: () {},
-                      child: Text(
+                      child: const Text(
                         'Need help?',
                         style: TextStyle(color: Colors.black),
                       ))
