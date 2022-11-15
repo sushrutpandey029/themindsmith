@@ -1,14 +1,15 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:the_mindsmith/providers/articles_provider.dart';
 import 'package:the_mindsmith/providers/notification_provider.dart';
-import 'package:the_mindsmith/providers/prescription_provider.dart';
 import 'package:the_mindsmith/ui/screens/resources_screen.dart';
 import 'package:the_mindsmith/ui/screens/health_locker_screen.dart';
 import 'package:the_mindsmith/ui/screens/notification_screen.dart';
 import 'package:the_mindsmith/ui/screens/profile_screen.dart';
+import 'package:the_mindsmith/ui/screens/video_call_screen.dart';
 
 import 'customer_support.dart';
 import 'home_scren.dart';
@@ -89,12 +90,64 @@ class _WrapperState extends State<Wrapper> {
       // elevation: 0,
     ),
   ];
-  List<Widget> Elements = [
+  List<Widget> elements = [
     const HomePage(),
     const ProfilePage(),
     const HealthLockerPage(),
     const ResourcesPage(),
   ];
+  @override
+  void initState() {
+    AwesomeNotifications().isNotificationAllowed().then(
+      (isAllowed) {
+        if (!isAllowed) {
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: const Text('Allow Notifications'),
+              content:
+                  const Text('Our app would like to send you notifications'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text(
+                    'Don\'t Allow',
+                    style: TextStyle(color: Colors.grey, fontSize: 18),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () => AwesomeNotifications()
+                      .requestPermissionToSendNotifications()
+                      .then((_) => Navigator.pop(context)),
+                  child: const Text(
+                    'Allow',
+                    style: TextStyle(
+                      color: Colors.teal,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          );
+        }
+      },
+    );
+    AwesomeNotifications().setListeners(
+        onActionReceivedMethod: (receivedAction) async {
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (_) => const VideoCallPage(),
+          ),
+          (route) => route.isFirst);
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -155,7 +208,7 @@ class _WrapperState extends State<Wrapper> {
                 ],
               )
             : appBars.elementAt(_selectedIndex - 1),
-        body: Elements.elementAt(_selectedIndex),
+        body: elements.elementAt(_selectedIndex),
         bottomNavigationBar: Container(
           decoration: const BoxDecoration(
             boxShadow: <BoxShadow>[

@@ -67,7 +67,8 @@ class SlotProvider extends ChangeNotifier {
         .fetchNotification(context);
     Provider.of<SlotProvider>(context, listen: false).selectedSlot = null;
     Navigator.pop(context);
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => const PaymentPage()));
+    Navigator.pop(context);
+    // Navigator.of(context)
+    //     .push(MaterialPageRoute(builder: (context) => const PaymentPage()));
   }
 }

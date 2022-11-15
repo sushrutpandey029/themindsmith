@@ -13,22 +13,22 @@ import 'package:the_mindsmith/ui/screens/splash_screen.dart';
 import 'providers/chat_provider.dart';
 
 class MyApp extends StatelessWidget {
-  const MyApp({ Key? key }) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider (
+    return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context)=>AuthProvider()),
-        ChangeNotifierProvider(create: (context)=>DoctorProvider()),
-        ChangeNotifierProvider(create: (context)=>NotificationProvider()),
-        ChangeNotifierProvider(create: (context)=>ArticlesProvider ()),
-        ChangeNotifierProvider(create: (context)=>SlotProvider ()),
-        ChangeNotifierProvider(create: (context)=>PrescriptionProvider ()),
-        ChangeNotifierProvider(create: (context)=>ChatProvider ()),
-        ChangeNotifierProvider(create: (context)=>VideoCallProvider ()),
+        ChangeNotifierProvider(create: (context) => AuthProvider()),
+        ChangeNotifierProvider(create: (context) => DoctorProvider()),
+        ChangeNotifierProvider(create: (context) => NotificationProvider()),
+        ChangeNotifierProvider(create: (context) => ArticlesProvider()),
+        ChangeNotifierProvider(create: (context) => SlotProvider()),
+        ChangeNotifierProvider(create: (context) => PrescriptionProvider()),
+        ChangeNotifierProvider(create: (context) => ChatProvider()),
+        ChangeNotifierProvider(create: (context) => VideoCallProvider()),
       ],
-      child:  MaterialApp(
+      child: MaterialApp(
         home: const SplashScreen(),
         theme: lightTheme,
       ),

@@ -4,13 +4,11 @@ import 'package:the_mindsmith/constants/url_constant.dart';
 import 'package:the_mindsmith/models/doctor_model.dart';
 import 'package:the_mindsmith/providers/chat_provider.dart';
 import 'package:the_mindsmith/providers/doctor_provider.dart';
-import 'package:the_mindsmith/services/repo/slot_repo.dart';
-import 'package:the_mindsmith/ui/screens/consult_doctor_screen.dart';
 
 import '../../../constants/text_style.dart';
 
 class DoctorSelectionCard extends StatefulWidget {
-  DoctorSelectionCard(
+  const DoctorSelectionCard(
       {Key? key,
       required this.isChat,
       required this.doctorModel,
@@ -19,7 +17,7 @@ class DoctorSelectionCard extends StatefulWidget {
   final bool isChat;
   final DoctorModel doctorModel;
 
-  int index;
+  final int index;
 
   @override
   State<DoctorSelectionCard> createState() => _DoctorSelectionCardState();

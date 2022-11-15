@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:the_mindsmith/constants/text_style.dart';
 import 'package:the_mindsmith/models/doctor_model.dart';
 
+import '../../screens/doctor_profile_screen.dart';
+
 class DoctorProfileWidget extends StatefulWidget {
   const DoctorProfileWidget({Key? key, required this.doctorModel})
       : super(key: key);
@@ -17,7 +19,7 @@ class _DoctorProfileWidgetState extends State<DoctorProfileWidget> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 18),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             '${widget.doctorModel.doctorExperience} Years of Expreince',
@@ -43,11 +45,23 @@ class _DoctorProfileWidgetState extends State<DoctorProfileWidget> {
             thickness: 2,
             color: Colors.black,
           ),
-          Text(
-            widget.doctorModel.doctorQualification,
-            style: text2,
+          const SizedBox(
+            height: 20,
           ),
-          const Text('Education'),
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        DoctorProfilePgae(doctorModel: widget.doctorModel),
+                  ));
+            },
+            child: Text(
+              'Visit Profile',
+              style: text2.copyWith(color: Colors.blue),
+            ),
+          ),
         ],
       ),
     );

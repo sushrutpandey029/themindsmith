@@ -28,13 +28,18 @@ class _ProfilePageState extends State<ProfilePage> {
             Column(
               children: [
                 CircleAvatar(
-                    backgroundColor: Colors.grey[300],
-                    radius: 40,
-                    child: Image.network(
-                      '$imgUrl/${Provider.of<AuthProvider>(context, listen: false).userResponse!['users']['user_image']}',
-                      errorBuilder: ((context, error, stackTrace) =>
-                          Image.asset('assets/images/user2.png')),
-                    )),
+                  backgroundColor: Colors.grey[300],
+                  radius: 40,
+                  backgroundImage:
+                      Provider.of<AuthProvider>(context, listen: false)
+                                  .userResponse!['users']['user_image'] ==
+                              ''
+                          ? const AssetImage('assets/images/user2.png')
+                              as ImageProvider
+                          : NetworkImage(
+                              '$imgUrl/${Provider.of<AuthProvider>(context, listen: false).userResponse!['users']['user_image']}',
+                            ),
+                ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(

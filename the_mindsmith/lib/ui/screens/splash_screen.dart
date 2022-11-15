@@ -21,14 +21,14 @@ class _SplashScreenState extends State<SplashScreen> {
     });
   }
 
-  Offset _offset = Offset(0, 3);
+  Offset _offset = const Offset(0, 3);
   bool _isVisible = false;
 
   @override
   Widget build(BuildContext context) {
     Future.microtask(
       () {
-        Timer(Duration(seconds: 2), () {
+        Timer(const Duration(seconds: 2), () {
           if (mounted) {
             setState(() {
               _offset = Offset.zero;
@@ -49,12 +49,12 @@ class _SplashScreenState extends State<SplashScreen> {
               'assets/images/mindsmith-logo.png',
               width: 180,
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             AnimatedSlide(
                 offset: _offset,
-                duration: Duration(seconds: 1),
+                duration: const Duration(seconds: 1),
                 child: _isVisible
                     ? Text(
                         'WELCOME TO HEALTHY LIFE',

@@ -132,7 +132,8 @@ class _ConsultDoctorPageState extends State<ConsultDoctorPage> {
                           // if (_selectedIndex == 0)
                           DoctorProfileWidget(
                             doctorModel: doctorModel,
-                          )
+                          ),
+
                           // else
                           //   DoctorClinicWidget(
                           //     doctorModel: doctorModel,
