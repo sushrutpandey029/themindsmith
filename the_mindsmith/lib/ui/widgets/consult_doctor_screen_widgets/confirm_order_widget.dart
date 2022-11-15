@@ -22,7 +22,6 @@ class _ConfirmOrderWidgetState extends State<ConfirmOrderWidget> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
     _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
@@ -63,8 +62,8 @@ class _ConfirmOrderWidgetState extends State<ConfirmOrderWidget> {
           decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(10),
-              boxShadow: [
-                const BoxShadow(blurRadius: 3, offset: const Offset(1, 1))
+              boxShadow: const [
+                BoxShadow(blurRadius: 3, offset: Offset(1, 1))
               ]),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -84,7 +83,11 @@ class _ConfirmOrderWidgetState extends State<ConfirmOrderWidget> {
                         style: text3,
                       ),
                       Text(
-                        "${formateDate(slotModel.scheduleDate)} - ${formateTime(slotModel.startTime)}",
+                        "To: ${formateDate(slotModel.scheduleDate)} - ${formateTime(slotModel.startTime)}",
+                        style: text3,
+                      ),
+                      Text(
+                        "From: ${formateDate(slotModel.scheduleDate)} - ${formateTime(slotModel.endTime)}",
                         style: text3,
                       ),
                     ],
@@ -100,17 +103,26 @@ class _ConfirmOrderWidgetState extends State<ConfirmOrderWidget> {
           decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(10),
-              boxShadow: [
-                const BoxShadow(blurRadius: 3, offset: const Offset(1, 1))
+              boxShadow: const [
+                BoxShadow(blurRadius: 3, offset: Offset(1, 1))
               ]),
           child: Padding(
             padding: const EdgeInsets.all(18.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'Order Summary',
-                  style: text2,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Duration',
+                      style: text2,
+                    ),
+                    Text(
+                      slotModel.avgSlotTiming,
+                      style: text2,
+                    ),
+                  ],
                 ),
                 const SizedBox(
                   height: 10,
@@ -119,7 +131,7 @@ class _ConfirmOrderWidgetState extends State<ConfirmOrderWidget> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Consulting fees',
+                      'Fee',
                       style: text2,
                     ),
                     Text(
@@ -174,7 +186,7 @@ class _ConfirmOrderWidgetState extends State<ConfirmOrderWidget> {
                 //     .bookSlot(context);
               });
             },
-            child: const Text('Confirm Order'))
+            child: const Text('Pay'))
       ],
     );
   }

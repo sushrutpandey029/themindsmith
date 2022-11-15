@@ -22,6 +22,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Padding(
       padding: const EdgeInsets.all(18.0),
       child: Column(
@@ -41,7 +42,7 @@ class _HomePageState extends State<HomePage> {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 18.0),
             child: Text(
-              'Welcome to The MindSmith Community',
+              'Welcome to The MindSmith',
               textAlign: TextAlign.center,
               style: heading2,
             ),
@@ -49,54 +50,73 @@ class _HomePageState extends State<HomePage> {
           const Padding(
             padding: EdgeInsets.only(bottom: 18.0),
             child: Text(
-              'India\'s most premium and safe channel for Mental Health and Addiction Consultation',
+              'India\'s most premium and safe channel for Brain, Behaviour and Emotional Health',
               textAlign: TextAlign.center,
             ),
           ),
-          const Spacer(),
-          Row(
-            children: [
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ElevatedButton(
-                      style:halfButtonStyle,
-                      onPressed: () async {
-                        Provider.of<DoctorProvider>(context, listen: false)
-                            .fetchDoctor(context, false);
-                      },
-                      child: Center(
-                          child: Text(
-                        'Book First Consultation',
-                        style: text1,
-                      ))),
-                ),
-              ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ElevatedButton(
-                      style: halfButtonStyle,
-                      onPressed: () {
-                        Provider.of<NotificationProvider>(context,
-                              listen: false)
-                          .fetchNotification(context);
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: ((context) => const ConsulationPage())));
-                      },
-                      child: Center(
-                          child: Text(
-                        'Book Follow-up Consultation',
-                        style: text1,
-                      ))),
-                ),
-              )
-            ],
+
+          Image(
+            image: const AssetImage('assets/images/mindsmith-logo.png'),
+            height: size.height * 0.18,
           ),
-         
-          const Spacer(),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ElevatedButton(
+                style: fullButtonStyleWhite,
+                onPressed: () {
+                  Provider.of<DoctorProvider>(context, listen: false)
+                      .fetchDoctor(context, false);
+                },
+                child: Center(
+                    child: Text(
+                  'Book an appointment',
+                  style: text1,
+                ))),
+          ),
+          // Row(
+          //   children: [
+          //     Expanded(
+          //       child: Padding(
+          //         padding: const EdgeInsets.all(8.0),
+          //         child: ElevatedButton(
+          //             style: halfButtonStyle,
+          //             onPressed: () async {
+          //               Provider.of<DoctorProvider>(context, listen: false)
+          //                   .fetchDoctor(context, false);
+          //             },
+          //             child: Center(
+          //                 child: Text(
+          //               'Book First Consultation',
+          //               style: text1,
+          //             ))),
+          //       ),
+          //     ),
+          //     Expanded(
+          //       child: Padding(
+          //         padding: const EdgeInsets.all(8.0),
+          //         child: ElevatedButton(
+          //             style: halfButtonStyle,
+          //             onPressed: () {
+          //               Provider.of<NotificationProvider>(context,
+          //                       listen: false)
+          //                   .fetchNotification(context);
+          //               Navigator.push(
+          //                   context,
+          //                   MaterialPageRoute(
+          //                       builder: ((context) =>
+          //                           const ConsulationPage())));
+          //             },
+          //             child: Center(
+          //                 child: Text(
+          //               'Book Follow-up Consultation',
+          //               style: text1,
+          //             ))),
+          //       ),
+          //     )
+          //   ],
+          // ),
+
+          // const Spacer(),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 18.0),
             child: Container(
@@ -104,7 +124,9 @@ class _HomePageState extends State<HomePage> {
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
                   color: Colors.white,
-                  boxShadow: [const BoxShadow(blurRadius: 10, offset: Offset(5, 5))],
+                  boxShadow: const [
+                    BoxShadow(blurRadius: 10, offset: Offset(5, 5))
+                  ],
                   borderRadius: BorderRadius.circular(20)),
               child: Column(
                 // mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -125,27 +147,40 @@ class _HomePageState extends State<HomePage> {
                         textAlign: TextAlign.center),
                   ),
                   const Spacer(),
-                  InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ConsultNowPage()));
-                    },
-                    child: Container(
-                      height: 60,
-                      width: MediaQuery.of(context).size.width,
-                      decoration: const BoxDecoration(
-                          color: Colors.black,
-                          borderRadius: BorderRadius.vertical(
-                              bottom: Radius.circular(20))),
-                      child: const Center(
-                          child: Text(
-                        'Consult now',
-                        style: TextStyle(color: Colors.white),
-                      )),
-                    ),
-                  )
+                  // InkWell(
+                  //   onTap: () {
+                  //     Navigator.push(
+                  //         context,
+                  //         MaterialPageRoute(
+                  //             builder: (context) => ConsultNowPage()));
+                  //   },
+                  //   child: Container(
+                  //     height: 60,
+                  //     width: MediaQuery.of(context).size.width,
+                  //     decoration: const BoxDecoration(
+                  //         color: Colors.black,
+                  //         borderRadius: BorderRadius.vertical(
+                  //             bottom: Radius.circular(20))),
+                  //     child: const Center(
+                  //         child: Text(
+                  //       'Consult now',
+                  //       style: TextStyle(color: Colors.white),
+                  //     )),
+                  //   ),
+                  // )
+                  Container(
+                    height: 60,
+                    width: MediaQuery.of(context).size.width,
+                    decoration: const BoxDecoration(
+                        color: Colors.black,
+                        borderRadius:
+                            BorderRadius.vertical(bottom: Radius.circular(20))),
+                    child: const Center(
+                        child: Text(
+                      'Consult now',
+                      style: TextStyle(color: Colors.white),
+                    )),
+                  ),
                 ],
               ),
             ),

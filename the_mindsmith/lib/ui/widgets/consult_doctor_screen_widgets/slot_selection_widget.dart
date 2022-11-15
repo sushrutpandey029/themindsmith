@@ -27,25 +27,25 @@ class _ConsultWidgetState extends State<ConsultWidget> {
       padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 18),
       child: Column(
         children: [
-          SizedBox(
-            width: MediaQuery.of(context).size.width,
-            child: ElevatedButton(
-                style: fullButtonStyle,
-                onPressed: () {},
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      const Text(
-                        'Consult Online',
-                        style: TextStyle(fontSize: 20),
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
-                  ),
-                )),
-          ),
+          // SizedBox(
+          //   width: MediaQuery.of(context).size.width,
+          //   child: ElevatedButton(
+          //       style: fullButtonStyle,
+          //       onPressed: () {},
+          //       child: Padding(
+          //         padding: const EdgeInsets.all(16.0),
+          //         child: Column(
+          //           crossAxisAlignment: CrossAxisAlignment.stretch,
+          //           children: [
+          //             // const Text(
+          //             //   'Consult Online',
+          //             //   style: TextStyle(fontSize: 20),
+          //             //   textAlign: TextAlign.center,
+          //             // ),
+          //           ],
+          //         ),
+          //       )),
+          // ),
           _isConfirmOrderWidget
               ? const ConfirmOrderWidget()
               : Consumer<SlotProvider>(
@@ -76,8 +76,8 @@ class _ConsultWidgetState extends State<ConsultWidget> {
                           decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(10),
-                              boxShadow: [
-                                const BoxShadow(blurRadius: 3, offset: const Offset(1, 1))
+                              boxShadow: const [
+                                BoxShadow(blurRadius: 3, offset: Offset(1, 1))
                               ]),
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
@@ -92,11 +92,14 @@ class _ConsultWidgetState extends State<ConsultWidget> {
                           padding: EdgeInsets.symmetric(vertical: 10.0),
                           child: Divider(
                             thickness: 3,
-                             color: Colors.black,
+                            color: Colors.black,
                           ),
                         ),
-                        if(slotList.isEmpty)
-                        Text('No Slot available for now!!',style: text2,),
+                        if (slotList.isEmpty)
+                          Text(
+                            'No Slot available for now!!',
+                            style: text2,
+                          ),
                         Wrap(
                           // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
@@ -115,16 +118,17 @@ class _ConsultWidgetState extends State<ConsultWidget> {
                                             ? Border.all(width: 2)
                                             : const Border(),
                                         borderRadius: BorderRadius.circular(10),
-                                        boxShadow: [
-                                          const BoxShadow(
+                                        boxShadow: const [
+                                          BoxShadow(
                                               blurRadius: 3,
-                                              offset: const Offset(1, 1))
+                                              offset: Offset(1, 1))
                                         ]),
                                     // height: 80,
                                     width: 150,
                                     child: Center(
                                         child: Padding(
-                                      padding: const EdgeInsets.symmetric(vertical:8.0),
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 8.0),
                                       child: Column(
                                         children: [
                                           Text(
@@ -148,7 +152,7 @@ class _ConsultWidgetState extends State<ConsultWidget> {
                         // ),
                         const Divider(
                           thickness: 3,
-                           color: Colors.black,
+                          color: Colors.black,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -170,10 +174,11 @@ class _ConsultWidgetState extends State<ConsultWidget> {
                                     setState(() {
                                       _isConfirmOrderWidget = true;
                                     });
-                                  }
-                                  else {
-                                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('please select a slot')));
-                                    
+                                  } else {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        const SnackBar(
+                                            content:
+                                                Text('please select a slot')));
                                   }
                                 },
                                 child: const Text('Continue'))
