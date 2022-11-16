@@ -75,14 +75,14 @@ class _AppointmentDetailsPageState extends State<AppointmentDetailsPage> {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
-                                'Thanks & Regards',
+                                'I look forward to talking to you!',
                                 style: text4,
                               ),
                             ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
-                                'The MindSmith',
+                                value.selectedAllotment!.doctorName,
                                 style: text4,
                               ),
                             )

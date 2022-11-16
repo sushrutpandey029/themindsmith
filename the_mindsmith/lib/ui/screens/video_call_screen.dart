@@ -99,7 +99,7 @@ class _AgoraVideoCallState extends State<AgoraVideoCall> {
                       id: createUniqueId(),
                       channelKey: 'call_channel',
                       title:
-                          'Call from ${Provider.of<NotificationProvider>(context, listen: false).selectedAllotment!.doctorName} ',
+                          'Ongoing Call from ${Provider.of<NotificationProvider>(context, listen: false).selectedAllotment!.doctorName} ',
                       notificationLayout: NotificationLayout.Default,
                       color: Colors.teal,
                     ),

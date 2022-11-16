@@ -1,9 +1,9 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:badges/badges.dart';
 import 'package:doctor_app/provider/slot_provider.dart';
 import 'package:doctor_app/ui/screens/resources_screen.dart';
 import 'package:doctor_app/ui/screens/prescriptions_locker_screen.dart';
 import 'package:doctor_app/ui/screens/profile_screen.dart';
-import 'package:doctor_app/ui/screens/weekly_schedule_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
@@ -11,6 +11,7 @@ import 'package:provider/provider.dart';
 import '../../provider/notification_provider.dart';
 import 'e_wallet_screen.dart';
 import 'home_screen.dart';
+import 'video_consultation_screen.dart';
 
 class Wrapper extends StatefulWidget {
   const Wrapper({Key? key}) : super(key: key);
@@ -94,6 +95,59 @@ class _WrapperState extends State<Wrapper> {
     ResourcesPage(),
     const PrescriptionLockerPage(),
   ];
+
+  @override
+  void initState() {
+    AwesomeNotifications().isNotificationAllowed().then(
+      (isAllowed) {
+        if (!isAllowed) {
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: const Text('Allow Notifications'),
+              content:
+                  const Text('Our app would like to send you notifications'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text(
+                    'Don\'t Allow',
+                    style: TextStyle(color: Colors.grey, fontSize: 18),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () => AwesomeNotifications()
+                      .requestPermissionToSendNotifications()
+                      .then((_) => Navigator.pop(context)),
+                  child: const Text(
+                    'Allow',
+                    style: TextStyle(
+                      color: Colors.teal,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          );
+        }
+      },
+    );
+    AwesomeNotifications().setListeners(
+        onActionReceivedMethod: (receivedAction) async {
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (_) => const VideoConsultationPage(),
+          ),
+          (route) => route.isFirst);
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
