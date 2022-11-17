@@ -15,7 +15,7 @@ class ArticlesProvider extends ChangeNotifier {
   void selectArticle(BuildContext context, int index) {
     selectedArticle = articles.elementAt(index);
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => ArticlePage()));
+        context, MaterialPageRoute(builder: (context) => const ArticlePage()));
     notifyListeners();
   }
 

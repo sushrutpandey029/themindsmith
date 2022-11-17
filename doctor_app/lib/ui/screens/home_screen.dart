@@ -1,5 +1,7 @@
 import 'package:badges/badges.dart';
 import 'package:doctor_app/model/slot_model.dart';
+import 'package:doctor_app/ui/screens/edit_profile_screen.dart';
+import 'package:doctor_app/ui/screens/profile_screen.dart';
 import 'package:intl/intl.dart';
 import 'package:doctor_app/constants/button_style.dart';
 import 'package:doctor_app/constants/text_style.dart';
@@ -77,9 +79,10 @@ class _HomePageState extends State<HomePage>
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: ((context) => UpcomingAppointmentPage())));
+                          builder: ((context) =>
+                              const UpcomingAppointmentPage())));
                 },
-                child: const Text('Upcoming Appointment')),
+                child: const Text('My Appointment')),
           ),
         ),
         Consumer<SlotProvider>(
@@ -137,12 +140,16 @@ class _HomePageState extends State<HomePage>
                                       'No upcoming appointment',
                                   style: text2,
                                 ),
-                                Text(
-                                    'Date           : ${upcomingslot?.appointmentDate ?? ' '}',
-                                    style: text3),
-                                Text(
-                                    'Start time  : ${formateTime(upcomingslot?.startedTime ?? ' ')}',
-                                    style: text3),
+                                upcomingslot?.appointmentDate == null
+                                    ? const SizedBox()
+                                    : Text(
+                                        'Date           : ${upcomingslot?.appointmentDate ?? ' '}',
+                                        style: text3),
+                                upcomingslot?.startedTime == null
+                                    ? const SizedBox()
+                                    : Text(
+                                        'Start time  : ${formateTime(upcomingslot?.startedTime ?? ' ')}',
+                                        style: text3),
                               ],
                             ),
                           ],
@@ -163,7 +170,7 @@ class _HomePageState extends State<HomePage>
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const AboutMePage()));
+                              builder: (context) => const EditProfilePage()));
                     },
                     child: const Text('My Profile')),
               ),
@@ -176,7 +183,7 @@ class _HomePageState extends State<HomePage>
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: ((context) => UserListing(
+                              builder: ((context) => const UserListing(
                                     title: 'Patient History',
                                   ))));
                     },

@@ -14,18 +14,29 @@ class _PayOutHistoryPageState extends State<PayOutHistoryPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBar(context,"Payout History",),
-      body: Padding(padding: EdgeInsets.all(18),
-      child: Column(
-        children: [
-           SizedBox(height: 20,),
-           PayoutHistoryTileWidget(name: 'Rakesh sharma', amount: '1000', bankName: 'HDFC'),
-           PayoutHistoryTileWidget(name: 'Rakesh sharma', amount: '1000', bankName: 'HDFC'),
-           PayoutHistoryTileWidget(name: 'Rakesh sharma', amount: '1000', bankName: 'HDFC'),
-           PayoutHistoryTileWidget(name: 'Rakesh sharma', amount: '1000', bankName: 'HDFC'),
-           PayoutHistoryTileWidget(name: 'Rakesh sharma', amount: '1000', bankName: 'HDFC'),
-        ],
+      appBar: customAppBar(
+        context,
+        "Payout History",
       ),
+      body: Padding(
+        padding: const EdgeInsets.all(18),
+        child: Column(
+          children: const [
+            SizedBox(
+              height: 20,
+            ),
+            PayoutHistoryTileWidget(
+                name: 'The MindSmith', amount: '1000', bankName: 'HDFC'),
+            PayoutHistoryTileWidget(
+                name: 'The MindSmith', amount: '1000', bankName: 'HDFC'),
+            PayoutHistoryTileWidget(
+                name: 'The MindSmith', amount: '1000', bankName: 'HDFC'),
+            PayoutHistoryTileWidget(
+                name: 'The MindSmith', amount: '1000', bankName: 'HDFC'),
+            PayoutHistoryTileWidget(
+                name: 'The MindSmith', amount: '1000', bankName: 'HDFC'),
+          ],
+        ),
       ),
     );
   }

@@ -11,7 +11,7 @@ import '../../util/date_time_helper.dart';
 import '../widgets/comman/app_bar.dart';
 
 class PatientDetailsPage extends StatefulWidget {
-  PatientDetailsPage({Key? key}) : super(key: key);
+  const PatientDetailsPage({Key? key}) : super(key: key);
 
   @override
   State<PatientDetailsPage> createState() => _PatientDetailsPageState();
@@ -21,13 +21,15 @@ class _PatientDetailsPageState extends State<PatientDetailsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBar(context,"Patient Details",),
+      appBar: customAppBar(
+        context,
+        "Patient Details",
+      ),
       body: Center(
         child: Padding(
-          padding: EdgeInsets.all(18),
+          padding: const EdgeInsets.all(18),
           child: Consumer<SlotProvider>(
-
-            builder: (context, value,widget) {
+            builder: (context, value, widget) {
               return Column(
                 children: [
                   CircleAvatar(
@@ -54,7 +56,7 @@ class _PatientDetailsPageState extends State<PatientDetailsPage> {
                             //     child: Text(formateDate(value.selectedAllotment!.appointmentDate),style: text2,),
                             //   ),
                             // ),
-      
+
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
@@ -68,9 +70,9 @@ class _PatientDetailsPageState extends State<PatientDetailsPage> {
                                 'Your Appointment with ${value.selectedSlot!.userName} is booked successfully and Scheduled on ${formateDate(value.selectedSlot!.appointmentDate)} at  ${formateTime(value.selectedSlot!.startedTime)} for ${value.selectedSlot!.timeSlot}.',
                                 style: text2,
                               ),
-                            ), 
-                           
-                            Divider(
+                            ),
+
+                            const Divider(
                               height: 30,
                               thickness: 2,
                               color: Color.fromARGB(200, 0, 0, 0),
@@ -96,15 +98,20 @@ class _PatientDetailsPageState extends State<PatientDetailsPage> {
                   ),
                   ElevatedButton(
                       style: smallBlackButtonStyle1,
-                      onPressed:compareDate(value.selectedSlot!.appointmentDate)? () {
-                        Provider.of<VideoCallProvider>(context,listen: false).connectCall(context);
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: ((context) =>
-                                    VideoConsultationPage())));
-                      }:null,
-                      child: Text('Join Call')),
+                      onPressed:
+                          compareDate(value.selectedSlot!.appointmentDate)
+                              ? () async {
+                                  await Provider.of<VideoCallProvider>(context,
+                                          listen: false)
+                                      .connectCall(context, true);
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: ((context) =>
+                                              const VideoConsultationPage())));
+                                }
+                              : null,
+                      child: const Text('Join Call')),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: ElevatedButton(
@@ -115,7 +122,7 @@ class _PatientDetailsPageState extends State<PatientDetailsPage> {
                               context,
                               MaterialPageRoute(
                                   builder: ((context) =>
-                                      MedicalHistoryPage())));
+                                      const MedicalHistoryPage())));
                         },
                         child: const Text('Medical History')),
                   ),

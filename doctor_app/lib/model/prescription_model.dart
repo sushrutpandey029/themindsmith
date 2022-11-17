@@ -23,7 +23,6 @@ class PrescriptionModel {
     required this.userSymptoms,
     required this.medicalHistory,
   });
-  
 
   Map<String, dynamic> toMap() {
     return {
@@ -42,10 +41,10 @@ class PrescriptionModel {
 
   factory PrescriptionModel.fromMap(Map<String, dynamic> map) {
     return PrescriptionModel(
-      doctorId: map['doctor_id'] ?? '',
-      doctorName: map['doctor_name'] ?? '',
+      doctorId: map['doc_id'] ?? '',
+      doctorName: map['doc_name'] ?? '',
       userId: map['user_id'] ?? '',
-      userRegNo: map['user_reg_no']??'',
+      userRegNo: map['user_reg_no'] ?? '',
       userName: map['user_name'] ?? '',
       userFullName: map['user_full_name'] ?? '',
       userEmail: map['user_email'] ?? '',
@@ -57,7 +56,8 @@ class PrescriptionModel {
 
   String toJson() => json.encode(toMap());
 
-  factory PrescriptionModel.fromJson(String source) => PrescriptionModel.fromMap(json.decode(source));
+  factory PrescriptionModel.fromJson(String source) =>
+      PrescriptionModel.fromMap(json.decode(source));
 
   @override
   String toString() {

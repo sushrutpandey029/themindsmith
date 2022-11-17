@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class UpcomingAppointmentPage extends StatefulWidget {
-  UpcomingAppointmentPage({Key? key}) : super(key: key);
+  const UpcomingAppointmentPage({Key? key}) : super(key: key);
 
   @override
   State<UpcomingAppointmentPage> createState() =>
@@ -20,14 +20,14 @@ class _UpcomingAppointmentPageState extends State<UpcomingAppointmentPage> {
     return Scaffold(
         appBar: customAppBar(context, 'Upcoming Appointments'),
         body: Padding(
-            padding: EdgeInsets.all(18),
+            padding: const EdgeInsets.all(18),
             child: Consumer<SlotProvider>(builder: (context, value, child) {
               return Column(
                 children: [
                   if (value.isLoading)
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: const Align(
+                    const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Align(
                         alignment: Alignment.center,
                         child: SizedBox(
                           height: 30,
@@ -37,13 +37,12 @@ class _UpcomingAppointmentPageState extends State<UpcomingAppointmentPage> {
                       ),
                     ),
                   Expanded(
-                    
                     child: RefreshIndicator(
-                      onRefresh: ()async {
+                      onRefresh: () async {
                         value.fetchSlots(context);
                       },
                       child: ListView.builder(
-                        shrinkWrap: true,
+                          shrinkWrap: true,
                           itemCount: value.slotList.length,
                           itemBuilder: (BuildContext context, int index) {
                             return Column(
@@ -56,10 +55,11 @@ class _UpcomingAppointmentPageState extends State<UpcomingAppointmentPage> {
                                             .split(' ')
                                             .first)
                                   Text(
-                                      formateDate(value.slotList.elementAt(index).appointmentDate),
+                                      formateDate(value.slotList
+                                          .elementAt(index)
+                                          .appointmentDate),
                                       style: text2),
                                 AppointmentBarWidget(
-                                 
                                   name: value.slotList[index].userName,
                                   time: value.slotList[index].startedTime,
                                   index: index,

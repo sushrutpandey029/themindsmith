@@ -150,6 +150,7 @@ class _NewPrescriptionPageState extends State<NewPrescriptionPage> {
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: TextFormField(
                     controller: _symptomsController,
+                    maxLines: null,
                     decoration: InputDecoration(
                         fillColor: Colors.grey[300],
                         filled: true,
@@ -175,6 +176,7 @@ class _NewPrescriptionPageState extends State<NewPrescriptionPage> {
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: TextFormField(
                     controller: _notesController,
+                    maxLines: null,
                     decoration: InputDecoration(
                         fillColor: Colors.grey[300],
                         filled: true,

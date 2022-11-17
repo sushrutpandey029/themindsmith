@@ -33,7 +33,7 @@ class PayoutHistoryTileWidget extends StatelessWidget {
                   style: text3,
                 ),
                 Text(
-                  'Certified to $bankName',
+                  'Credited to $bankName',
                   style: const TextStyle(fontSize: 12),
                 ),
               ],

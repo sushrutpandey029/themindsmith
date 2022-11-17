@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants/button_style.dart';
+import '../../provider/video_call_provider.dart';
 import '../../util/date_time_helper.dart';
 
 class AppointmentDetailsPage extends StatefulWidget {
@@ -95,7 +96,10 @@ class _AppointmentDetailsPageState extends State<AppointmentDetailsPage> {
                           style: smallBlackButtonStyle1,
                           onPressed: compareDate(
                                   value.selectedAllotment!.appointmentDate)
-                              ? () {
+                              ? () async {
+                                  await Provider.of<VideoCallProvider>(context,
+                                          listen: false)
+                                      .connectCall(context, false);
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(

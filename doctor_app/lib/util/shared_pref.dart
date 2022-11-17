@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:doctor_app/model/doctor_model.dart';
 import 'package:doctor_app/provider/notification_provider.dart';
@@ -60,9 +59,10 @@ class SharedPref {
       Provider.of<AuthProvider>(context, listen: false).doctorModel =
           DoctorModel.fromMap(json.decode(doctorModel));
       await setDate();
-      Provider.of<SlotProvider>(context, listen: false)
+      await Provider.of<SlotProvider>(context, listen: false)
           .fetchSingleSlot(context);
-      Provider.of<SlotProvider>(context, listen: false).fetchSlots(context);
+      await Provider.of<SlotProvider>(context, listen: false)
+          .fetchSlots(context);
       Provider.of<NotificationProvider>(context, listen: false)
           .fetchNotification(context);
       Provider.of<SlotProvider>(context, listen: false)

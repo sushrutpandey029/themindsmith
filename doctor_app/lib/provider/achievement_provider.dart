@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -46,7 +45,6 @@ class AchievementProvider extends ChangeNotifier {
       try {
         String response = await _achievementRepo.uploadAchievement(
             doctorId, doctorName, path!, context);
-        print(response);
         Navigator.pop(context);
         errorDialogue(context: context, message: response);
       } on DioError catch (e) {

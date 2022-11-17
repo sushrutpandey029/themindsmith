@@ -32,6 +32,7 @@ dependencies:
   badges: null
   cupertino_icons: ^1.0.2
   dio: null
+  dotted_line: ^3.1.0
   file_picker: null
   flutter:
     sdk: flutter

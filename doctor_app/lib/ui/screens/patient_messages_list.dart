@@ -21,12 +21,12 @@ class _PatientMessagesListPageState extends State<PatientMessagesListPage> {
         "Chat",
       ),
       body: Padding(
-        padding: EdgeInsets.all(18),
+        padding: const EdgeInsets.all(18),
         child: Consumer<ChatProvider>(builder: ((context, value, child) {
           return Column(
             children: [
               if (value.isLoading)
-                Align(
+                const Align(
                   alignment: Alignment.center,
                   child: SizedBox(
                       height: 30,
@@ -40,7 +40,7 @@ class _PatientMessagesListPageState extends State<PatientMessagesListPage> {
                     itemCount: value.userList.length,
                     itemBuilder: ((context, index) {
                       return Card(
-                        margin: EdgeInsets.all(12),
+                        margin: const EdgeInsets.all(12),
                         elevation: 8,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20)),

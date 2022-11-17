@@ -21,7 +21,7 @@ class _VideoConsultationPageState extends State<VideoConsultationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBar(context, null),
+      appBar: customAppBar(context, null, isback: false),
       body: test
           ? const AgoraVideoCall()
           : Column(
@@ -105,7 +105,7 @@ class _AgoraVideoCallState extends State<AgoraVideoCall> {
                       id: createUniqueId(),
                       channelKey: 'call_channel',
                       title:
-                          'Ongoing Call from ${Provider.of<NotificationProvider>(context, listen: false).selectedAllotment!.userName} ',
+                          'Ongoing Call from ${Provider.of<NotificationProvider>(context, listen: false).selectedAllotment?.userName ?? 'caller'} ',
                       notificationLayout: NotificationLayout.Default,
                       color: Colors.teal,
                     ),
