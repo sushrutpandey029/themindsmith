@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-// import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:the_mindsmith/constants/button_style.dart';
 import 'package:the_mindsmith/constants/input_decoration.dart';
@@ -87,7 +86,7 @@ class _LogInPageState extends State<LogInPage> {
                     onPressed: () async {
                       // await authApi.insertUser(UserModel(userName: 'userName', userEmail: 'userEmail', userPhone: 'userPhone', userPassword: 'userPassword', userConfirmPassword: 'userConfirmPassword', aadharName: 'aadharName', aadharCardNo: 'aadharCardNo', gender: 'gender', userAge: 'userAge', frontImageAadhar: File(image!.path), backImageAadhar: File(image.path), penCardImage: File(image.path)));
 
-                      Provider.of<AuthProvider>(context, listen: false)
+                      await Provider.of<AuthProvider>(context, listen: false)
                           .loginWithEmail(_email.text, _password.text, context);
 
                       //  Navigator.pushReplacement(context, MaterialPageRoute(builder: ((context) => Wrapper())));

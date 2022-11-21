@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:the_mindsmith/models/book_slot_model.dart';
 import 'package:the_mindsmith/models/slot_model.dart';
 import 'package:the_mindsmith/providers/notification_provider.dart';
@@ -23,7 +24,7 @@ class SlotProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> bookSlot(BuildContext context) async {
+  Future<void> bookSlot(BuildContext context, String fee) async {
     showDialog(
         context: context,
         builder: (context) => const Center(child: CircularProgressIndicator()));
@@ -58,7 +59,7 @@ class SlotProvider extends ChangeNotifier {
       doc.doctorName,
       doc.doctorNumber,
       doc.doctorEmail,
-      doc.doctorFee,
+      fee,
       "12345abcde",
     );
     await _bookSlotRepo.bookSlot(bookSlotModel);
@@ -70,5 +71,39 @@ class SlotProvider extends ChangeNotifier {
     Navigator.pop(context);
     // Navigator.of(context)
     //     .push(MaterialPageRoute(builder: (context) => const PaymentPage()));
+  }
+}
+
+class SlotDataSource extends CalendarDataSource {
+  SlotDataSource(List<SlotModel> appointments) {
+    this.appointments = appointments;
+  }
+  SlotModel getSlot(int index) => appointments![index] as SlotModel;
+
+  @override
+  DateTime getStartTime(int index) {
+    return DateTime.parse(
+        '${getSlot(index).scheduleDate} ${getSlot(index).startTime}');
+  }
+
+  @override
+  DateTime getEndTime(int index) {
+    return DateTime.parse(
+        '${getSlot(index).scheduleDate} ${getSlot(index).endTime}');
+  }
+
+  @override
+  String getSubject(int index) {
+    return getSlot(index).avgSlotTiming;
+  }
+
+  @override
+  Color getColor(int index) {
+    return getSlot(index).status == 'not book' ? Colors.green : Colors.red;
+  }
+
+  @override
+  bool isAllDay(int index) {
+    return false;
   }
 }

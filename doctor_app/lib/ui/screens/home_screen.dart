@@ -202,7 +202,8 @@ class _HomePageState extends State<HomePage>
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: ((context) => PatientMessagesListPage())));
+                        builder: ((context) =>
+                            const PatientMessagesListPage())));
               },
               child: const Text('My Chats')),
         ),

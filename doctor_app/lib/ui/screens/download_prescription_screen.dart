@@ -60,11 +60,12 @@ class _DownloadPrescriptionPageState extends State<DownloadPrescriptionPage> {
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  const Padding(
-                                    padding: EdgeInsets.all(8.0),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
                                     child: Text(
-                                      'MBBS(AFMC), DPM PSYCHIATRY\nREG.No.3562',
-                                      style: TextStyle(
+                                      value.selectedPrescription!
+                                          .doctorQualification,
+                                      style: const TextStyle(
                                         color: Colors.white,
                                         fontSize: 10,
                                       ),
@@ -236,20 +237,23 @@ class _DownloadPrescriptionPageState extends State<DownloadPrescriptionPage> {
                                             ],
                                           ),
                                           Row(
-                                            children: const [
-                                              Text(
+                                            children: [
+                                              const Text(
                                                 'ID NO.',
                                                 style: TextStyle(
                                                   fontSize: 11,
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                               ),
-                                              SizedBox(
+                                              const SizedBox(
                                                 width: 5,
                                               ),
                                               Text(
-                                                'MS - 2211/11',
-                                                style: TextStyle(fontSize: 11),
+                                                value.selectedPrescription!
+                                                        .pclientid ??
+                                                    'to be generated',
+                                                style: const TextStyle(
+                                                    fontSize: 11),
                                               ),
                                             ],
                                           ),
@@ -257,7 +261,23 @@ class _DownloadPrescriptionPageState extends State<DownloadPrescriptionPage> {
                                       ),
                                     ),
                                     const SizedBox(
-                                      height: 40,
+                                      height: 20,
+                                    ),
+                                    const Text(
+                                      'Symptoms',
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
+                                    Text(
+                                      value.selectedPrescription!.userSymptoms,
+                                      style: const TextStyle(fontSize: 11),
+                                    ),
+                                    const SizedBox(
+                                      height: 15,
                                     ),
                                     const Icon(
                                       Icons.medical_services_outlined,
@@ -267,7 +287,7 @@ class _DownloadPrescriptionPageState extends State<DownloadPrescriptionPage> {
                                       height: 10,
                                     ),
                                     Text(
-                                      value.selectedPrescription!.userSymptoms,
+                                      value.selectedPrescription!.notes,
                                       style: const TextStyle(fontSize: 13),
                                     ),
                                     const SizedBox(
@@ -281,19 +301,15 @@ class _DownloadPrescriptionPageState extends State<DownloadPrescriptionPage> {
                                         DottedLine(
                                           lineLength: size.width * 0.38,
                                         ),
-                                        const Text(
-                                          '15 DAYS',
-                                          style: TextStyle(
+                                        Text(
+                                          value
+                                              .selectedPrescription!.pvalidtime,
+                                          style: const TextStyle(
                                             fontSize: 12,
                                             fontWeight: FontWeight.bold,
                                           ),
                                         )
                                       ],
-                                    ),
-                                    Text(
-                                      value
-                                          .selectedPrescription!.medicalHistory,
-                                      style: const TextStyle(fontSize: 11),
                                     ),
                                     const SizedBox(
                                       height: 20,

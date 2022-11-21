@@ -19,8 +19,36 @@ class NewPrescriptionPage extends StatefulWidget {
 class _NewPrescriptionPageState extends State<NewPrescriptionPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _ageController = TextEditingController();
-  final TextEditingController _symptomsController = TextEditingController();
   final TextEditingController _notesController = TextEditingController();
+  final TextEditingController _pvalidtimeController = TextEditingController();
+  final List<bool> _values = [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+  ];
+  final List<String> symptoms = [
+    'Sleep or appetite changes — Dramatic sleep and appetite changes or decline in personal care.',
+    'Mood changes — Rapid or dramatic shifts in emotions or depressed feelings, greater irritability.',
+    'Withdrawal — Recent social withdrawal and loss of interest in activities previously enjoyed.',
+    'Drop in functioning — An unusual drop in functioning, at school, work or social activities, such as quitting sports, failing in school or difficulty performing familiar tasks.',
+    'Problems thinking — Problems with concentration, memory or logical thought and speech that are hard to explain.',
+    'Increased sensitivity — Heightened sensitivity to sights, sounds, smells or touch; avoidance of over-stimulating situations.',
+    'Apathy — Loss of initiative or desire to participate in any activity.',
+    'Feeling disconnected — A vague feeling of being disconnected from oneself or one’s surroundings; a sense of unreality.',
+    'Illogical thinking — Unusual or exaggerated beliefs about personal powers to understand meanings or influence events; illogical or “magical” thinking typical of childhood in an adult.',
+    'Nervousness — Fear or suspiciousness of others or a strong nervous feeling.',
+    'Unusual behavior — Odd, uncharacteristic, peculiar behavior.',
+    'Changes in school or work — Increased absenteeism, worsening performance, difficulties in relationships with peers and co-workers.',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -149,32 +177,6 @@ class _NewPrescriptionPageState extends State<NewPrescriptionPage> {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: TextFormField(
-                    controller: _symptomsController,
-                    maxLines: null,
-                    decoration: InputDecoration(
-                        fillColor: Colors.grey[300],
-                        filled: true,
-                        labelText: 'Symptoms',
-                        border: OutlineInputBorder(
-                            gapPadding: 2,
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide:
-                                const BorderSide(color: Colors.transparent)),
-                        enabledBorder: OutlineInputBorder(
-                            gapPadding: 2,
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide:
-                                const BorderSide(color: Colors.transparent)),
-                        focusedBorder: OutlineInputBorder(
-                            gapPadding: 2,
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide:
-                                const BorderSide(color: Colors.transparent))),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: TextFormField(
                     controller: _notesController,
                     maxLines: null,
                     decoration: InputDecoration(
@@ -198,6 +200,181 @@ class _NewPrescriptionPageState extends State<NewPrescriptionPage> {
                                 const BorderSide(color: Colors.transparent))),
                   ),
                 ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: TextFormField(
+                    controller: _pvalidtimeController,
+                    maxLines: null,
+                    decoration: InputDecoration(
+                        fillColor: Colors.grey[300],
+                        filled: true,
+                        labelText: 'Prescription validity(in days)',
+                        border: OutlineInputBorder(
+                            gapPadding: 2,
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide:
+                                const BorderSide(color: Colors.transparent)),
+                        enabledBorder: OutlineInputBorder(
+                            gapPadding: 2,
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide:
+                                const BorderSide(color: Colors.transparent)),
+                        focusedBorder: OutlineInputBorder(
+                            gapPadding: 2,
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide:
+                                const BorderSide(color: Colors.transparent))),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          left: 15,
+                        ),
+                        child: Text(
+                          'Symptoms',
+                          style: heading3,
+                        ),
+                      ),
+                      CheckboxListTile(
+                        title: const Text('Sleep or appetite changes'),
+                        subtitle: const Text(
+                            'Dramatic sleep and appetite changes or decline in personal care.'),
+                        value: _values[0],
+                        onChanged: (value) {
+                          setState(() {
+                            _values[0] = value!;
+                          });
+                        },
+                      ),
+                      CheckboxListTile(
+                        title: const Text('Mood changes'),
+                        subtitle: const Text(
+                            'Rapid or dramatic shifts in emotions or depressed feelings, greater irritability.'),
+                        value: _values[1],
+                        onChanged: (value) {
+                          setState(() {
+                            _values[1] = value!;
+                          });
+                        },
+                      ),
+                      CheckboxListTile(
+                        title: const Text('Withdrawal'),
+                        subtitle: const Text(
+                            'Recent social withdrawal and loss of interest in activities previously enjoyed.'),
+                        value: _values[2],
+                        onChanged: (value) {
+                          setState(() {
+                            _values[2] = value!;
+                          });
+                        },
+                      ),
+                      CheckboxListTile(
+                        title: const Text('Drop in functioning'),
+                        subtitle: const Text(
+                            'An unusual drop in functioning, at school, work or social activities, such as quitting sports, failing in school or difficulty performing familiar tasks'),
+                        value: _values[3],
+                        onChanged: (value) {
+                          setState(() {
+                            _values[3] = value!;
+                          });
+                        },
+                      ),
+                      CheckboxListTile(
+                        title: const Text('Problems thinking'),
+                        subtitle: const Text(
+                            'Problems with concentration, memory or logical thought and speech that are hard to explain.'),
+                        value: _values[4],
+                        onChanged: (value) {
+                          setState(() {
+                            _values[4] = value!;
+                          });
+                        },
+                      ),
+                      CheckboxListTile(
+                        title: const Text('Increased sensitivity'),
+                        subtitle: const Text(
+                            'Heightened sensitivity to sights, sounds, smells or touch; avoidance of over-stimulating situations.'),
+                        value: _values[5],
+                        onChanged: (value) {
+                          setState(() {
+                            _values[5] = value!;
+                          });
+                        },
+                      ),
+                      CheckboxListTile(
+                        title: const Text('Apathy'),
+                        subtitle: const Text(
+                            'Loss of initiative or desire to participate in any activity.'),
+                        value: _values[6],
+                        onChanged: (value) {
+                          setState(() {
+                            _values[6] = value!;
+                          });
+                        },
+                      ),
+                      CheckboxListTile(
+                        title: const Text('Feeling disconnected'),
+                        subtitle: const Text(
+                            'A vague feeling of being disconnected from oneself or one’s surroundings; a sense of unreality.'),
+                        value: _values[7],
+                        onChanged: (value) {
+                          setState(() {
+                            _values[7] = value!;
+                          });
+                        },
+                      ),
+                      CheckboxListTile(
+                        title: const Text('Illogical thinking'),
+                        subtitle: const Text(
+                            'Unusual or exaggerated beliefs about personal powers to understand meanings or influence events; illogical or “magical” thinking typical of childhood in an adult.'),
+                        value: _values[8],
+                        onChanged: (value) {
+                          setState(() {
+                            _values[8] = value!;
+                          });
+                        },
+                      ),
+                      CheckboxListTile(
+                        title: const Text('Nervousness'),
+                        subtitle: const Text(
+                            'Fear or suspiciousness of others or a strong nervous feeling.'),
+                        value: _values[9],
+                        onChanged: (value) {
+                          setState(() {
+                            _values[9] = value!;
+                          });
+                        },
+                      ),
+                      CheckboxListTile(
+                        title: const Text('Unusual behavior'),
+                        subtitle: const Text(
+                            'Odd, uncharacteristic, peculiar behavior.'),
+                        value: _values[10],
+                        onChanged: (value) {
+                          setState(() {
+                            _values[10] = value!;
+                          });
+                        },
+                      ),
+                      CheckboxListTile(
+                        title: const Text('Changes in school or work'),
+                        subtitle: const Text(
+                            'Increased absenteeism, worsening performance, difficulties in relationships with peers and co-workers.'),
+                        value: _values[11],
+                        onChanged: (value) {
+                          setState(() {
+                            _values[11] = value!;
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                ),
                 Center(
                     child: Padding(
                   padding: const EdgeInsets.all(18.0),
@@ -207,27 +384,30 @@ class _NewPrescriptionPageState extends State<NewPrescriptionPage> {
                         await value.addPrescription(
                             context,
                             PrescriptionModel(
-                                doctorId: context
-                                    .read<AuthProvider>()
-                                    .doctorModel!
-                                    .doctorId,
-                                doctorName: context
-                                    .read<AuthProvider>()
-                                    .doctorModel!
-                                    .doctorName,
-                                userId: value.selectedUser!.userId,
-                                userRegNo: value.selectedUser!.userRegNo,
-                                userName: value.selectedUser!.userName,
-                                userFullName: value.selectedUser!.userName,
-                                userEmail: _emailController.text,
-                                userAgeGender: _ageController.text,
-                                userSymptoms: _symptomsController.text,
-                                medicalHistory: _notesController.text));
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: ((context) =>
-                                    DownloadPrescriptionPage())));
+                              doctorId: context
+                                  .read<AuthProvider>()
+                                  .doctorModel!
+                                  .doctorId,
+                              doctorName: context
+                                  .read<AuthProvider>()
+                                  .doctorModel!
+                                  .doctorName,
+                              doctorQualification: context
+                                  .read<AuthProvider>()
+                                  .doctorModel!
+                                  .doctorQualification,
+                              userId: value.selectedUser!.userId,
+                              userRegNo: value.selectedUser!.userRegNo,
+                              userName: value.selectedUser!.userName,
+                              userFullName: value.selectedUser!.userName,
+                              userEmail: _emailController.text,
+                              userAgeGender: _ageController.text,
+                              userSymptoms: symptoms[_values
+                                  .indexWhere((element) => element == true)],
+                              notes: _notesController.text,
+                              pvalidtime: _pvalidtimeController.text,
+                            ));
+                        Navigator.of(context).pop();
                       },
                       child: const Text('Create Prescription')),
                 ))

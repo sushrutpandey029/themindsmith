@@ -16,13 +16,17 @@ class NotificationProvider extends ChangeNotifier {
   List<AllotmentNotificationModel> allotmentNotificationList = [];
   AllotmentNotificationModel? selectedAllotment;
 
-  Future<void> fetchNotification(BuildContext context) async {
+  Future<void> fetchNotification(BuildContext context,
+      {bool isfirst = true}) async {
     unreadNotificationCount = 0;
     isLoading = true;
     String id =
         Provider.of<AuthProvider>(context, listen: false).doctorModel!.doctorId;
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => const NotificationPage()));
+    if (isfirst) {
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => const NotificationPage()));
+    }
+
     notificationList = await _notificationRepo.fetchNotification(id);
     allotmentNotificationList =
         await _notificationRepo.fetchAllotmentNotification(id);
@@ -32,7 +36,11 @@ class NotificationProvider extends ChangeNotifier {
         unreadNotificationCount++;
       }
     }
-
+    Future.delayed(const Duration(seconds: 2)).then(
+      (value) {
+        fetchNotification(context, isfirst: false);
+      },
+    );
     notifyListeners();
   }
 

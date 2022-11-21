@@ -23,12 +23,19 @@ class ChatProvider extends ChangeNotifier {
   List<ChatModel> allReceivedChatList = [];
   List<UserModel> userList = [];
   List<String> userIdList = [];
+  DoctorModel? doctorModel;
+
+  void disposechat() {
+    finalChatList.clear();
+    allReceivedChatList.clear();
+  }
 
   Future<void> fetchReceivedChat(BuildContext context) async {
     isLoading = true;
     notifyListeners();
     String docId =
         Provider.of<AuthProvider>(context, listen: false).doctorModel!.doctorId;
+    doctorModel = Provider.of<AuthProvider>(context, listen: false).doctorModel;
     allReceivedChatList = await _chatRepo.fetchUserChat(docId);
 
     allReceivedChatList.sort((a, b) {
@@ -72,6 +79,7 @@ class ChatProvider extends ChangeNotifier {
 
   Future<void> fetchChat(String userId, BuildContext context) async {
     if (isClosed == true) {
+      // disposechat();
       isClosed = false;
     }
     DoctorModel doctorModel =
@@ -102,10 +110,10 @@ class ChatProvider extends ChangeNotifier {
     if (initialIndex! < 0) {
       initialIndex = 0;
     }
+    autoReloadMessages(
+      userId,
+    );
     notifyListeners();
-    if (!isSending) {
-      autoReloadMessages(userId, context);
-    }
   }
 
   Future<void> sendMessage(BuildContext context, String message) async {
@@ -144,24 +152,20 @@ class ChatProvider extends ChangeNotifier {
   //   notifyListeners();
   // }
 
-  Future<void> autoReloadMessages(String userId, BuildContext context) async {
+  Future<void> autoReloadMessages(String userId) async {
     Timer.periodic(const Duration(seconds: 2), (timer) async {
       if (isClosed) {
         timer.cancel();
         return;
       } else {
-        DoctorModel doctorModel =
-            Provider.of<AuthProvider>(context, listen: false).doctorModel!;
         List<ChatModel> doctorChat =
-            await _chatRepo.fetchDoctorChat(doctorModel.doctorId);
+            await _chatRepo.fetchDoctorChat(doctorModel!.doctorId);
         doctorChat.removeWhere((element) => element.receiverId != userId);
 
         List<ChatModel> userChat = allReceivedChatList;
-//  print(allReceivedChatList);
+
         userChat.removeWhere((element) => element.senderId != userId);
-        // print(userId);
-        // print(userChat);
-        // print(doctorChat);
+
         finalChatList.clear();
         finalChatList.addAll(doctorChat);
         finalChatList.addAll(userChat);

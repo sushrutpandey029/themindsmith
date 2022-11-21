@@ -40,8 +40,7 @@ class ChatProvider extends ChangeNotifier {
 
     userChat.removeWhere(
         (element) => element.receiverId != selectedDoctor!.doctorId);
-    print(userChat);
-    print(doctorChat);
+
     finalChatList.clear();
     finalChatList.addAll(doctorChat);
     finalChatList.addAll(userChat);
@@ -64,7 +63,6 @@ class ChatProvider extends ChangeNotifier {
 
   Future<void> sendMessage(BuildContext context, String message) async {
     isSending = true;
-    print(isSending);
 
     Map<String, dynamic> userMap =
         Provider.of<AuthProvider>(context, listen: false).userResponse!;
@@ -78,7 +76,7 @@ class ChatProvider extends ChangeNotifier {
     // initialIndex = finalChatList.length - 10;
     // finalIndex = finalChatList.length;
     isSending = false;
-    print(isSending);
+
     notifyListeners();
   }
 
@@ -117,8 +115,7 @@ class ChatProvider extends ChangeNotifier {
 
         userChat.removeWhere(
             (element) => element.receiverId != selectedDoctor!.doctorId);
-        print(userChat);
-        print(doctorChat);
+
         finalChatList.clear();
         finalChatList.addAll(doctorChat);
         finalChatList.addAll(userChat);

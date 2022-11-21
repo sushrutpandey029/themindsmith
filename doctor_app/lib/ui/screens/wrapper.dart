@@ -12,6 +12,7 @@ import '../../provider/notification_provider.dart';
 import 'e_wallet_screen.dart';
 import 'home_screen.dart';
 import 'video_consultation_screen.dart';
+import 'weekly_schedule_screen.dart';
 
 class Wrapper extends StatefulWidget {
   const Wrapper({Key? key}) : super(key: key);
@@ -203,18 +204,18 @@ class _WrapperState extends State<Wrapper> {
                     icon: const ImageIcon(AssetImage('assets/icons/user.png')),
                     color: Colors.black,
                   ),
-                  // IconButton(
-                  //   onPressed: () {
-                  //     Navigator.push(
-                  //         context,
-                  //         MaterialPageRoute(
-                  //             builder: ((context) =>
-                  //                 const WeeklySchedulePage())));
-                  //   },
-                  //   icon: const ImageIcon(
-                  //       AssetImage('assets/icons/calendar.png')),
-                  //   color: Colors.black,
-                  // ),
+                  IconButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: ((context) =>
+                                  const WeeklySchedulePage())));
+                    },
+                    icon: const ImageIcon(
+                        AssetImage('assets/icons/calendar.png')),
+                    color: Colors.black,
+                  ),
                 ],
               )
             : appBars.elementAt(_selectedIndex - 1),

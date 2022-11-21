@@ -122,7 +122,7 @@ class PrescriptionProvider extends ChangeNotifier {
                               pw.Padding(
                                 padding: const pw.EdgeInsets.all(8.0),
                                 child: pw.Text(
-                                  'MBBS(AFMC), DPM PSYCHIATRY\nREG.No.3562',
+                                  selectedPrescription!.doctorQualification,
                                   style: const pw.TextStyle(
                                     color: PdfColors.white,
                                     fontSize: 13,
@@ -233,7 +233,7 @@ class PrescriptionProvider extends ChangeNotifier {
                                         width: 15,
                                       ),
                                       pw.Text(
-                                        '16/11/2022',
+                                        selectedPrescription!.date!,
                                         style: const pw.TextStyle(fontSize: 15),
                                       )
                                     ],
@@ -302,7 +302,7 @@ class PrescriptionProvider extends ChangeNotifier {
                                             width: 8,
                                           ),
                                           pw.Text(
-                                            'MS - 2211/11',
+                                            selectedPrescription!.pclientid!,
                                             style: const pw.TextStyle(
                                                 fontSize: 15),
                                           ),
@@ -311,8 +311,25 @@ class PrescriptionProvider extends ChangeNotifier {
                                     ],
                                   ),
                                 ),
+
                                 pw.SizedBox(
-                                  height: 40,
+                                  height: 20,
+                                ),
+                                pw.Text(
+                                  'Symptoms',
+                                  style: pw.TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: pw.FontWeight.bold),
+                                ),
+                                pw.SizedBox(
+                                  height: 5,
+                                ),
+                                pw.Text(
+                                  selectedPrescription!.userSymptoms,
+                                  style: const pw.TextStyle(fontSize: 15),
+                                ),
+                                pw.SizedBox(
+                                  height: 15,
                                 ),
                                 // pw. Icon(
                                 //   Icons.medical_services_outlined,
@@ -322,7 +339,7 @@ class PrescriptionProvider extends ChangeNotifier {
                                   height: 10,
                                 ),
                                 pw.Text(
-                                  selectedPrescription!.userSymptoms,
+                                  selectedPrescription!.notes,
                                   style: const pw.TextStyle(fontSize: 16),
                                 ),
                                 pw.SizedBox(
@@ -333,11 +350,20 @@ class PrescriptionProvider extends ChangeNotifier {
                                     pw.SizedBox(
                                       width: 10,
                                     ),
-                                    // DottedLine(
-                                    //   lineLength: size.width * 0.38,
-                                    // ),
+                                    for (var i
+                                        in List.generate(40, (index) => index))
+                                      pw.Container(
+                                        height: 1,
+                                        width: 6,
+                                        color: i % 2 == 0
+                                            ? PdfColors.white
+                                            : PdfColors.black,
+                                      ),
+                                    pw.SizedBox(
+                                      width: 10,
+                                    ),
                                     pw.Text(
-                                      '15 DAYS',
+                                      selectedPrescription!.pvalidtime,
                                       style: pw.TextStyle(
                                         fontSize: 15,
                                         fontWeight: pw.FontWeight.bold,
@@ -345,10 +371,7 @@ class PrescriptionProvider extends ChangeNotifier {
                                     )
                                   ],
                                 ),
-                                pw.Text(
-                                  selectedPrescription!.medicalHistory,
-                                  style: const pw.TextStyle(fontSize: 15),
-                                ),
+
                                 pw.SizedBox(
                                   height: 20,
                                 ),

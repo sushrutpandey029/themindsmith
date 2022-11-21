@@ -1,16 +1,10 @@
-import 'dart:io';
-
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:the_mindsmith/constants/text_style.dart';
-import 'package:the_mindsmith/models/user_model.dart';
 import 'package:the_mindsmith/providers/auth_provider.dart';
 import 'package:the_mindsmith/util/custom_appbar.dart';
 import 'package:the_mindsmith/util/error_dialogue.dart';
-
-import 'wrapper.dart';
 
 class IdVerificationPage extends StatefulWidget {
   const IdVerificationPage({Key? key}) : super(key: key);

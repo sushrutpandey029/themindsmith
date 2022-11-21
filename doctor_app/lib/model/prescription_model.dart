@@ -3,6 +3,7 @@ import 'dart:convert';
 class PrescriptionModel {
   String doctorId;
   String doctorName;
+  String doctorQualification;
   String userId;
   String userRegNo;
   String userName;
@@ -10,10 +11,14 @@ class PrescriptionModel {
   String userEmail;
   String userAgeGender;
   String userSymptoms;
-  String medicalHistory;
+  String notes;
+  String pvalidtime;
+  String? pclientid;
+  String? date;
   PrescriptionModel({
     required this.doctorId,
     required this.doctorName,
+    required this.doctorQualification,
     required this.userId,
     required this.userRegNo,
     required this.userName,
@@ -21,7 +26,10 @@ class PrescriptionModel {
     required this.userEmail,
     required this.userAgeGender,
     required this.userSymptoms,
-    required this.medicalHistory,
+    required this.notes,
+    required this.pvalidtime,
+    this.pclientid,
+    this.date,
   });
 
   Map<String, dynamic> toMap() {
@@ -35,7 +43,11 @@ class PrescriptionModel {
       'user_email': userEmail,
       'user_age': userAgeGender,
       'user_symptoms': userSymptoms,
-      'user_any_medical_history': medicalHistory,
+      'notes': notes,
+      'client_id': pclientid,
+      'daretime': date,
+      'valid_date': pvalidtime,
+      'doctor_qualification': doctorQualification
     };
   }
 
@@ -50,7 +62,11 @@ class PrescriptionModel {
       userEmail: map['user_email'] ?? '',
       userAgeGender: map['user_age'] ?? '',
       userSymptoms: map['user_symptoms'] ?? '',
-      medicalHistory: map['user_any_medical_history'] ?? '',
+      notes: map['notes'] ?? '',
+      date: map['daretime'] ?? '',
+      pclientid: map['client_id'] ?? '',
+      pvalidtime: map['p_valid_date'] ?? '',
+      doctorQualification: map['doctor_qualification'] ?? '',
     );
   }
 
@@ -61,6 +77,6 @@ class PrescriptionModel {
 
   @override
   String toString() {
-    return 'PrescriptionModel(doctorId: $doctorId, doctorName: $doctorName, userId: $userId, userName: $userName, userFullName: $userFullName, userEmail: $userEmail, userAgeGender: $userAgeGender, userSymptoms: $userSymptoms, medicalHistory: $medicalHistory)';
+    return 'PrescriptionModel(doctorId: $doctorId, doctorName: $doctorName, userId: $userId, userName: $userName, userFullName: $userFullName, userEmail: $userEmail, userAgeGender: $userAgeGender, userSymptoms: $userSymptoms, notes: $notes,)';
   }
 }

@@ -5,6 +5,7 @@ import 'package:doctor_app/provider/auth_provider.dart';
 import 'package:doctor_app/repo/slot_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 import '../model/user_model.dart';
 import '../ui/screens/patient_details_screen.dart';
@@ -94,5 +95,39 @@ class SlotProvider extends ChangeNotifier {
 
     isSingleLoading = false;
     notifyListeners();
+  }
+}
+
+class SlotDataSource extends CalendarDataSource {
+  SlotDataSource(List<SlotModel> appointments) {
+    this.appointments = appointments;
+  }
+  SlotModel getSlot(int index) => appointments![index] as SlotModel;
+
+  @override
+  DateTime getStartTime(int index) {
+    return DateTime.parse(
+        '${getSlot(index).appointmentDate} ${getSlot(index).startedTime}');
+  }
+
+  @override
+  DateTime getEndTime(int index) {
+    return DateTime.parse(
+        '${getSlot(index).appointmentDate} ${getSlot(index).endTime}');
+  }
+
+  @override
+  String getSubject(int index) {
+    return getSlot(index).timeSlot;
+  }
+
+  @override
+  Color getColor(int index) {
+    return getSlot(index).bookStatus == 'not book' ? Colors.green : Colors.red;
+  }
+
+  @override
+  bool isAllDay(int index) {
+    return false;
   }
 }

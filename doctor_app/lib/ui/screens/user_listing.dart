@@ -33,6 +33,12 @@ class _UserListingState extends State<UserListing> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20)),
                   child: TextField(
+                    onTap: () {
+                      showSearch(
+                        context: context,
+                        delegate: CustomSearchDelegate(value: value),
+                      );
+                    },
                     decoration: InputDecoration(
                         prefixIcon: const Icon(Icons.search),
                         hintText: 'Search',
@@ -79,7 +85,7 @@ class _UserListingState extends State<UserListing> {
                                 context,
                                 MaterialPageRoute(
                                     builder: ((context) =>
-                                        PrescriptionListingPage(
+                                        const PrescriptionListingPage(
                                           isHistoryPage: true,
                                         ))));
                           },
@@ -98,6 +104,99 @@ class _UserListingState extends State<UserListing> {
           );
         })),
       ),
+    );
+  }
+}
+
+class CustomSearchDelegate extends SearchDelegate {
+  CustomSearchDelegate({required this.value});
+  final SlotProvider value;
+
+  @override
+  List<Widget>? buildActions(BuildContext context) {
+    return [
+      IconButton(
+        onPressed: () {
+          query = '';
+        },
+        icon: const Icon(Icons.clear),
+      ),
+    ];
+  }
+
+  @override
+  Widget? buildLeading(BuildContext context) {
+    return IconButton(
+      onPressed: () {
+        close(context, null);
+      },
+      icon: const Icon(Icons.arrow_back),
+    );
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    List<String> matchQuery = [];
+    for (var user in value.userList) {
+      if (user.userName.toLowerCase().contains(query.toLowerCase())) {
+        matchQuery.add(user.userName);
+      }
+    }
+    return ListView.builder(
+      itemCount: matchQuery.length,
+      itemBuilder: (context, index) {
+        var result = matchQuery[index];
+        return ListTile(
+          title: Text(result),
+          onTap: () {
+            Provider.of<PatientHistoryProvider>(context, listen: false)
+                .selectUser(value.userList.elementAt(index));
+            Provider.of<PrescriptionProvider>(context, listen: false)
+                .selectUser(value.userList.elementAt(index));
+            Provider.of<PrescriptionProvider>(context, listen: false)
+                .fetchPrescription(context);
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: ((context) => const PrescriptionListingPage(
+                          isHistoryPage: true,
+                        ))));
+          },
+        );
+      },
+    );
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    List<String> matchQuery = [];
+    for (var user in value.userList) {
+      if (user.userName.toLowerCase().contains(query.toLowerCase())) {
+        matchQuery.add(user.userName);
+      }
+    }
+    return ListView.builder(
+      itemCount: matchQuery.length,
+      itemBuilder: (context, index) {
+        var result = matchQuery[index];
+        return ListTile(
+          title: Text(result),
+          onTap: () {
+            Provider.of<PatientHistoryProvider>(context, listen: false)
+                .selectUser(value.userList.elementAt(index));
+            Provider.of<PrescriptionProvider>(context, listen: false)
+                .selectUser(value.userList.elementAt(index));
+            Provider.of<PrescriptionProvider>(context, listen: false)
+                .fetchPrescription(context);
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: ((context) => const PrescriptionListingPage(
+                          isHistoryPage: true,
+                        ))));
+          },
+        );
+      },
     );
   }
 }

@@ -29,8 +29,8 @@ class DoctorProvider extends ChangeNotifier {
       isChat
           ? Navigator.of(context)
               .push(MaterialPageRoute(builder: (context) => DocSelectionChat()))
-          : Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => const DoctorSelectionPage()));
+          : Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => const DoctorSelectionPage()));
       print(doctorList);
     } on Exception catch (e) {
       Navigator.pop(context);
@@ -42,8 +42,8 @@ class DoctorProvider extends ChangeNotifier {
     Provider.of<SlotProvider>(context, listen: false).selectedSlot = null;
     selectedDoctor = doctorList.elementAt(index);
     await fetchSlotByDocId(context);
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => const ConsultDoctorPage()));
+    Navigator.of(context).push(
+        MaterialPageRoute(builder: (context) => const ConsultDoctorPage()));
     notifyListeners();
   }
 
@@ -53,8 +53,7 @@ class DoctorProvider extends ChangeNotifier {
         builder: (context) => const Center(child: CircularProgressIndicator()));
     String docId = selectedDoctor!.doctorId;
     slotList = await _slotRepo.fetchSlotByDocId(docId);
-    List<SlotModel> list = slotList;
-    slotList.removeWhere((slot)=>slot.status!='not book');
+
     print(slotList);
     Navigator.pop(context);
   }

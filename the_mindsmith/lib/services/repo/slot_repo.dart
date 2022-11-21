@@ -4,11 +4,11 @@ import 'package:the_mindsmith/models/slot_model.dart';
 import '../../constants/url_constant.dart';
 
 class SlotRepo {
-   String _userApi = baseUrl + "/Userapi_controller";
+   final String _userApi = "$baseUrl/Userapi_controller";
 
    Future<List<SlotModel>> fetchSlotByDocId (String docId) async {
      List<SlotModel> list =[];
-     String url = _userApi+"/slot_by_doc_id";
+     String url = "$_userApi/slot_by_doc_id";
       Response response = await Dio().get(url,queryParameters: {"doctor_id":docId}
       );
       print(response.data);

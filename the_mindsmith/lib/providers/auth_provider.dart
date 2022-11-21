@@ -49,7 +49,8 @@ class AuthProvider extends ChangeNotifier {
             userAge: '',
             frontImageAadhar: '',
             backImageAadhar: '',
-            panCardImage: '');
+            panCardImage: '',
+            userlocation: '');
 
         print(context.read<AuthProvider>().userModel);
         Navigator.of(context).push(

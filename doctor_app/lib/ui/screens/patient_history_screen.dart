@@ -66,7 +66,7 @@ class _PatientHistoryPageState extends State<PatientHistoryPage> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: CustomBox(
-                    title: 'Diagnosis',
+                    title: 'Symptoms',
                     value: context
                         .watch<PrescriptionProvider>()
                         .selectedPrescription!
@@ -80,7 +80,7 @@ class _PatientHistoryPageState extends State<PatientHistoryPage> {
                     value: context
                         .watch<PrescriptionProvider>()
                         .selectedPrescription!
-                        .medicalHistory,
+                        .notes,
                     width: MediaQuery.of(context).size.width),
               ),
 

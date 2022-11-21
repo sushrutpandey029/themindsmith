@@ -16,9 +16,14 @@ class ChatPage extends StatefulWidget {
 class ChatPageState extends State<ChatPage> {
   final TextEditingController _message = TextEditingController();
   @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBar(context, null),
+      appBar: customAppBar(context, null, isback: false),
       body: WillPopScope(
         onWillPop: () async {
           Provider.of<ChatProvider>(context, listen: false).isClosed = true;
@@ -40,9 +45,7 @@ class ChatPageState extends State<ChatPage> {
                               ElevatedButton(
                                   style: ElevatedButton.styleFrom(elevation: 8),
                                   onPressed: () {
-                                    Provider.of<ChatProvider>(context,
-                                            listen: false)
-                                        .previousChat();
+                                    value.previousChat();
                                   },
                                   child: Text(
                                     value.finalChatList

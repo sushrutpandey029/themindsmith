@@ -11,7 +11,8 @@ import '../../../providers/doctor_provider.dart';
 import '../../../util/date_time_helper.dart';
 
 class ConfirmOrderWidget extends StatefulWidget {
-  const ConfirmOrderWidget({Key? key}) : super(key: key);
+  const ConfirmOrderWidget({Key? key, required this.fee}) : super(key: key);
+  final String fee;
 
   @override
   State<ConfirmOrderWidget> createState() => _ConfirmOrderWidgetState();
@@ -31,7 +32,8 @@ class _ConfirmOrderWidgetState extends State<ConfirmOrderWidget> {
   void _handlePaymentSuccess(PaymentSuccessResponse response) {
     // Do something when payment succeeds
     // uploadPrescription();
-    Provider.of<SlotProvider>(context, listen: false).bookSlot(context);
+    Provider.of<SlotProvider>(context, listen: false)
+        .bookSlot(context, widget.fee);
     print('payment done');
   }
 
@@ -135,7 +137,7 @@ class _ConfirmOrderWidgetState extends State<ConfirmOrderWidget> {
                       style: text2,
                     ),
                     Text(
-                      '\u{20B9} ${Provider.of<DoctorProvider>(context).selectedDoctor!.doctorFee}',
+                      '\u{20B9} ${widget.fee}',
                       style: text2,
                     ),
                   ],
@@ -157,12 +159,7 @@ class _ConfirmOrderWidgetState extends State<ConfirmOrderWidget> {
               setState(() {
                 var options = {
                   'key': "rzp_test_hvAG3FYmjUcENg",
-                  'amount': (int.parse(Provider.of<DoctorProvider>(context,
-                                  listen: false)
-                              .selectedDoctor!
-                              .doctorFee) *
-                          100)
-                      .toString(),
+                  'amount': (int.parse(widget.fee) * 100).toString(),
                   //in the smallest currency sub-unit.
                   'name': Provider.of<DoctorProvider>(context, listen: false)
                       .selectedDoctor!

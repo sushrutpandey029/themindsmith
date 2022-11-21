@@ -48,6 +48,7 @@ dependencies:
   provider: null
   share_plus: null
   shared_preferences: null
+  syncfusion_flutter_calendar: ^20.3.57
   url_launcher: null
   youtube_player_flutter: null
 

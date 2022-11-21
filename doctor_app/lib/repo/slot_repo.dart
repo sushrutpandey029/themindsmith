@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:dio/dio.dart';
 import 'package:doctor_app/constants/url_constant.dart';
 import 'package:doctor_app/model/slot_model.dart';

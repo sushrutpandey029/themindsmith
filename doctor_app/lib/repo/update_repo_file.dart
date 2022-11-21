@@ -68,6 +68,22 @@ class UpdateRepo {
     return true;
   }
 
+  Future<bool> updateDoclanguagesspoken(
+    String id,
+    String languagesSpoken,
+  ) async {
+    String baseUrl =
+        'http://44.209.72.97/themindsmith/Doctorapi_controller/updatelanguage';
+    FormData formData = FormData.fromMap({
+      "id": id,
+      "languages_spoken": languagesSpoken,
+    });
+
+    Response response = await Dio().post(baseUrl, data: formData);
+
+    return true;
+  }
+
   Future<bool> updateDocAddress(
     String id,
     String address,
@@ -119,9 +135,9 @@ class UpdateRepo {
   Future<bool> uploadImage(String id, File file) async {
     String fileName = file.path.split('/').last;
     String baseUrl =
-        'http://44.209.72.97/themindsmith/Userapi_controller/update_user_image';
+        'http://44.209.72.97/themindsmith/Doctorapi_controller/update_doctor_image';
     FormData formData = FormData.fromMap({
-      "user_id": id,
+      "doctor_id": id,
       "update_image":
           await MultipartFile.fromFile(file.path, filename: fileName),
     });

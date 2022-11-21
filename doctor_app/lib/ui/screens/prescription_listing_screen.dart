@@ -61,7 +61,7 @@ class _PrescriptionListingPageState extends State<PrescriptionListingPage> {
                                     context,
                                     MaterialPageRoute(
                                         builder: ((context) =>
-                                            DownloadPrescriptionPage())));
+                                            const DownloadPrescriptionPage())));
                           },
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15.0),

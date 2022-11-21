@@ -26,19 +26,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
   TextEditingController addressController = TextEditingController();
   TextEditingController feeController = TextEditingController();
   TextEditingController experienceController = TextEditingController();
+  TextEditingController languageSpokenController = TextEditingController();
 
   File? image;
   String? urlFromStorage;
 
   Future pickImageFromGallery() async {
     try {
-      // showDialog(
-      //   context: context,
-      //   barrierDismissible: false,
-      //   builder: (context) => Center(
-      //     child: CircularProgressIndicator(),
-      //   ),
-      // );
       final XFile? image =
           await ImagePicker().pickImage(source: ImageSource.gallery);
       if (image == null) {
@@ -72,9 +66,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
       if (image == null) {
         return;
       } else {
-        final imageTemp = XFile(image.path);
+        final imageTemp = File(image.path);
         setState(() {
-          this.image = imageTemp as File?;
+          this.image = imageTemp;
         });
       }
     } on PlatformException catch (e) {
@@ -289,6 +283,31 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15.0),
                           ),
+                          title: Text("Short Bio : ${doctorModel.shortBio}"),
+                        ),
+                      ),
+                      Card(
+                        margin: const EdgeInsets.all(8),
+                        elevation: 6,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)),
+                        child: ListTile(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                          title: Text(
+                              "Qualifications : ${doctorModel.doctorQualification}"),
+                        ),
+                      ),
+                      Card(
+                        margin: const EdgeInsets.all(8),
+                        elevation: 6,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)),
+                        child: ListTile(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
                           title: Text("Address : ${doctorModel.doctorAddress}"),
                           trailing: GestureDetector(
                             onTap: () {
@@ -313,10 +332,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15.0),
                           ),
-                          title: Text("Fee : ${doctorModel.doctorFee}"),
+                          title: Text(
+                              "Language Spoken : ${doctorModel.languageSpoken}"),
                           trailing: GestureDetector(
                             onTap: () {
-                              showFeeDialog(context);
+                              showlanguageDialog(context);
                             },
                             child: const Padding(
                               padding: EdgeInsets.all(4.0),
@@ -328,6 +348,43 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           ),
                         ),
                       ),
+                      Card(
+                        margin: const EdgeInsets.all(8),
+                        elevation: 6,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)),
+                        child: ListTile(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                          title: Text("Ratings : ${doctorModel.rating}"),
+                        ),
+                      ),
+
+                      // Card(
+                      //   margin: const EdgeInsets.all(8),
+                      //   elevation: 6,
+                      //   shape: RoundedRectangleBorder(
+                      //       borderRadius: BorderRadius.circular(20)),
+                      //   child: ListTile(
+                      //     shape: RoundedRectangleBorder(
+                      //       borderRadius: BorderRadius.circular(15.0),
+                      //     ),
+                      //     title: Text("Fee : ${doctorModel.doctorFee}"),
+                      //     trailing: GestureDetector(
+                      //       onTap: () {
+                      //         showFeeDialog(context);
+                      //       },
+                      //       child: const Padding(
+                      //         padding: EdgeInsets.all(4.0),
+                      //         child: Icon(
+                      //           Icons.edit,
+                      //           color: Colors.black,
+                      //         ),
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
                       Card(
                         margin: const EdgeInsets.all(8),
                         elevation: 6,
@@ -839,6 +896,85 @@ class _EditProfilePageState extends State<EditProfilePage> {
     );
   }
 
+  showlanguageDialog(BuildContext context) {
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      backgroundColor: Colors.transparent,
+      // title: const Text(
+      //   "Enter Username",
+      //   style: TextStyle(color: Colors.white),
+      // ),
+      content: Builder(
+        builder: (context) {
+          // Get available height and width of the build area of this widget. Make a choice depending on the size.
+          var height = MediaQuery.of(context).size.height;
+          var width = MediaQuery.of(context).size.width;
+
+          return Container(
+            decoration: const BoxDecoration(
+              color: Colors.black,
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: Container(
+                height: height - 600,
+                width: width,
+                color: Colors.white,
+                child: Form(
+                  child: Column(
+                    children: <Widget>[
+                      const Padding(
+                        padding: EdgeInsets.all(12.0),
+                        child: Text(
+                          'Enter Langugaes Spoken',
+                          style: TextStyle(fontSize: 18, color: Colors.black),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: buildLanguageSpokenFormField(),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ElevatedButton(
+                          child: const Text("Update"),
+                          onPressed: () async {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return logoutalert();
+                              },
+                            );
+                            await _updateRepo.updateDoclanguagesspoken(
+                                Provider.of<AuthProvider>(context,
+                                        listen: false)
+                                    .doctorModel!
+                                    .doctorId,
+                                languageSpokenController.text);
+                            Provider.of<AuthProvider>(context, listen: false)
+                                .logOut(context);
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
   showExperienceDialog(BuildContext context) {
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
@@ -1073,6 +1209,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
     return TextField(
       controller: specialityController,
       decoration: const InputDecoration(hintText: 'Enter Your Speciality'),
+    );
+  }
+
+  TextField buildLanguageSpokenFormField() {
+    return TextField(
+      controller: languageSpokenController,
+      decoration: const InputDecoration(hintText: 'Enter Langugae Spoken'),
     );
   }
 }

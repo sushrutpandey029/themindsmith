@@ -21,6 +21,7 @@ class ConsultDoctorPage extends StatefulWidget {
 class _ConsultDoctorPageState extends State<ConsultDoctorPage> {
   int _selectedIndex = 0;
   bool _isConsultWidget = false;
+  bool _isfollowupWidget = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,7 +68,9 @@ class _ConsultDoctorPageState extends State<ConsultDoctorPage> {
                   ],
                 ),
                 _isConsultWidget
-                    ? const ConsultWidget()
+                    ? ConsultWidget(
+                        isfollowup: _isfollowupWidget,
+                      )
                     : Column(
                         children: [
                           Padding(
@@ -110,9 +113,10 @@ class _ConsultDoctorPageState extends State<ConsultDoctorPage> {
                                       style:
                                           smallButtonStyle(_selectedIndex == 0),
                                       onPressed: () {
-                                        // setState(() {
-                                        //   _selectedIndex = 0;
-                                        // });
+                                        setState(() {
+                                          _isConsultWidget = true;
+                                          _isfollowupWidget = true;
+                                        });
                                       },
                                       child: const Text('Book Follow Up')),
                                   ElevatedButton(

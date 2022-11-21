@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:syncfusion_flutter_calendar/calendar.dart';
 
+import '../../provider/slot_provider.dart';
 import '../widgets/comman/app_bar.dart';
 
 class WeeklySchedulePage extends StatefulWidget {
@@ -17,13 +20,21 @@ class _WeeklySchedulePageState extends State<WeeklySchedulePage> {
         context,
         "Weekly Schedule",
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(18),
-        child: Padding(
-          padding: const EdgeInsets.only(top: 48.0),
-          child: Image.asset('assets/images/weekly-shedule.png'),
-        ),
-      ),
+      body: Consumer<SlotProvider>(builder: (context, value, widget) {
+        return Center(
+          child: SfCalendar(
+            view: CalendarView.week,
+            dataSource: SlotDataSource(value.slotList),
+          ),
+        );
+      }),
+      // Padding(
+      //   padding: const EdgeInsets.all(18),
+      //   child: Padding(
+      //     padding: const EdgeInsets.only(top: 48.0),
+      //     child: Image.asset('assets/images/weekly-shedule.png'),
+      //   ),
+      // ),
     );
   }
 }

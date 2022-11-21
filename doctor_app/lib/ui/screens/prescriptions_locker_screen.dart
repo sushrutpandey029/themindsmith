@@ -27,6 +27,12 @@ class _PrescriptionLockerPageState extends State<PrescriptionLockerPage> {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20)),
                 child: TextField(
+                  onTap: () {
+                    showSearch(
+                      context: context,
+                      delegate: CustomSearchDelegate(value: value),
+                    );
+                  },
                   decoration: InputDecoration(
                       prefixIcon: const Icon(Icons.search),
                       hintText: 'Search',
@@ -80,6 +86,89 @@ class _PrescriptionLockerPageState extends State<PrescriptionLockerPage> {
           ],
         );
       })),
+    );
+  }
+}
+
+class CustomSearchDelegate extends SearchDelegate {
+  CustomSearchDelegate({required this.value});
+  final SlotProvider value;
+
+  @override
+  List<Widget>? buildActions(BuildContext context) {
+    return [
+      IconButton(
+        onPressed: () {
+          query = '';
+        },
+        icon: const Icon(Icons.clear),
+      ),
+    ];
+  }
+
+  @override
+  Widget? buildLeading(BuildContext context) {
+    return IconButton(
+      onPressed: () {
+        close(context, null);
+      },
+      icon: const Icon(Icons.arrow_back),
+    );
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    List<String> matchQuery = [];
+    for (var user in value.userList) {
+      if (user.userName.toLowerCase().contains(query.toLowerCase())) {
+        matchQuery.add(user.userName);
+      }
+    }
+    return ListView.builder(
+      itemCount: matchQuery.length,
+      itemBuilder: (context, index) {
+        var result = matchQuery[index];
+        return ListTile(
+          title: Text(result),
+          onTap: () {
+            Provider.of<PrescriptionProvider>(context, listen: false)
+                .selectUser(value.userList.elementAt(index));
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: ((context) => const PrescriptionGenrationPage())));
+          },
+        );
+      },
+    );
+  }
+
+// last overwrite to show the
+// querying process at the runtime
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    List<String> matchQuery = [];
+    for (var user in value.userList) {
+      if (user.userName.toLowerCase().contains(query.toLowerCase())) {
+        matchQuery.add(user.userName);
+      }
+    }
+    return ListView.builder(
+      itemCount: matchQuery.length,
+      itemBuilder: (context, index) {
+        var result = matchQuery[index];
+        return ListTile(
+          title: Text(result),
+          onTap: () {
+            Provider.of<PrescriptionProvider>(context, listen: false)
+                .selectUser(value.userList.elementAt(index));
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: ((context) => const PrescriptionGenrationPage())));
+          },
+        );
+      },
     );
   }
 }

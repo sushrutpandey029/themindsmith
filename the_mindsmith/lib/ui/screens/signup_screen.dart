@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
 import 'package:the_mindsmith/constants/button_style.dart';
 import 'package:the_mindsmith/constants/input_decoration.dart';
@@ -24,6 +25,9 @@ class _SignUpPageState extends State<SignUpPage> {
   final TextEditingController _password = TextEditingController();
   final TextEditingController _confirmPassword = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey();
+  bool? _serviceEnabled;
+  LocationPermission? permission;
+  Position? _locationData;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -130,24 +134,25 @@ class _SignUpPageState extends State<SignUpPage> {
                         height: 45,
                         child: ElevatedButton(
                           style: fullButtonStyle,
-                          onPressed: () {
+                          onPressed: () async {
                             if (formKey.currentState!.validate()) {
-                              context.read<AuthProvider>().userModel =
-                                  UserModel(
-                                      userRegNo: '',
-                                      userName: _userName.text,
-                                      userEmail: _email.text,
-                                      userPhone: "",
-                                      userPassword: _password.text,
-                                      userConfirmPassword:
-                                          _confirmPassword.text,
-                                      aadharName: '',
-                                      aadharCardNo: '',
-                                      gender: '',
-                                      userAge: '',
-                                      frontImageAadhar: '',
-                                      backImageAadhar: '',
-                                      panCardImage: '');
+                              await getcurrentlocation();
+                              context.read<AuthProvider>().userModel = UserModel(
+                                  userRegNo: '',
+                                  userName: _userName.text,
+                                  userEmail: _email.text,
+                                  userPhone: "",
+                                  userPassword: _password.text,
+                                  userConfirmPassword: _confirmPassword.text,
+                                  aadharName: '',
+                                  aadharCardNo: '',
+                                  gender: '',
+                                  userAge: '',
+                                  frontImageAadhar: '',
+                                  backImageAadhar: '',
+                                  panCardImage: '',
+                                  userlocation:
+                                      '${_locationData!.latitude},${_locationData!.longitude}');
 
                               print(context.read<AuthProvider>().userModel);
                               Navigator.of(context).push(MaterialPageRoute(
@@ -187,5 +192,27 @@ class _SignUpPageState extends State<SignUpPage> {
         ),
       )),
     );
+  }
+
+  Future<void> getcurrentlocation() async {
+    _serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!_serviceEnabled!) {
+      return Future.error('Location services are disabled.');
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Location permissions are denied');
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+
+    _locationData = await Geolocator.getCurrentPosition();
   }
 }

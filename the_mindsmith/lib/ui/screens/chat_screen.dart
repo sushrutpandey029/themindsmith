@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:the_mindsmith/constants/button_style.dart';
 import 'package:the_mindsmith/constants/text_style.dart';
-import 'package:the_mindsmith/models/chat_model.dart';
 import 'package:the_mindsmith/providers/chat_provider.dart';
 import 'package:the_mindsmith/ui/widgets/chat_screen_widget/chat_box_widget.dart';
 import 'package:the_mindsmith/util/custom_appbar.dart';
@@ -15,7 +13,7 @@ class ChatPage extends StatefulWidget {
 }
 
 class ChatPageState extends State<ChatPage> {
-  TextEditingController _message = TextEditingController();
+  final TextEditingController _message = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,24 +52,27 @@ class ChatPageState extends State<ChatPage> {
                                             .substring(0, 10),
                                       )),
                                 // for (ChatModel chat in value.finalChatList)
-                                
+
                                 for (int i = value.initialIndex!;
                                     i < value.finalChatList.length;
                                     i++)
                                   Column(
                                     children: [
-                                       if (i == 0 ||
-                                  value.finalChatList[i - 1].dateTime.toString()
-                                          .substring(0,10)
-                                          !=
-                                      value.finalChatList[i].dateTime.toString()
-                                          .substring(0,10)
-                                          )
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Text(value.finalChatList[i].dateTime.toString()
-                                            .substring(0,10),style:text3),
-                                          ),
+                                      if (i == 0 ||
+                                          value.finalChatList[i - 1].dateTime
+                                                  .toString()
+                                                  .substring(0, 10) !=
+                                              value.finalChatList[i].dateTime
+                                                  .toString()
+                                                  .substring(0, 10))
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text(
+                                              value.finalChatList[i].dateTime
+                                                  .toString()
+                                                  .substring(0, 10),
+                                              style: text3),
+                                        ),
                                       ChatBoxWidget(
                                           time: value.finalChatList
                                               .elementAt(i)
@@ -79,10 +80,11 @@ class ChatPageState extends State<ChatPage> {
                                           message: value.finalChatList
                                               .elementAt(i)
                                               .txtMsg,
-                                          byDoc: value.selectedDoctor!.doctorId ==
-                                              value.finalChatList
-                                                  .elementAt(i)
-                                                  .senderId,
+                                          byDoc:
+                                              value.selectedDoctor!.doctorId ==
+                                                  value.finalChatList
+                                                      .elementAt(i)
+                                                      .senderId,
                                           isContinued: i == 0
                                               ? false
                                               : value.finalChatList

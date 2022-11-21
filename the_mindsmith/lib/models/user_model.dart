@@ -14,6 +14,7 @@ class UserModel {
   String frontImageAadhar;
   String backImageAadhar;
   String panCardImage;
+  String userlocation;
   UserModel({
     required this.userRegNo,
     required this.userName,
@@ -28,24 +29,25 @@ class UserModel {
     required this.frontImageAadhar,
     required this.backImageAadhar,
     required this.panCardImage,
+    required this.userlocation,
   });
 
   Map<String, dynamic> toMap() {
     return {
-      'user_reg_no' : userRegNo,
+      'user_reg_no': userRegNo,
       'user_name': userName,
       'user_email': userEmail,
       'user_phone': userPhone,
       'user_password': userPassword,
+      'location': userlocation,
       'user_confirm_password': userConfirmPassword,
       'aadhar_name': aadharName,
       'aadhar_card_no': aadharCardNo,
       'gender': gender,
       'user_age': userAge,
-      'front_image_aadhar' : frontImageAadhar,
-      'back_image_aadhar' : backImageAadhar,
+      'front_image_aadhar': frontImageAadhar,
+      'back_image_aadhar': backImageAadhar,
       'pencard_image': panCardImage
-      
     };
   }
 
@@ -64,12 +66,14 @@ class UserModel {
       frontImageAadhar: map['front_image_aadhar'] ?? '',
       backImageAadhar: map['back_image_aadhar'] ?? '',
       panCardImage: map['pencard_image'] ?? '',
+      userlocation: map['location'] ?? '',
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory UserModel.fromJson(String source) => UserModel.fromMap(json.decode(source));
+  factory UserModel.fromJson(String source) =>
+      UserModel.fromMap(json.decode(source));
 
   @override
   String toString() {

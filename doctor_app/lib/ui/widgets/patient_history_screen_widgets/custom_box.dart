@@ -25,7 +25,6 @@ class CustomBox extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Container(
               width: width,
-              height: 40,
               decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(10),

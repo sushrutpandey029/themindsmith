@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import '../widgets/comman/app_bar.dart';
 
 class PatientMessagesListPage extends StatefulWidget {
-  PatientMessagesListPage({Key? key}) : super(key: key);
+  const PatientMessagesListPage({Key? key}) : super(key: key);
 
   @override
   State<PatientMessagesListPage> createState() =>
@@ -19,6 +19,7 @@ class _PatientMessagesListPageState extends State<PatientMessagesListPage> {
       appBar: customAppBar(
         context,
         "Chat",
+        isback: false,
       ),
       body: Padding(
         padding: const EdgeInsets.all(18),
