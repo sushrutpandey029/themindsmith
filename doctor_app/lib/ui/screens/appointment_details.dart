@@ -66,7 +66,6 @@ class _AppointmentDetailsPageState extends State<AppointmentDetailsPage> {
                                 style: text2,
                               ),
                             ),
-
                             const Divider(
                               height: 30,
                               thickness: 2,
@@ -76,14 +75,14 @@ class _AppointmentDetailsPageState extends State<AppointmentDetailsPage> {
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
                                 'Thanks & Regards',
-                                style: text4,
+                                style: text4.copyWith(color: Colors.black),
                               ),
                             ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
                                 'The MindSmith',
-                                style: text4,
+                                style: text4.copyWith(color: Colors.black),
                               ),
                             )
                           ],

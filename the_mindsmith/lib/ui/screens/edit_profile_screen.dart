@@ -10,6 +10,8 @@ import 'package:the_mindsmith/services/repo/update_repo.dart';
 import 'package:the_mindsmith/util/custom_appbar.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../constants/url_constant.dart';
+
 class EditProfilePage extends StatefulWidget {
   const EditProfilePage({Key? key}) : super(key: key);
 
@@ -145,9 +147,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         child: CircleAvatar(
                           backgroundColor: Colors.grey[300],
                           radius: 40,
-                          child: image != null
-                              ? Image.file(image!)
-                              : const FlutterLogo(),
+                          backgroundImage: image != null
+                              ? FileImage(image!) as ImageProvider
+                              : NetworkImage(
+                                  '$imgUrl/${Provider.of<AuthProvider>(context, listen: false).userResponse!['users']['user_image']}',
+                                ),
                         ),
                       ),
                       GestureDetector(

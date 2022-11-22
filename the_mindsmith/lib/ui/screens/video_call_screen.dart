@@ -20,7 +20,7 @@ class _VideoCallPageState extends State<VideoCallPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBar(context, null),
+      appBar: customAppBar(context, null, isback: false),
       body: test
           ? const AgoraVideoCall()
           : Column(

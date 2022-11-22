@@ -15,6 +15,9 @@ class DoctorModel {
   String doctorPassword;
   String doctorFee;
   String doctorStatus;
+  String languageSpoken;
+  String rating;
+  String shortBio;
   DoctorModel({
     required this.doctorId,
     required this.doctorName,
@@ -30,9 +33,10 @@ class DoctorModel {
     required this.doctorPassword,
     required this.doctorFee,
     required this.doctorStatus,
+    required this.languageSpoken,
+    required this.rating,
+    required this.shortBio,
   });
-
-
 
   Map<String, dynamic> toMap() {
     return {
@@ -50,6 +54,9 @@ class DoctorModel {
       'doctor_password': doctorPassword,
       'doctor_fee': doctorFee,
       'doctor_status': doctorStatus,
+      "languages_spoken": languageSpoken,
+      "rating": rating,
+      "short_bio": shortBio,
     };
   }
 
@@ -69,12 +76,16 @@ class DoctorModel {
       doctorPassword: map['doctor_password'] ?? '',
       doctorFee: map['doctor_fee'] ?? '',
       doctorStatus: map['doctor_status'] ?? '',
+      languageSpoken: map["languages_spoken"] ?? '',
+      shortBio: map["short_bio"] ?? '',
+      rating: map["rating"] ?? '',
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory DoctorModel.fromJson(String source) => DoctorModel.fromMap(json.decode(source));
+  factory DoctorModel.fromJson(String source) =>
+      DoctorModel.fromMap(json.decode(source));
 
   @override
   String toString() {

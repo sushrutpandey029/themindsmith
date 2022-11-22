@@ -3,6 +3,7 @@ import 'package:doctor_app/constants/text_style.dart';
 import 'package:doctor_app/model/prescription_model.dart';
 import 'package:doctor_app/provider/prescription_provider.dart';
 import 'package:doctor_app/ui/screens/download_prescription_screen.dart';
+import 'package:doctor_app/ui/screens/prescription_listing_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -381,6 +382,17 @@ class _NewPrescriptionPageState extends State<NewPrescriptionPage> {
                   child: ElevatedButton(
                       style: smallBlackButtonStyle1,
                       onPressed: () async {
+                        List<int> tempindex = [];
+                        String usersymptoms = '';
+                        for (var i = 0; i < _values.length; i++) {
+                          if (_values[i] == true) {
+                            tempindex.add(i);
+                          }
+                        }
+                        for (final i in tempindex) {
+                          usersymptoms += '${symptoms[i]}\n';
+                        }
+
                         await value.addPrescription(
                             context,
                             PrescriptionModel(
@@ -402,12 +414,20 @@ class _NewPrescriptionPageState extends State<NewPrescriptionPage> {
                               userFullName: value.selectedUser!.userName,
                               userEmail: _emailController.text,
                               userAgeGender: _ageController.text,
-                              userSymptoms: symptoms[_values
-                                  .indexWhere((element) => element == true)],
+                              userSymptoms: usersymptoms,
                               notes: _notesController.text,
                               pvalidtime: _pvalidtimeController.text,
                             ));
-                        Navigator.of(context).pop();
+                        context
+                            .read<PrescriptionProvider>()
+                            .fetchPrescription(context);
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const PrescriptionListingPage(
+                                      isHistoryPage: false,
+                                    )));
                       },
                       child: const Text('Create Prescription')),
                 ))

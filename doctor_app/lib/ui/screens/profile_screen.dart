@@ -36,14 +36,14 @@ class _ProfilePageState extends State<ProfilePage> {
               Column(
                 children: [
                   CircleAvatar(
-                    backgroundColor: Colors.grey[300],
-                    radius: 40,
-                    child: Image.network(
-                      "$imgUrl/${doctor.doctorImage}",
-                      errorBuilder: ((context, error, stackTrace) =>
-                          Image.asset('assets/images/user2.png')),
-                    ),
-                  ),
+                      backgroundColor: Colors.grey[300],
+                      radius: 40,
+                      backgroundImage: doctor.doctorImage == ''
+                          ? const AssetImage('assets/images/user2.png')
+                              as ImageProvider
+                          : NetworkImage(
+                              '$imgUrl/${doctor.doctorImage}}',
+                            )),
                   Text(
                     doctor.doctorName,
                     style: text3,

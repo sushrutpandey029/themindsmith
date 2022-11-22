@@ -41,7 +41,7 @@ class _HealthLockerPageState extends State<HealthLockerPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => PrescriptionPage()));
+                              builder: (context) => const PrescriptionPage()));
                     },
                     child: Text(
                       'All Prescriptions',

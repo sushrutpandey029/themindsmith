@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ResourcesPage extends StatefulWidget {
-  ResourcesPage({Key? key}) : super(key: key);
+  const ResourcesPage({Key? key}) : super(key: key);
 
   @override
   State<ResourcesPage> createState() => _ResourcesPageState();
@@ -24,7 +24,7 @@ class _ResourcesPageState extends State<ResourcesPage> {
             Column(
               children: [
                 Card(
-                  margin: EdgeInsets.all(12),
+                  margin: const EdgeInsets.all(12),
                   elevation: 8,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20)),
@@ -34,16 +34,16 @@ class _ResourcesPageState extends State<ResourcesPage> {
                           context,
                           MaterialPageRoute(
                               builder: ((context) =>
-                                  UploadAchievementsScreen())));
+                                  const UploadAchievementsScreen())));
                     },
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15.0),
                     ),
-                    title: Text('Upload Achivements'),
+                    title: const Text('Upload Achivements'),
                   ),
                 ),
                 Card(
-                  margin: EdgeInsets.all(12),
+                  margin: const EdgeInsets.all(12),
                   elevation: 8,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20)),
@@ -54,16 +54,16 @@ class _ResourcesPageState extends State<ResourcesPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: ((context) => ArticleListPage())));
+                              builder: ((context) => const ArticleListPage())));
                     },
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15.0),
                     ),
-                    title: Text('Articles'),
+                    title: const Text('Articles'),
                   ),
                 ),
                 Card(
-                  margin: EdgeInsets.all(12),
+                  margin: const EdgeInsets.all(12),
                   elevation: 8,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20)),

@@ -10,7 +10,7 @@ import '../../constants/button_style.dart';
 import '../../util/date_time_helper.dart';
 
 class AppointmentDetailsPage extends StatefulWidget {
-  AppointmentDetailsPage({Key? key}) : super(key: key);
+  const AppointmentDetailsPage({Key? key}) : super(key: key);
 
   @override
   State<AppointmentDetailsPage> createState() => _AppointmentDetailsPageState();

@@ -16,10 +16,12 @@ class VideoCallProvider extends ChangeNotifier {
 
       AgoraClient agoraClient = AgoraClient(
           agoraConnectionData: AgoraConnectionData(
-              appId: 'ac27b4adf1a04c6db93f6335fae17609',
-              channelName: selectedSlot.slotId,
-              uid: int.parse(selectedSlot.doctorsId),
-              tempToken: selectedSlot.videoToken));
+        appId: 'ac27b4adf1a04c6db93f6335fae17609',
+        channelName: selectedSlot.slotId,
+        uid: int.parse(selectedSlot.doctorsId),
+        tempToken: selectedSlot.videoToken,
+        username: selectedSlot.userName,
+      ));
       agoraClient.initialize();
       this.agoraClient = agoraClient;
       notifyListeners();
@@ -30,10 +32,12 @@ class VideoCallProvider extends ChangeNotifier {
 
       AgoraClient agoraClient = AgoraClient(
           agoraConnectionData: AgoraConnectionData(
-              appId: 'ac27b4adf1a04c6db93f6335fae17609',
-              channelName: selectedAllotment.slotId,
-              uid: int.parse(selectedAllotment.doctorsId),
-              tempToken: selectedAllotment.videoToken));
+        appId: 'ac27b4adf1a04c6db93f6335fae17609',
+        channelName: selectedAllotment.slotId,
+        uid: int.parse(selectedAllotment.doctorsId),
+        tempToken: selectedAllotment.videoToken,
+        username: selectedAllotment.userName,
+      ));
       agoraClient.initialize();
       this.agoraClient = agoraClient;
       notifyListeners();

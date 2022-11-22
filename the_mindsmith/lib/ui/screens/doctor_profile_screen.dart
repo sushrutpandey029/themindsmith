@@ -31,7 +31,7 @@ class _DoctorProfilePgaeState extends State<DoctorProfilePgae> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Image.network(
-                    '$imgUrl/d=${widget.doctorModel.doctorImage}',
+                    '$imgUrl/${widget.doctorModel.doctorImage}',
                     fit: BoxFit.fill,
                     height: 180,
                     width: 160,

@@ -26,6 +26,13 @@ class _ConsultWidgetState extends State<ConsultWidget> {
   bool _isConfirmOrderWidget = false;
   DateTime dateTime = DateTime.now();
   SlotModel? selectedslot;
+  bool isfollowUp = false;
+
+  @override
+  void initState() {
+    isfollowUp = widget.isfollowup;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,53 +53,18 @@ class _ConsultWidgetState extends State<ConsultWidget> {
       return '7500';
     }
 
+    print(isfollowUp);
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 18),
       child: Column(
         children: [
-          // SizedBox(
-          //   width: MediaQuery.of(context).size.width,
-          //   child: ElevatedButton(
-          //       style: fullButtonStyle,
-          //       onPressed: () {},
-          //       child: Padding(
-          //         padding: const EdgeInsets.all(16.0),
-          //         child: Column(
-          //           crossAxisAlignment: CrossAxisAlignment.stretch,
-          //           children: [
-          //             // const Text(
-          //             //   'Consult Online',
-          //             //   style: TextStyle(fontSize: 20),
-          //             //   textAlign: TextAlign.center,
-          //             // ),
-          //           ],
-          //         ),
-          //       )),
-          // ),
           _isConfirmOrderWidget
               ? ConfirmOrderWidget(fee: calculateprice(selectedslot!))
               : Consumer<SlotProvider>(
                   builder: (context, value, widget) {
                     return Column(
                       children: [
-                        // Container(
-                        //   margin: EdgeInsets.only(top: 40),
-                        //   width: MediaQuery.of(context).size.width / 2,
-                        //   decoration: BoxDecoration(
-                        //       color: Colors.white,
-                        //       borderRadius: BorderRadius.circular(10),
-                        //       boxShadow: [
-                        //         BoxShadow(blurRadius: 3, offset: Offset(1, 1))
-                        //       ]),
-                        //   child: Padding(
-                        //     padding: const EdgeInsets.all(8.0),
-                        //     child: Center(
-                        //         child: Text(
-                        //       'Today, ${dateTime.day}/${dateTime.month} (${slotList.length} Slots)',
-                        //       style: text2,
-                        //     )),
-                        //   ),
-                        // ),
                         Container(
                           width: MediaQuery.of(context).size.width / 2,
                           decoration: BoxDecoration(
@@ -117,9 +89,9 @@ class _ConsultWidgetState extends State<ConsultWidget> {
                             color: Colors.black,
                           ),
                         ),
-                        if (slotList.isEmpty)
+                        if (slotList.isEmpty || !isfollowUp)
                           Text(
-                            'No Slot available for now!!',
+                            'No 45 min Slot available for now!!',
                             style: text2,
                           ),
 

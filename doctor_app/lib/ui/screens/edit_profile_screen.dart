@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:image_picker/image_picker.dart';
+import '../../constants/url_constant.dart';
 import '../../provider/auth_provider.dart';
 import '../widgets/comman/app_bar.dart';
 
@@ -148,9 +149,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           child: CircleAvatar(
                             backgroundColor: Colors.grey[300],
                             radius: 40,
-                            child: image != null
-                                ? Image.file(image!)
-                                : const FlutterLogo(),
+                            backgroundImage: image != null
+                                ? FileImage(image!) as ImageProvider
+                                : NetworkImage(
+                                    '$imgUrl/${doctorModel.doctorImage}}',
+                                  ),
                           ),
                         ),
                         Container(

@@ -19,10 +19,9 @@ class _UploadAchievementsScreenState extends State<UploadAchievementsScreen> {
     return Scaffold(
       appBar: customAppBar(context, 'Upload Achievements'),
       body: Padding(
-        padding: EdgeInsets.all(18),
+        padding: const EdgeInsets.all(18),
         child: Consumer<AchievementProvider>(
-         
-          builder: (context, value , widget) {
+          builder: (context, value, widget) {
             return Column(
               children: [
                 Padding(
@@ -35,7 +34,8 @@ class _UploadAchievementsScreenState extends State<UploadAchievementsScreen> {
                         onPressed: () {
                           value.selectFile();
                         },
-                        child: Text(value.fileName??'Click here to select a File')),
+                        child: Text(
+                            value.fileName ?? 'Click here to select a File')),
                   ),
                 ),
                 Text(
@@ -44,7 +44,15 @@ class _UploadAchievementsScreenState extends State<UploadAchievementsScreen> {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: ElevatedButton(onPressed: value.path==null?null:(){value.uploadPrescription(context);}, child: Text('Upload'),style: smallBlackButtonStyle1,),
+                  child: ElevatedButton(
+                    onPressed: value.path == null
+                        ? null
+                        : () {
+                            value.uploadPrescription(context);
+                          },
+                    style: smallBlackButtonStyle1,
+                    child: const Text('Upload'),
+                  ),
                 ),
               ],
             );

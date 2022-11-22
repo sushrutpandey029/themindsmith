@@ -38,7 +38,7 @@ class _ConsultDoctorPageState extends State<ConsultDoctorPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Image.network(
-                      '$imgUrl/d=${doctorModel.doctorImage}',
+                      '$imgUrl/${doctorModel.doctorImage}',
                       fit: BoxFit.fill,
                       height: 180,
                       width: 160,

@@ -38,9 +38,9 @@ class DoctorProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> selectDoctor(int index, BuildContext context) async {
+  Future<void> selectDoctor(DoctorModel doctor, BuildContext context) async {
     Provider.of<SlotProvider>(context, listen: false).selectedSlot = null;
-    selectedDoctor = doctorList.elementAt(index);
+    selectedDoctor = doctor;
     await fetchSlotByDocId(context);
     Navigator.of(context).push(
         MaterialPageRoute(builder: (context) => const ConsultDoctorPage()));

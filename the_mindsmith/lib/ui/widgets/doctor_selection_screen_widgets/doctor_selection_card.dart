@@ -34,7 +34,7 @@ class _DoctorSelectionCardState extends State<DoctorSelectionCard> {
               ? Provider.of<ChatProvider>(context, listen: false)
                   .selectDoctor(widget.doctorModel, context)
               : Provider.of<DoctorProvider>(context, listen: false)
-                  .selectDoctor(widget.index, context);
+                  .selectDoctor(widget.doctorModel, context);
           // await SlotRepo().fetchSlotByDocId(widget.doctorModel.doctorId);
         },
         child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
@@ -82,10 +82,10 @@ class _DoctorSelectionCardState extends State<DoctorSelectionCard> {
                   widget.doctorModel.doctorQualification,
                   // textAlign: TextAlign.left,
                 ),
-                Text(
-                  '\u{20B9} ${widget.doctorModel.doctorFee}',
-                  // textAlign: TextAlign.left,
-                ),
+                // Text(
+                //   '\u{20B9} ${widget.doctorModel.doctorFee}',
+                //   // textAlign: TextAlign.left,
+                // ),
                 Text(
                   widget.doctorModel.doctorStatus,
                   // textAlign: TextAlign.left,

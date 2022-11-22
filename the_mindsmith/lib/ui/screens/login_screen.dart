@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
+// import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:the_mindsmith/constants/button_style.dart';
 import 'package:the_mindsmith/constants/input_decoration.dart';
@@ -19,7 +21,9 @@ class _LogInPageState extends State<LogInPage> {
   bool? _isChecked = false;
   final TextEditingController _email = TextEditingController();
   final TextEditingController _password = TextEditingController();
-
+  bool? _serviceEnabled;
+  LocationPermission? permission;
+  Position? _locationData;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -172,5 +176,27 @@ class _LogInPageState extends State<LogInPage> {
         ),
       )),
     );
+  }
+
+  Future<void> getcurrentlocation() async {
+    _serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!_serviceEnabled!) {
+      return Future.error('Location services are disabled.');
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Location permissions are denied');
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+
+    _locationData = await Geolocator.getCurrentPosition();
   }
 }
