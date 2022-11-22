@@ -42,9 +42,13 @@ class PrescriptionProvider extends ChangeNotifier {
     if (path != null && remarks.isNotEmpty) {
       String response = await _prescriptionRepo.uploadPrescription(
           userId, userName, path!, remarks);
+
       Navigator.pop(context);
       Navigator.pop(context);
-      errorDialogue(context: context, title: "success!!", message: response);
+      // errorDialogue(
+      //   context: context,
+      //   title: "success!!",
+      // );
     } else {
       Navigator.pop(context);
       errorDialogue(

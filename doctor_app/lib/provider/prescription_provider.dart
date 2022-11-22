@@ -84,12 +84,32 @@ class PrescriptionProvider extends ChangeNotifier {
 
   Future<void> generatePdf() async {
     _pdf = pw.Document();
-    final image = pw.MemoryImage(
+    final logoimage = pw.MemoryImage(
       (await rootBundle.load('assets/images/mindsmith-logo-black.png'))
           .buffer
           .asUint8List(),
     );
 
+    final mobileicon = pw.MemoryImage(
+      (await rootBundle.load('assets/icons/mobile_icon.png'))
+          .buffer
+          .asUint8List(),
+    );
+    final websiteicon = pw.MemoryImage(
+      (await rootBundle.load('assets/icons/website_icon.png'))
+          .buffer
+          .asUint8List(),
+    );
+    final emailicon = pw.MemoryImage(
+      (await rootBundle.load('assets/icons/email_icon.png'))
+          .buffer
+          .asUint8List(),
+    );
+    final presicon = pw.MemoryImage(
+      (await rootBundle.load('assets/icons/pres_icon.png'))
+          .buffer
+          .asUint8List(),
+    );
     _pdf!.addPage(pw.Page(
         pageFormat: PdfPageFormat.a4,
         margin: const pw.EdgeInsets.all(0),
@@ -110,7 +130,7 @@ class PrescriptionProvider extends ChangeNotifier {
                         children: [
                           pw.Column(
                             children: [
-                              pw.Image(image),
+                              pw.Image(logoimage),
                               pw.Text(
                                 selectedPrescription!.doctorName,
                                 style: pw.TextStyle(
@@ -138,14 +158,9 @@ class PrescriptionProvider extends ChangeNotifier {
                               children: [
                                 pw.Row(
                                   children: [
-                                    // pw.Icon(
-
-                                    //  Icons.mobile_screen_share_outlined,
-                                    //   color: Colors.white,
-                                    //   size: 10,
-                                    // ),
+                                    pw.Image(mobileicon, height: 16),
                                     pw.SizedBox(
-                                      width: 5,
+                                      width: 8,
                                     ),
                                     pw.Text(
                                       'WhatsApp +91 9717977731',
@@ -156,15 +171,12 @@ class PrescriptionProvider extends ChangeNotifier {
                                     ),
                                   ],
                                 ),
+                                pw.SizedBox(height: 5),
                                 pw.Row(
                                   children: [
-                                    // pw.Icon(
-                                    //   pw.Icons.email,
-                                    //   color: Colors.white,
-                                    //   size: 10,
-                                    // ),
+                                    pw.Image(emailicon, height: 16),
                                     pw.SizedBox(
-                                      width: 5,
+                                      width: 8,
                                     ),
                                     pw.Text(
                                       'info.mindsmith@gmail.com',
@@ -175,15 +187,12 @@ class PrescriptionProvider extends ChangeNotifier {
                                     ),
                                   ],
                                 ),
+                                pw.SizedBox(height: 5),
                                 pw.Row(
                                   children: [
-                                    //  pw. Icon(
-                                    //     Icons.blur_circular_outlined,
-                                    //     color: Colors.white,
-                                    //     size: 10,
-                                    //   ),
+                                    pw.Image(websiteicon, height: 16),
                                     pw.SizedBox(
-                                      width: 5,
+                                      width: 8,
                                     ),
                                     pw.Text(
                                       'www.mindsmith.co.in',
@@ -194,6 +203,7 @@ class PrescriptionProvider extends ChangeNotifier {
                                     ),
                                   ],
                                 ),
+                                pw.SizedBox(height: 5),
                               ],
                             ),
                           )
@@ -311,7 +321,6 @@ class PrescriptionProvider extends ChangeNotifier {
                                     ],
                                   ),
                                 ),
-
                                 pw.SizedBox(
                                   height: 20,
                                 ),
@@ -331,10 +340,7 @@ class PrescriptionProvider extends ChangeNotifier {
                                 pw.SizedBox(
                                   height: 15,
                                 ),
-                                // pw. Icon(
-                                //   Icons.medical_services_outlined,
-                                //   size: 30,
-                                // ),
+                                pw.Image(presicon, height: 50),
                                 pw.SizedBox(
                                   height: 10,
                                 ),
@@ -371,7 +377,6 @@ class PrescriptionProvider extends ChangeNotifier {
                                     )
                                   ],
                                 ),
-
                                 pw.SizedBox(
                                   height: 20,
                                 ),

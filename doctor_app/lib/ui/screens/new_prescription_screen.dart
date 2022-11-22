@@ -37,18 +37,18 @@ class _NewPrescriptionPageState extends State<NewPrescriptionPage> {
     false,
   ];
   final List<String> symptoms = [
-    'Sleep or appetite changes — Dramatic sleep and appetite changes or decline in personal care.',
-    'Mood changes — Rapid or dramatic shifts in emotions or depressed feelings, greater irritability.',
-    'Withdrawal — Recent social withdrawal and loss of interest in activities previously enjoyed.',
-    'Drop in functioning — An unusual drop in functioning, at school, work or social activities, such as quitting sports, failing in school or difficulty performing familiar tasks.',
-    'Problems thinking — Problems with concentration, memory or logical thought and speech that are hard to explain.',
-    'Increased sensitivity — Heightened sensitivity to sights, sounds, smells or touch; avoidance of over-stimulating situations.',
-    'Apathy — Loss of initiative or desire to participate in any activity.',
-    'Feeling disconnected — A vague feeling of being disconnected from oneself or one’s surroundings; a sense of unreality.',
-    'Illogical thinking — Unusual or exaggerated beliefs about personal powers to understand meanings or influence events; illogical or “magical” thinking typical of childhood in an adult.',
-    'Nervousness — Fear or suspiciousness of others or a strong nervous feeling.',
-    'Unusual behavior — Odd, uncharacteristic, peculiar behavior.',
-    'Changes in school or work — Increased absenteeism, worsening performance, difficulties in relationships with peers and co-workers.',
+    'Sleep or appetite changes - Dramatic sleep and appetite changes or decline in personal care.',
+    'Mood changes - Rapid or dramatic shifts in emotions or depressed feelings, greater irritability.',
+    'Withdrawal - Recent social withdrawal and loss of interest in activities previously enjoyed.',
+    'Drop in functioning - An unusual drop in functioning, at school, work or social activities, such as quitting sports, failing in school or difficulty performing familiar tasks.',
+    'Problems thinking - Problems with concentration, memory or logical thought and speech that are hard to explain.',
+    'Increased sensitivity - Heightened sensitivity to sights, sounds, smells or touch; avoidance of over-stimulating situations.',
+    'Apathy - Loss of initiative or desire to participate in any activity.',
+    'Feeling disconnected - A vague feeling of being disconnected from oneself or one’s surroundings; a sense of unreality.',
+    'Illogical thinking - Unusual or exaggerated beliefs about personal powers to understand meanings or influence events; illogical or “magical” thinking typical of childhood in an adult.',
+    'Nervousness - Fear or suspiciousness of others or a strong nervous feeling.',
+    'Unusual behavior - Odd, uncharacteristic, peculiar behavior.',
+    'Changes in school or work - Increased absenteeism, worsening performance, difficulties in relationships with peers and co-workers.',
   ];
 
   @override

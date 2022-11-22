@@ -48,7 +48,7 @@ class _UploadAchievementsScreenState extends State<UploadAchievementsScreen> {
                     onPressed: value.path == null
                         ? null
                         : () {
-                            value.uploadPrescription(context);
+                            value.uploadAchievement(context);
                           },
                     style: smallBlackButtonStyle1,
                     child: const Text('Upload'),

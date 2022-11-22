@@ -30,7 +30,7 @@ class AchievementProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> uploadPrescription(
+  Future<void> uploadAchievement(
     BuildContext context,
   ) async {
     String doctorId =

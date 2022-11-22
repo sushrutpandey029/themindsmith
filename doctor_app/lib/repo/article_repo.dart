@@ -11,10 +11,12 @@ class ArticleRepo {
     String url = "$_docApi/doc_articles";
     List<ArticleModel> list = [];
 
-    Response response = await Dio().post(url, data: {"doctor_id": doctorId});
+    Response response = await Dio().post(
+      url,
+    );
     print(response.data);
-    if (response.data['status'] == 1) {
-      for (Map<String, dynamic> map in response.data['data']) {
+    if (response.data != null) {
+      for (Map<String, dynamic> map in response.data['Allarticles']) {
         list.add(ArticleModel.fromMap(map));
       }
     } else {

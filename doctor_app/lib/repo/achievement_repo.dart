@@ -14,7 +14,7 @@ class AchievementRepo {
     FormData formData = FormData.fromMap({
       'doctor_id': doctorId,
       'doctor_name': doctorName,
-      'achivement': await MultipartFile.fromFile(filePath, filename: fileName),
+      'file': await MultipartFile.fromFile(filePath, filename: fileName),
     });
 
     try {
@@ -22,6 +22,7 @@ class AchievementRepo {
           .post(url, data: formData, options: Options(followRedirects: false));
 
       // print(response);
+      Navigator.of(context).pop();
       return response.data!;
     } on DioError catch (e) {
       print(e.response);
