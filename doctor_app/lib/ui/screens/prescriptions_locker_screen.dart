@@ -79,6 +79,10 @@ class _PrescriptionLockerPageState extends State<PrescriptionLockerPage> {
                           borderRadius: BorderRadius.circular(15.0),
                         ),
                         title: Text(value.userList.elementAt(index).userName),
+                        subtitle: Text(value.userList
+                            .elementAt(index)
+                            .dateTime
+                            .toString()),
                       ),
                     );
                   })),

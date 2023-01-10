@@ -10,6 +10,7 @@ import 'package:the_mindsmith/ui/screens/login_screen.dart';
 import 'package:the_mindsmith/util/error_dialogue.dart';
 import 'package:the_mindsmith/util/shared_pref.dart';
 
+import '../models/auth_user_model.dart';
 import '../models/user_model.dart';
 import '../ui/screens/fill_details_screen.dart';
 import '../ui/screens/wrapper.dart';
@@ -18,13 +19,65 @@ import 'notification_provider.dart';
 
 class AuthProvider extends ChangeNotifier {
   User? _currentUser;
-  final AuthApi _authApi = AuthRepo();
+  final AuthRepo _authApi = AuthRepo();
   String? verificationId;
   bool isOtpSent = false;
   String? jwt;
-  Map<String, dynamic>? userResponse;
+  // Map<String, dynamic>? userResponse;
+  AuthUserModel? authUserModel;
   UserModel? userModel;
   final SharedPref _pref = SharedPref();
+
+  Future<void> signInWithFb(BuildContext context) async {
+    try {
+      showDialog(
+          context: context,
+          builder: (context) =>
+              const Center(child: CircularProgressIndicator()));
+      UserCredential userCredential = await _authApi.signInWithFacebook();
+      final currentUser = userCredential.user;
+      final usertime = currentUser!.metadata.creationTime;
+      UserModel? user = await _authApi.getUserByFbId(currentUser.uid);
+      if (user != null) {
+        userModel = user;
+        await _pref.setData(json.encode(userModel!.toMap()));
+        await _pref.setDate();
+        print(userModel);
+        // print(userResponse);
+         await _authApi.updateFCMToken(userModel!.id,);
+        Provider.of<NotificationProvider>(context, listen: false)
+            .fetchNotification(context);
+        print(' done at sign in');
+        Navigator.pop(context);
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: ((context) => const Wrapper())));
+      } else {
+        authUserModel = AuthUserModel(
+          userRegNo: '',
+          userName: currentUser.displayName!,
+          userEmail: currentUser.email!,
+          userPhone: "",
+          userPassword: "facebook",
+          userConfirmPassword: "facebook",
+          aadharName: '',
+          aadharCardNo: '',
+          gender: '',
+          userAge: '',
+          frontImageAadhar: '',
+          backImageAadhar: '',
+          panCardImage: '',
+          userlocation: '',
+          fbId: currentUser.uid,
+        );
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => const FillDetailsPage()));
+        await _authApi.signOut();
+      }
+    } on FirebaseAuthException catch (e) {
+      errorDialogue(context: context, title: e.code, message: e.message);
+    }
+    notifyListeners();
+  }
 
   Future<void> signInWithGoogle(BuildContext context) async {
     try {
@@ -35,38 +88,41 @@ class AuthProvider extends ChangeNotifier {
       UserCredential userCredential = await _authApi.signInWithGoogle();
       final currentUser = userCredential.user;
       final usertime = currentUser!.metadata.creationTime;
-      if (DateTime.now().difference(usertime!).inSeconds < 10) {
-        context.read<AuthProvider>().userModel = UserModel(
-            userRegNo: '',
-            userName: currentUser.displayName!,
-            userEmail: currentUser.email!,
-            userPhone: "",
-            userPassword: 'google',
-            userConfirmPassword: 'google',
-            aadharName: '',
-            aadharCardNo: '',
-            gender: '',
-            userAge: '',
-            frontImageAadhar: '',
-            backImageAadhar: '',
-            panCardImage: '',
-            userlocation: '');
-
-        print(context.read<AuthProvider>().userModel);
-        Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => const FillDetailsPage()));
-      } else {
-        userResponse = await _authApi.readUser(jwt!);
-        await _pref.setData(json.encode(userResponse));
+      UserModel? user = await _authApi.getUserByGoogleId(currentUser.uid);
+      if (user != null) {
+        userModel = user;
+        await _pref.setData(json.encode(userModel!.toMap()));
         await _pref.setDate();
-        print(userResponse);
+        print(userModel);
+        // print(userResponse);
+         await _authApi.updateFCMToken(userModel!.id,);
         Provider.of<NotificationProvider>(context, listen: false)
             .fetchNotification(context);
         print(' done at sign in');
         Navigator.pop(context);
-
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder: ((context) => const Wrapper())));
+      } else {
+        authUserModel = AuthUserModel(
+          userRegNo: '',
+          userName: currentUser.displayName!,
+          userEmail: currentUser.email!,
+          userPhone: "",
+          userPassword: "google",
+          userConfirmPassword: "google",
+          aadharName: '',
+          aadharCardNo: '',
+          gender: '',
+          userAge: '',
+          frontImageAadhar: '',
+          backImageAadhar: '',
+          panCardImage: '',
+          userlocation: '',
+          googleId: currentUser.uid,
+        );
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => const FillDetailsPage()));
+        await _authApi.signOut();
       }
     } on FirebaseAuthException catch (e) {
       errorDialogue(context: context, title: e.code, message: e.message);
@@ -130,9 +186,9 @@ class AuthProvider extends ChangeNotifier {
       await _authApi.verifyOtp(verificationId!, smsCode);
       isOtpSent = false;
       _currentUser = FirebaseAuth.instance.currentUser;
-      userModel!.userPhone = _currentUser!.phoneNumber!;
+      authUserModel!.userPhone = _currentUser!.phoneNumber!;
       Navigator.pop(context);
-      print(userModel);
+      print(authUserModel);
 
       Navigator.of(context).push(
           MaterialPageRoute(builder: (context) => const IdVerificationPage()));
@@ -154,7 +210,8 @@ class AuthProvider extends ChangeNotifier {
 
       await _authApi.signOut();
       await _pref.removeData();
-      await Future.delayed(const Duration(seconds: 1));
+      await _pref.setToken("");
+      await _authApi.updateFCMToken(userModel!.id);
       // _currentUser = FirebaseAuth.instance.currentUser;
       Navigator.pushAndRemoveUntil(
           context, MaterialPageRoute(builder: ((context) => const LogInPage())),
@@ -164,7 +221,15 @@ class AuthProvider extends ChangeNotifier {
       });
     } on FirebaseAuthException catch (e) {
       print(e.message);
+    } on Exception {
+      rethrow;
     }
+    notifyListeners();
+  }
+
+  Future<void> refreshUser() async {
+    userModel = await _authApi.getUser(userModel!.id);
+    await _pref.setData(json.encode(userModel!.toMap()));
     notifyListeners();
   }
 
@@ -181,10 +246,13 @@ class AuthProvider extends ChangeNotifier {
         if (jwt != null) {
           jwt = response['jwt'];
 
-          userResponse = await _authApi.readUser(jwt!);
-          await _pref.setData(json.encode(userResponse));
+          // userResponse = await _authApi.readUser(jwt!);
+          userModel = UserModel.fromMap(await _authApi.readUser(jwt!));
+          await _pref.setData(json.encode(userModel!.toMap()));
           await _pref.setDate();
-          print(userResponse);
+          await _authApi.updateFCMToken(userModel!.id,);
+          print(userModel);
+          // print(userResponse);
           Provider.of<NotificationProvider>(context, listen: false)
               .fetchNotification(context);
           print(' done at sign in');
@@ -215,9 +283,9 @@ class AuthProvider extends ChangeNotifier {
           context: context,
           builder: (context) =>
               const Center(child: CircularProgressIndicator()));
-      userModel?.userRegNo = generateRegistrationNumber();
-      print(userModel);
-      var response = await _authApi.insertUser(userModel!);
+      authUserModel?.userRegNo = generateRegistrationNumber();
+      print(authUserModel);
+      var response = await _authApi.insertUser(authUserModel!);
       if (response["status"] == 1) {
         errorDialogue(
             context: context,

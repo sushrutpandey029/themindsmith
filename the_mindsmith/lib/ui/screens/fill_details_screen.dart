@@ -156,22 +156,22 @@ class _FillDetailsPageState extends State<FillDetailsPage> {
                                 maleOrFemale != 0) {
                               context
                                   .read<AuthProvider>()
-                                  .userModel!
+                                  .authUserModel!
                                   .aadharName = _name.text;
                               context
                                   .read<AuthProvider>()
-                                  .userModel!
+                                  .authUserModel!
                                   .aadharCardNo = _aadharNo.text;
-                              context.read<AuthProvider>().userModel!.userAge =
+                              context.read<AuthProvider>().authUserModel!.userAge =
                                   _age.text;
-                              context.read<AuthProvider>().userModel!.gender =
+                              context.read<AuthProvider>().authUserModel!.gender =
                                   maleOrFemale == 1
                                       ? "male"
                                       : maleOrFemale == 2
                                           ? "female"
                                           : "others";
 
-                              print(context.read<AuthProvider>().userModel!);
+                              print(context.read<AuthProvider>().authUserModel!);
                               // await context.read<AuthProvider>().insertUser(context);
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => const AskMobilePage()));

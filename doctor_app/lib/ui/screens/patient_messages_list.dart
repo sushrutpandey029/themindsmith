@@ -49,6 +49,7 @@ class _PatientMessagesListPageState extends State<PatientMessagesListPage> {
                           onTap: () {
                             value.selcetUserId(
                                 value.userIdList.elementAt(index), context);
+                               
                           },
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15.0),

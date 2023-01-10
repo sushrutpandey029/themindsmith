@@ -45,7 +45,7 @@ class PrescriptionModel {
       'user_symptoms': userSymptoms,
       'notes': notes,
       'client_id': pclientid,
-      'daretime': date,
+      'datetime': date,
       'valid_date': pvalidtime,
       'doctor_qualification': doctorQualification
     };
@@ -63,7 +63,7 @@ class PrescriptionModel {
       userAgeGender: map['user_age'] ?? '',
       userSymptoms: map['user_symptoms'] ?? '',
       notes: map['notes'] ?? '',
-      date: map['daretime'] ?? '',
+      date: map['datetime'] ?? '',
       pclientid: map['client_id'] ?? '',
       pvalidtime: map['p_valid_date'] ?? '',
       doctorQualification: map['doctor_qualification'] ?? '',

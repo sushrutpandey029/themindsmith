@@ -32,14 +32,17 @@ String formateDate1(String date) {
   }
 }
 
-bool compareDate(String date) {
+bool compareDate(String date, String startedTime, String endedTime) {
   //return true if DateTime.now<date else false
   try {
-    DateTime dateTime = DateTime.parse(date);
+    DateTime startTime = DateTime.parse('$date $startedTime');
+    DateTime endTime = DateTime.parse('$date $endedTime');
     DateTime dateNow = DateTime.now();
-    return (dateTime.year == dateNow.year &&
-        dateTime.month == dateNow.month &&
-        dateTime.day == dateNow.day);
+    if (dateNow.isAfter(startTime) && dateNow.isBefore(endTime)) {
+      return true;
+    } else {
+      return false;
+    }
   } on FormatException catch (e) {
     return false;
   }

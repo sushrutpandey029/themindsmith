@@ -52,6 +52,22 @@ class UpdateRepo {
     return true;
   }
 
+  Future<bool> updateUserGender(
+    String id,
+    String userGender,
+  ) async {
+    String baseUrl =
+        'http://44.209.72.97/themindsmith/Userapi_controller/update_user_gendar';
+    FormData formData = FormData.fromMap({
+      "user_id": id,
+      "user_gender": userGender,
+    });
+
+    Response response = await Dio().post(baseUrl, data: formData);
+
+    return true;
+  }
+
   Future<bool> uploadImage(String id, File file) async {
     String fileName = file.path.split('/').last;
     String baseUrl =

@@ -39,29 +39,29 @@ class _UpcomingAppointmentPageState extends State<UpcomingAppointmentPage> {
                   Expanded(
                     child: RefreshIndicator(
                       onRefresh: () async {
-                        value.fetchSlots(context);
+                        value.fetchAppointment(context);
                       },
                       child: ListView.builder(
                           shrinkWrap: true,
-                          itemCount: value.slotList.length,
+                          itemCount: value.appointmentList.length,
                           itemBuilder: (BuildContext context, int index) {
                             return Column(
                               children: [
                                 if (index == 0 ||
-                                    value.slotList[index - 1].appointmentDate
+                                    value.appointmentList[index - 1].appointmentDate
                                             .split(' ')
                                             .first !=
-                                        value.slotList[index].appointmentDate
+                                        value.appointmentList[index].appointmentDate
                                             .split(' ')
                                             .first)
                                   Text(
-                                      formateDate(value.slotList
+                                      formateDate(value.appointmentList
                                           .elementAt(index)
                                           .appointmentDate),
                                       style: text2),
                                 AppointmentBarWidget(
-                                  name: value.slotList[index].userName,
-                                  time: value.slotList[index].startedTime,
+                                  name: value.appointmentList[index].userName,
+                                  time: value.appointmentList[index].startedTime,
                                   index: index,
                                 ),
                               ],

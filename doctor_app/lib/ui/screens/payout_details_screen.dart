@@ -74,6 +74,15 @@ class _PayOutDetailsPageState extends State<PayOutDetailsPage> {
                 controller: beneficiaryController,
               ),
             ),
+            Material(
+              elevation: 10,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20)),
+              child: TextField(
+                decoration: inputDecoration1('Amount', null),
+                // controller: ,
+              ),
+            ),
             SizedBox(
               width: 200,
               height: 60,

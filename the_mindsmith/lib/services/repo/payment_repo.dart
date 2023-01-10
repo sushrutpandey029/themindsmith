@@ -31,7 +31,11 @@ class PaymentRepo {
       "transaction_id": "hjasv32y62323vhwgd67267"
     });
 
-    Response response = await Dio().post(baseUrl, data: formData);
+    try {
+  Response response = await Dio().post(baseUrl, data: formData);
+} on DioError catch (e) {
+  print(e);
+}
 
     return true;
   }

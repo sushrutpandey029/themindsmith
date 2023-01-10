@@ -52,7 +52,13 @@ class DoctorProvider extends ChangeNotifier {
         context: context,
         builder: (context) => const Center(child: CircularProgressIndicator()));
     String docId = selectedDoctor!.doctorId;
-    slotList = await _slotRepo.fetchSlotByDocId(docId);
+
+    List<SlotModel> list = await _slotRepo.fetchSlotByDocId(docId);
+    list.removeWhere((element) =>
+        DateTime.now().millisecondsSinceEpoch >
+        DateTime.parse('${element.scheduleDate} ${element.startTime}')
+            .millisecondsSinceEpoch);
+    slotList = list;
 
     print(slotList);
     Navigator.pop(context);

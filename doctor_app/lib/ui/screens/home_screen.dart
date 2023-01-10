@@ -1,5 +1,5 @@
 import 'package:badges/badges.dart';
-import 'package:doctor_app/model/slot_model.dart';
+import 'package:doctor_app/model/appointment_model.dart';
 import 'package:doctor_app/ui/screens/edit_profile_screen.dart';
 import 'package:doctor_app/ui/screens/profile_screen.dart';
 import 'package:intl/intl.dart';
@@ -75,24 +75,24 @@ class _HomePageState extends State<HomePage>
                         side: const BorderSide(width: 2))),
                 onPressed: () {
                   Provider.of<SlotProvider>(context, listen: false)
-                      .fetchSlots(context);
+                      .fetchAppointment(context);
                   Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: ((context) =>
                               const UpcomingAppointmentPage())));
                 },
-                child: const Text('My Appointment')),
+                child: const Text('My Appointments')),
           ),
         ),
         Consumer<SlotProvider>(
           builder: (context, value, widget) {
-            SlotModel? upcomingslot;
+            AppointmentModel? upcomingslot;
             if (!value.isSingleLoading) {
               _runAnimation();
             }
-            upcomingslot =
-                Provider.of<SlotProvider>(context, listen: false).upcomingslot;
+            upcomingslot = Provider.of<SlotProvider>(context, listen: false)
+                .upcomingAppointment;
             return value.isSingleLoading
                 ? const Padding(
                     padding: EdgeInsets.all(8.0),
@@ -105,11 +105,11 @@ class _HomePageState extends State<HomePage>
                       ),
                     ),
                   )
-                : value.slotList.isEmpty
+                : value.appointmentList.isEmpty || upcomingslot == null
                     ? const Text('No Appointment for Now')
                     : InkWell(
                         onTap: () {
-                          value.selectSlot(
+                          value.selectAppointment(
                             context,
                             -1,
                           );
@@ -136,16 +136,15 @@ class _HomePageState extends State<HomePage>
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  upcomingslot?.userName ??
-                                      'No upcoming appointment',
+                                  upcomingslot.userName,
                                   style: text2,
                                 ),
-                                upcomingslot?.appointmentDate == null
+                                upcomingslot.appointmentDate == null
                                     ? const SizedBox()
                                     : Text(
                                         'Date           : ${upcomingslot?.appointmentDate ?? ' '}',
                                         style: text3),
-                                upcomingslot?.startedTime == null
+                                upcomingslot.startedTime == null
                                     ? const SizedBox()
                                     : Text(
                                         'Start time  : ${formateTime(upcomingslot?.startedTime ?? ' ')}',
@@ -170,7 +169,9 @@ class _HomePageState extends State<HomePage>
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const EditProfilePage()));
+                              builder: (context) => EditProfilePage(
+                                    isEditProfile: false,
+                                  )));
                     },
                     child: const Text('My Profile')),
               ),
@@ -179,7 +180,7 @@ class _HomePageState extends State<HomePage>
                 child: ElevatedButton(
                     style: flatWhiteButton,
                     onPressed: () {
-                      context.read<SlotProvider>().fetchSlots(context);
+                      context.read<SlotProvider>().fetchAppointment(context);
                       Navigator.push(
                           context,
                           MaterialPageRoute(

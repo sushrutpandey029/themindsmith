@@ -55,14 +55,14 @@ class _AppointmentDetailsPageState extends State<AppointmentDetailsPage> {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
-                                'Hi ${value.selectedAllotment!.doctorName},',
+                                'Hi ${value.selectedAppointment!.doctorName},',
                                 style: heading2,
                               ),
                             ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
-                                'Your Appointment with ${value.selectedAllotment!.userName} is booked successfully and Scheduled on ${formateDate(value.selectedAllotment!.appointmentDate)} at  ${formateTime(value.selectedAllotment!.startedTime)} for ${value.selectedAllotment!.timeSlot}.',
+                                'Your Appointment with ${value.selectedAppointment!.userName} is booked successfully and Scheduled on ${formateDate(value.selectedAppointment!.appointmentDate)} at  ${formateTime(value.selectedAppointment!.startedTime)} for ${value.selectedAppointment!.timeSlot}.',
                                 style: text2,
                               ),
                             ),
@@ -94,7 +94,9 @@ class _AppointmentDetailsPageState extends State<AppointmentDetailsPage> {
                       child: ElevatedButton(
                           style: smallBlackButtonStyle1,
                           onPressed: compareDate(
-                                  value.selectedAllotment!.appointmentDate)
+                                  value.selectedAppointment!.appointmentDate,
+                                  value.selectedAppointment!.startedTime,
+                                  value.selectedAppointment!.endTime)
                               ? () async {
                                   await Provider.of<VideoCallProvider>(context,
                                           listen: false)
@@ -123,6 +125,7 @@ class _AppointmentDetailsPageState extends State<AppointmentDetailsPage> {
                             child: Text(
                               'Upload Medical History',
                               style: heading3,
+                              textAlign: TextAlign.center,
                             ),
                           )),
                     )

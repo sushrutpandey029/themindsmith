@@ -12,9 +12,16 @@ import '../ui/screens/login_screen.dart';
 import '../ui/screens/wrapper.dart';
 
 class SharedPref {
+  static final SharedPref _sharedPref = SharedPref._internal();
+  factory SharedPref() {
+    return _sharedPref;
+  }
+  SharedPref._internal();
+
   Future<void> setData(String doctorModel) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     bool status = await preferences.setString('doctorModel', doctorModel);
+    // await preferences.setString('jwt', jwt);
     print(status.toString());
   }
 
@@ -27,6 +34,7 @@ class SharedPref {
   Future<void> removeData() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     await preferences.remove('doctorModel');
+    // await preferences.remove('jwt');
   }
 
   Future<void> setDate() async {
@@ -40,6 +48,18 @@ class SharedPref {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     int? dateTime = preferences.getInt('dateTime');
     return dateTime;
+  }
+
+  Future<bool> setToken(String token) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    bool status = await preferences.setString('token', token);
+    return status;
+  }
+
+  Future<String> getToken() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String token = preferences.getString('token') ?? '';
+    return token;
   }
 
   Future<void> authHandler(BuildContext context) async {
@@ -59,14 +79,14 @@ class SharedPref {
       Provider.of<AuthProvider>(context, listen: false).doctorModel =
           DoctorModel.fromMap(json.decode(doctorModel));
       await setDate();
-      await Provider.of<SlotProvider>(context, listen: false)
-          .fetchSingleSlot(context);
-      await Provider.of<SlotProvider>(context, listen: false)
-          .fetchSlots(context);
-      Provider.of<NotificationProvider>(context, listen: false)
-          .fetchNotification(context);
-      Provider.of<SlotProvider>(context, listen: false)
-          .setnextappointementdatetime();
+      // await Provider.of<SlotProvider>(context, listen: false)
+      //     .fetchSingleAppointment(context);
+      // await Provider.of<SlotProvider>(context, listen: false)
+      //     .fetchAppointment(context);
+      // Provider.of<NotificationProvider>(context, listen: false)
+      //     .fetchNotification(context);
+      // Provider.of<SlotProvider>(context, listen: false)
+      //     .setNextAppointmentDateTime();
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (context) => const Wrapper()),

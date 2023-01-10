@@ -19,8 +19,7 @@ class NotificationProvider extends ChangeNotifier {
     isLoading = true;
     notifyListeners();
     String id =
-        Provider.of<AuthProvider>(context, listen: false).userResponse!['users']
-            ['id']; //don't forget to check this when read user
+        Provider.of<AuthProvider>(context, listen: false).userModel!.id; //don't forget to check this when read user
     notificationList = await _notificationRepo.fetchNotification(id);
     allotmentNotificationList =
         await _notificationRepo.fetchAllotmentNotification(id);

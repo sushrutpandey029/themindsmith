@@ -52,7 +52,7 @@ class _IdVerificationPageState extends State<IdVerificationPage> {
                         await _picker.pickImage(source: ImageSource.gallery);
                     if (image != null) {
                       Provider.of<AuthProvider>(context, listen: false)
-                          .userModel
+                          .authUserModel
                           ?.frontImageAadhar = image.path;
 
                       setState(() {
@@ -81,7 +81,7 @@ class _IdVerificationPageState extends State<IdVerificationPage> {
                         await _picker.pickImage(source: ImageSource.gallery);
                     if (image != null) {
                       Provider.of<AuthProvider>(context, listen: false)
-                          .userModel
+                          .authUserModel
                           ?.backImageAadhar = image.path;
 
                       setState(() {
@@ -110,7 +110,7 @@ class _IdVerificationPageState extends State<IdVerificationPage> {
                         await _picker.pickImage(source: ImageSource.gallery);
                     if (image != null) {
                       Provider.of<AuthProvider>(context, listen: false)
-                          .userModel
+                          .authUserModel
                           ?.panCardImage = image.path;
 
                       setState(() {

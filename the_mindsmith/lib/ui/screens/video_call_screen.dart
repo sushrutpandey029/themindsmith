@@ -124,7 +124,7 @@ class _AgoraVideoCallState extends State<AgoraVideoCall> {
                         ?.logout();
                   }
                   await value.agoraClient?.sessionController.value.engine
-                      ?.destroy();
+                     ;
                 },
                 child: const Text('Yes'),
               ),
@@ -164,3 +164,5 @@ class _AgoraVideoCallState extends State<AgoraVideoCall> {
     );
   }
 }
+
+

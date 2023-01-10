@@ -52,12 +52,14 @@ class _DownloadPrescriptionPageState extends State<DownloadPrescriptionPage> {
                                     image: AssetImage(
                                         'assets/images/mindsmith-logo-black.png'),
                                   ),
-                                  Text(
-                                    value.selectedPrescription!.doctorName,
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
+                                  Center(
+                                    child: Text(
+                                      value.selectedPrescription!.doctorName,
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
                                   ),
                                   Padding(
@@ -146,188 +148,192 @@ class _DownloadPrescriptionPageState extends State<DownloadPrescriptionPage> {
                         flex: 2,
                         child: SizedBox(
                           height: size.height * 0.65,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 12, right: 12),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                        top: 20,
-                                      ),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        children: [
-                                          const Text(
-                                            'DATE',
-                                            style: TextStyle(
-                                              fontSize: 11,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            width: 12,
-                                          ),
-                                          Text(
-                                            DateFormat('dd/MM/yyyy').format(
-                                              DateTime.now(),
-                                            ),
-                                            style:
-                                                const TextStyle(fontSize: 11),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                        top: 20,
-                                      ),
-                                      child: Row(
-                                        children: [
-                                          const Text(
-                                            'NAME',
-                                            style: TextStyle(
-                                              fontSize: 11,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            width: 12,
-                                          ),
-                                          Text(
-                                            value
-                                                .selectedPrescription!.userName,
-                                            style:
-                                                const TextStyle(fontSize: 11),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                        top: 5,
-                                      ),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Row(
-                                            children: [
-                                              const Text(
-                                                'AGE/GENDER',
-                                                style: TextStyle(
-                                                  fontSize: 11,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                              const SizedBox(
-                                                width: 5,
-                                              ),
-                                              Text(
-                                                value.selectedPrescription!
-                                                    .userAgeGender,
-                                                style: const TextStyle(
-                                                    fontSize: 11),
-                                              ),
-                                            ],
-                                          ),
-                                          Row(
-                                            children: [
-                                              const Text(
-                                                'ID NO.',
-                                                style: TextStyle(
-                                                  fontSize: 11,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                              const SizedBox(
-                                                width: 5,
-                                              ),
-                                              Text(
-                                                value.selectedPrescription!
-                                                        .pclientid ??
-                                                    'to be generated',
-                                                style: const TextStyle(
-                                                    fontSize: 11),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 20,
-                                    ),
-                                    const Text(
-                                      'Symptoms',
-                                      style: TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    const SizedBox(
-                                      height: 5,
-                                    ),
-                                    Text(
-                                      value.selectedPrescription!.userSymptoms,
-                                      style: const TextStyle(fontSize: 11),
-                                    ),
-                                    const SizedBox(
-                                      height: 15,
-                                    ),
-                                    const Icon(
-                                      Icons.medical_services_outlined,
-                                      size: 30,
-                                    ),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    Text(
-                                      value.selectedPrescription!.notes,
-                                      style: const TextStyle(fontSize: 13),
-                                    ),
-                                    const SizedBox(
-                                      height: 20,
-                                    ),
-                                    Row(
-                                      children: [
-                                        const SizedBox(
-                                          width: 10,
+                          child: SingleChildScrollView(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 12, right: 12),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                          top: 20,
                                         ),
-                                        DottedLine(
-                                          lineLength: size.width * 0.38,
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          children: [
+                                            const Text(
+                                              'DATE',
+                                              style: TextStyle(
+                                                fontSize: 11,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              width: 12,
+                                            ),
+                                            Text(
+                                              DateFormat('dd/MM/yyyy').format(
+                                                DateTime.now(),
+                                              ),
+                                              style:
+                                                  const TextStyle(fontSize: 11),
+                                            )
+                                          ],
                                         ),
-                                        Text(
-                                          value
-                                              .selectedPrescription!.pvalidtime,
-                                          style: const TextStyle(
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                          top: 20,
+                                        ),
+                                        child: Row(
+                                          children: [
+                                            const Text(
+                                              'NAME',
+                                              style: TextStyle(
+                                                fontSize: 11,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              width: 12,
+                                            ),
+                                            Text(
+                                              value.selectedPrescription!
+                                                  .userName,
+                                              style:
+                                                  const TextStyle(fontSize: 11),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                          top: 5,
+                                        ),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                const Text(
+                                                  'AGE/GENDER',
+                                                  style: TextStyle(
+                                                    fontSize: 11,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                const SizedBox(
+                                                  width: 5,
+                                                ),
+                                                Text(
+                                                  value.selectedPrescription!
+                                                      .userAgeGender,
+                                                  style: const TextStyle(
+                                                      fontSize: 11),
+                                                ),
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                const Text(
+                                                  'ID NO.',
+                                                  style: TextStyle(
+                                                    fontSize: 11,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                const SizedBox(
+                                                  width: 5,
+                                                ),
+                                                Text(
+                                                  value.selectedPrescription!
+                                                          .pclientid ??
+                                                      'to be generated',
+                                                  style: const TextStyle(
+                                                      fontSize: 11),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 20,
+                                      ),
+                                      const Text(
+                                        'Symptoms',
+                                        style: TextStyle(
                                             fontSize: 12,
-                                            fontWeight: FontWeight.bold,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(
+                                        value
+                                            .selectedPrescription!.userSymptoms,
+                                        style: const TextStyle(fontSize: 11),
+                                      ),
+                                      const SizedBox(
+                                        height: 15,
+                                      ),
+                                      const Icon(
+                                        Icons.medical_services_outlined,
+                                        size: 30,
+                                      ),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      Text(
+                                        value.selectedPrescription!.notes,
+                                        style: const TextStyle(fontSize: 13),
+                                      ),
+                                      const SizedBox(
+                                        height: 20,
+                                      ),
+                                      Row(
+                                        children: [
+                                          const SizedBox(
+                                            width: 10,
                                           ),
-                                        )
-                                      ],
-                                    ),
-                                    const SizedBox(
-                                      height: 20,
-                                    ),
-                                  ],
+                                          DottedLine(
+                                            lineLength: size.width * 0.38,
+                                          ),
+                                          Text(
+                                            value.selectedPrescription!
+                                                .pvalidtime,
+                                            style: const TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        height: 20,
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                              const Padding(
-                                padding: EdgeInsets.only(
-                                  left: 5,
-                                  bottom: 5,
-                                ),
-                                child: Text(
-                                  'This is an auto-generated Prescription and does not need Signature',
-                                  style: TextStyle(fontSize: 7.5),
-                                ),
-                              )
-                            ],
+                                const Padding(
+                                  padding: EdgeInsets.only(
+                                    left: 5,
+                                    bottom: 5,
+                                  ),
+                                  child: Text(
+                                    'This is an auto-generated Prescription and does not need Signature',
+                                    style: TextStyle(fontSize: 7.5),
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),

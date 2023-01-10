@@ -27,36 +27,39 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  agora_uikit: null
-  awesome_notifications: ^0.7.4+1
-  badges: null
-  cupertino_icons: ^1.0.2
-  dio: null
-  file_picker: ^4.6.1
-  firebase_auth: null
-  firebase_core: null
+  agora_uikit: 1.0.3
+  awesome_notifications:
+  badges:
+  cupertino_icons:
+  dio:
+  file_picker:
+  firebase_auth:
+  firebase_core:
+  firebase_messaging: ^14.2.0
   flutter:
     sdk: flutter
-  flutter_secure_storage: ^6.0.0
-  geolocator: ^8.1.1
-  google_sign_in: null
-  http: null
-  image_picker: ^0.8.6
-  intl: null
-  lottie: ^2.0.0
-  permission_handler: ^9.2.0
-  provider: null
-  razorpay_flutter: ^1.3.2
-  shared_preferences: null
-  syncfusion_flutter_calendar: ^20.3.57
-  url_launcher: null
-  youtube_player_flutter: null
+  flutter_facebook_auth:
+  flutter_secure_storage:
+  geolocator:
+  google_sign_in:
+  http:
+  image_picker:
+  intl:
+  # location: ^4.4.0
+  lottie:
+  mailer: ^5.3.0
+  provider:
+  razorpay_flutter:
+  shared_preferences:
+  syncfusion_flutter_calendar:
+  url_launcher:
+  youtube_player_flutter:
 
 dependency_overrides:
-  image_picker_android: 0.8.4+13
+  image_picker_android:
 
 dev_dependencies:
-  flutter_lints: ^2.0.1
+  flutter_lints:
   flutter_test:
     sdk: flutter
 

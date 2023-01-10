@@ -16,6 +16,7 @@ class UpdateRepo {
     });
 
     Response response = await Dio().post(baseUrl, data: formData);
+    print(response);
 
     return true;
   }

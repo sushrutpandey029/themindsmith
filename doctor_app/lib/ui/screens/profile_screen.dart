@@ -42,7 +42,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           ? const AssetImage('assets/images/user2.png')
                               as ImageProvider
                           : NetworkImage(
-                              '$imgUrl/${doctor.doctorImage}}',
+                              '$imgUrl/${doctor.doctorImage}',
                             )),
                   Text(
                     doctor.doctorName,
@@ -67,7 +67,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      const EditProfilePage()));
+                                       EditProfilePage(isEditProfile: true,)));
                         },
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15.0),

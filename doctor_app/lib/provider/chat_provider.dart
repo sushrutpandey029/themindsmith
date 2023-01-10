@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:doctor_app/model/user_model.dart';
 import 'package:flutter/material.dart';
@@ -56,6 +55,7 @@ class ChatProvider extends ChangeNotifier {
       }
       idList.add(element.senderId);
       list.add(UserModel(
+          dateTime: element.dateTime,
           userId: element.senderId,
           userName: element.senderName,
           userRegNo: ''));
@@ -69,7 +69,8 @@ class ChatProvider extends ChangeNotifier {
         context: context,
         builder: (context) => const Center(child: CircularProgressIndicator()));
     selectedUserId = userId;
-    await fetchChat(userId, context);
+    await fetchChat(userId, context, false);
+    await autoReloadMessages(userId, context);
 
     Navigator.pop(context);
     Navigator.of(context)
@@ -77,7 +78,8 @@ class ChatProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> fetchChat(String userId, BuildContext context) async {
+  Future<void> fetchChat(
+      String userId, BuildContext context, bool isReload) async {
     if (isClosed == true) {
       // disposechat();
       isClosed = false;
@@ -103,17 +105,19 @@ class ChatProvider extends ChangeNotifier {
     });
 
     print(finalChatList);
-
-    initialIndex = finalChatList.length - 20;
+    if (!isReload) {
+      initialIndex = finalChatList.length - 20;
+      if (initialIndex! < 0) {
+        initialIndex = 0;
+      }
+    }
 
 // finalIndex = finalChatList.length;
-    if (initialIndex! < 0) {
-      initialIndex = 0;
-    }
-    autoReloadMessages(
-      userId,
-    );
+
     notifyListeners();
+    // if (isClosed == false) {
+    //   autoReloadMessages(userId, context);
+    // }
   }
 
   Future<void> sendMessage(BuildContext context, String message) async {
@@ -126,7 +130,7 @@ class ChatProvider extends ChangeNotifier {
     await _chatRepo.sendMessage(selectedUserId!, selectedUserId!,
         doctorModel.doctorId, doctorModel.doctorName, message);
     await fetchReceivedChat(context);
-    await fetchChat(selectedUserId!, context);
+    await fetchChat(selectedUserId!, context, false);
     isSending = false;
     print(isSending);
     notifyListeners();
@@ -152,34 +156,14 @@ class ChatProvider extends ChangeNotifier {
   //   notifyListeners();
   // }
 
-  Future<void> autoReloadMessages(String userId) async {
+  Future<void> autoReloadMessages(String userId, BuildContext context) async {
     Timer.periodic(const Duration(seconds: 2), (timer) async {
       if (isClosed) {
         timer.cancel();
         return;
       } else {
-        List<ChatModel> doctorChat =
-            await _chatRepo.fetchDoctorChat(doctorModel!.doctorId);
-        doctorChat.removeWhere((element) => element.receiverId != userId);
-
-        List<ChatModel> userChat = allReceivedChatList;
-
-        userChat.removeWhere((element) => element.senderId != userId);
-
-        finalChatList.clear();
-        finalChatList.addAll(doctorChat);
-        finalChatList.addAll(userChat);
-
-        finalChatList.sort((a, b) {
-          return a.dateTime.compareTo(b.dateTime);
-        });
-
-        print(finalChatList);
-
-        //  initialIndex = finalChatList.length - 10;
-
-        // finalIndex = finalChatList.length;
-        notifyListeners();
+        await fetchReceivedChat(context);
+        await fetchChat(selectedUserId!, context, true);
       }
     });
   }

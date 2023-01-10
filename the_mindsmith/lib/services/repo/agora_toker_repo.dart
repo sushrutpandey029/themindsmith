@@ -5,7 +5,7 @@ import '../../util/error_dialogue.dart';
 
 class AgoraTokenRepo {
   Future<String?> generateToken(String channelName,int userId,BuildContext context) async {
-    String url = "https://mindsmith.herokuapp.com/rtc/$channelName/publisher/uid/0/?expiry=";
+    String url = "https://mindsmithtokenserver.onrender.com/rtc/$channelName/publisher/uid/0/?expiry=";
     try {
   Response response = await Dio().get(url);
   print(response.data);

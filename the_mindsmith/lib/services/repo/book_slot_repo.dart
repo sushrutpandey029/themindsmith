@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:the_mindsmith/models/book_slot_model.dart';
 
@@ -5,11 +7,11 @@ import '../../constants/url_constant.dart';
 
 class BookSlotRepo {
   final String _userApi = "$baseUrl/Userapi_controller";
-  Future<void> bookSlot(BookSlotModel bookSlotModel) async {
+  Future<Map<String,dynamic>> bookSlot(BookSlotModel bookSlotModel) async {
     String url = "$_userApi/book_apointment";
     Response response = await Dio().post(url, data: bookSlotModel.toMap());
-
-    print(response.data);
+    log(response.data.toString());
+    return response.data;
   }
 
   Future<void> updateSlotStatus(String slotId) async {

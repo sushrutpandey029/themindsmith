@@ -19,7 +19,7 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
-    print(Provider.of<AuthProvider>(context, listen: false).userResponse!);
+    // print(Provider.of<AuthProvider>(context, listen: false).userResponse!);
     return Padding(
       padding: const EdgeInsets.all(18.0),
       child: Center(
@@ -32,24 +32,27 @@ class _ProfilePageState extends State<ProfilePage> {
                   radius: 40,
                   backgroundImage:
                       Provider.of<AuthProvider>(context, listen: false)
-                                  .userResponse!['users']['user_image'] ==
+                                  .userModel!
+                                  .userImage ==
                               ''
                           ? const AssetImage('assets/images/user2.png')
                               as ImageProvider
                           : NetworkImage(
-                              '$imgUrl/${Provider.of<AuthProvider>(context, listen: false).userResponse!['users']['user_image']}',
+                              '$imgUrl/${Provider.of<AuthProvider>(context, listen: false).userModel!.userImage}',
                             ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
                     Provider.of<AuthProvider>(context, listen: false)
-                        .userResponse!['users']['user_name'],
+                        .userModel!
+                        .userName,
                     style: text2,
                   ),
                 ),
                 Text(Provider.of<AuthProvider>(context, listen: false)
-                    .userResponse!['users']['user_reg_no'])
+                    .userModel!
+                    .userRegNo)
               ],
             ),
             const SizedBox(

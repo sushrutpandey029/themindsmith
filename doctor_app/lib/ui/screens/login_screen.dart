@@ -71,17 +71,12 @@ class _LogInPageState extends State<LogInPage> {
                           .loginWithEmail(_email.text, _password.text, context);
                       //  Navigator.pushReplacement(context, MaterialPageRoute(builder: ((context) => Wrapper())));
                     },
-                    child: const Text('Get to App'),
+                    child: const Text('Get Started'),
                   ),
                 ),
               ],
             )),
-            TextButton(
-                onPressed: () {},
-                child: const Text(
-                  'Need help?',
-                  style: TextStyle(color: Colors.black),
-                )),
+          
             const Spacer(
               flex: 3,
             ),

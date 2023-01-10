@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:doctor_app/model/appointment_notification_model.dart';
+import 'package:doctor_app/model/appointment_model.dart';
 
 import '../../constants/url_constant.dart';
 import '../model/notification_model.dart';
@@ -24,9 +24,9 @@ class NotificationRepo {
     return list;
   }
 
-  Future<List<AllotmentNotificationModel>> fetchAllotmentNotification(
+  Future<List<AppointmentModel>> fetchAppointmentNotification(
       String userId) async {
-    List<AllotmentNotificationModel> list = [];
+    List<AppointmentModel> list = [];
     String url = "$_notificationApi/doctor_appointment_notification";
 
     Response response = await Dio().post(url, data: {"doctor_id": userId});
@@ -34,10 +34,10 @@ class NotificationRepo {
     if (response.data['Allusernotification'] != null) {
       for (Map<String, dynamic> notificationMap
           in response.data['Allusernotification']) {
-        list.add(AllotmentNotificationModel.fromMap(notificationMap));
+        list.add(AppointmentModel.fromMap(notificationMap));
       }
     }
-    print(list);
+    print("this"+list.toString());
 
     return list;
   }

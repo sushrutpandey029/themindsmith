@@ -1,6 +1,7 @@
 import 'package:doctor_app/provider/prescription_provider.dart';
 import 'package:doctor_app/ui/screens/patient_history_screen.dart';
 import 'package:doctor_app/ui/widgets/comman/app_bar.dart';
+import 'package:doctor_app/util/date_time_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -48,6 +49,8 @@ class _PrescriptionListingPageState extends State<PrescriptionListingPage> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20)),
                         child: ListTile(
+                          contentPadding: const EdgeInsets.symmetric(
+                              vertical: 8, horizontal: 20),
                           onTap: () {
                             value.selectPrescription(
                                 value.prescriptionList.elementAt(index));
@@ -67,8 +70,23 @@ class _PrescriptionListingPageState extends State<PrescriptionListingPage> {
                             borderRadius: BorderRadius.circular(15.0),
                           ),
                           title: Text(value.prescriptionList
-                              .elementAt(index)
-                              .userSymptoms),
+                                  .elementAt(index)
+                                  .pclientid ??
+                              ''),
+                          trailing: Text(formateDate(
+                              value.prescriptionList.elementAt(index).date ??
+                                  "")),
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(value.prescriptionList
+                                  .elementAt(index)
+                                  .userFullName),
+                              Text(value.prescriptionList
+                                  .elementAt(index)
+                                  .notes),
+                            ],
+                          ),
                         ),
                       );
                     })),

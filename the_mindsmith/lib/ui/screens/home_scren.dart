@@ -3,14 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:the_mindsmith/constants/button_style.dart';
 import 'package:the_mindsmith/constants/text_style.dart';
 import 'package:the_mindsmith/providers/doctor_provider.dart';
-import 'package:the_mindsmith/services/repo/doctor_repo.dart';
-import 'package:the_mindsmith/ui/screens/chat_screen.dart';
 
-import '../../providers/notification_provider.dart';
-import 'consulation_screen.dart';
-import 'consult_now_screen.dart';
-import 'doctor_selection_screen.dart';
-import 'notification_screen.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -67,11 +60,14 @@ class _HomePageState extends State<HomePage> {
                   Provider.of<DoctorProvider>(context, listen: false)
                       .fetchDoctor(context, false);
                 },
-                child: Center(
-                    child: Text(
-                  'Book an appointment',
-                  style: text1,
-                ))),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical:18.0),
+                  child: Center(
+                      child: Text(
+                    'Book an Appointment',
+                    style: text1,
+                  )),
+                )),
           ),
           // Row(
           //   children: [
@@ -120,16 +116,18 @@ class _HomePageState extends State<HomePage> {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 18.0),
             child: Container(
-              height: 200,
+              height: 180,
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
                   color: Colors.white,
                   boxShadow: const [
-                    BoxShadow(blurRadius: 10, offset: Offset(5, 5))
+                    BoxShadow(
+                      color: Colors.grey,
+                      blurRadius: 20, offset: Offset(5, 5))
                   ],
                   borderRadius: BorderRadius.circular(20)),
               child: Column(
-                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(
@@ -143,10 +141,10 @@ class _HomePageState extends State<HomePage> {
                   const Padding(
                     padding: EdgeInsets.all(8.0),
                     child: Text(
-                        'Choose from across 10+ specialities in Brain Medicine and Therapy',
+                        'Choose from across 10+ specialties in \nBrain Medicine and Therapy',
                         textAlign: TextAlign.center),
                   ),
-                  const Spacer(),
+                  // const Spacer(),
                   // InkWell(
                   //   onTap: () {
                   //     Navigator.push(
@@ -168,19 +166,19 @@ class _HomePageState extends State<HomePage> {
                   //     )),
                   //   ),
                   // )
-                  Container(
-                    height: 60,
-                    width: MediaQuery.of(context).size.width,
-                    decoration: const BoxDecoration(
-                        color: Colors.black,
-                        borderRadius:
-                            BorderRadius.vertical(bottom: Radius.circular(20))),
-                    child: const Center(
-                        child: Text(
-                      'Consult now',
-                      style: TextStyle(color: Colors.white),
-                    )),
-                  ),
+                  // Container(
+                  //   height: 60,
+                  //   width: MediaQuery.of(context).size.width,
+                  //   decoration: const BoxDecoration(
+                  //       color: Colors.black,
+                  //       borderRadius:
+                  //           BorderRadius.vertical(bottom: Radius.circular(20))),
+                  //   child: const Center(
+                  //       child: Text(
+                  //     'Consult now',
+                  //     style: TextStyle(color: Colors.white),
+                  //   )),
+                  // ),
                 ],
               ),
             ),

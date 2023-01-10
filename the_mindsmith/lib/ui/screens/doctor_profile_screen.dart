@@ -30,22 +30,39 @@ class _DoctorProfilePgaeState extends State<DoctorProfilePgae> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Image.network(
-                    '$imgUrl/${widget.doctorModel.doctorImage}',
-                    fit: BoxFit.fill,
-                    height: 180,
-                    width: 160,
-                    errorBuilder: (context, object, stackTrace) {
-                      return Image.asset(
-                        'assets/images/doctor1.png',
-                        fit: BoxFit.fill,
-                        height: 120,
-                        width: 100,
-                      );
-                    },
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey, width: 4),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          // spreadRadius: 5,
+                          blurRadius: 7,
+                          offset:
+                              const Offset(3, 3), // changes position of shadow
+                        ),
+                      ],
+                    ),
+                    child: Image.network(
+                      '$imgUrl/${widget.doctorModel.doctorImage}',
+                      fit: BoxFit.fill,
+                      height: 160,
+                      width: 140,
+                      errorBuilder: (context, object, stackTrace) {
+                        return Image.asset(
+                          'assets/images/doctor1.png',
+                          fit: BoxFit.fill,
+                          height: 160,
+                          width: 140,
+                        );
+                      },
+                    ),
                   ),
                   SizedBox(
-                    width: 160,
+                    width: 20,
+                  ),
+                  SizedBox(
+                    width: 140,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:mailer/mailer.dart';
+import 'package:mailer/smtp_server.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:the_mindsmith/models/book_slot_model.dart';
+import 'package:the_mindsmith/models/doctor_model.dart';
 import 'package:the_mindsmith/models/slot_model.dart';
+import 'package:the_mindsmith/models/user_model.dart';
 import 'package:the_mindsmith/providers/notification_provider.dart';
 import 'package:the_mindsmith/services/repo/agora_toker_repo.dart';
 import 'package:the_mindsmith/services/repo/book_slot_repo.dart';
+import 'package:the_mindsmith/services/repo/fcm_repo.dart';
+import 'package:the_mindsmith/util/shared_pref.dart';
 
 import '../services/repo/payment_repo.dart';
 import '../ui/screens/payment_screen.dart';
@@ -26,19 +32,21 @@ class SlotProvider extends ChangeNotifier {
 
   Future<void> bookSlot(BuildContext context, String fee) async {
     showDialog(
+        barrierDismissible: false,
         context: context,
         builder: (context) => const Center(child: CircularProgressIndicator()));
-    var user = Provider.of<AuthProvider>(context, listen: false).userResponse;
+    UserModel user =
+        Provider.of<AuthProvider>(context, listen: false).userModel!;
     var doc =
         Provider.of<DoctorProvider>(context, listen: false).selectedDoctor!;
 
     String? videoToken = await _tokenRepo.generateToken(
-        selectedSlot!.slotId, int.parse(user!['users']['id']!), context);
+        selectedSlot!.slotId, int.parse(user.id), context);
 
     BookSlotModel bookSlotModel = BookSlotModel(
-        userId: user['users']['id'],
-        userRegNo: user['users']['user_reg_no'],
-        userName: user['users']['user_name'],
+        userId: user.id,
+        userRegNo: user.userRegNo,
+        userName: user.userName,
         slotId: selectedSlot!.slotId,
         doctorsId: selectedSlot!.doctorId,
         doctorsName: selectedSlot!.doctorsName,
@@ -50,11 +58,11 @@ class SlotProvider extends ChangeNotifier {
     //todo:add payment
     //todo:add save data api
     await _paymentRepo.saveCustomerDoctorData(
-      user['users']['id'],
-      user['users']['user_reg_no'],
-      user['users']['user_name'],
-      user['users']['user_phone'],
-      user['users']['user_email'],
+      user.id,
+      user.userRegNo,
+      user.userName,
+      user.userPhone,
+      user.userEmail,
       doc.doctorId,
       doc.doctorName,
       doc.doctorNumber,
@@ -62,9 +70,15 @@ class SlotProvider extends ChangeNotifier {
       fee,
       "12345abcde",
     );
-    await _bookSlotRepo.bookSlot(bookSlotModel);
+    Map<String, dynamic> slotMap = await _bookSlotRepo.bookSlot(bookSlotModel);
     await _bookSlotRepo.updateSlotStatus(bookSlotModel.slotId);
-    await Provider.of<NotificationProvider>(context, listen: false)
+    String userToken = await SharedPref().getToken();
+    if (slotMap["status"] == 1) {
+      String docToken = slotMap["docpushtoken"];
+      FCMRepo().sendNotification(userToken, docToken, context);
+    }
+
+    Provider.of<NotificationProvider>(context, listen: false)
         .fetchNotification(context);
     Provider.of<SlotProvider>(context, listen: false).selectedSlot = null;
     Navigator.pop(context);
@@ -72,10 +86,50 @@ class SlotProvider extends ChangeNotifier {
     // Navigator.of(context)
     //     .push(MaterialPageRoute(builder: (context) => const PaymentPage()));
   }
+
+  Future<void> sendMail(BuildContext context) async {
+    UserModel user =
+        Provider.of<AuthProvider>(context, listen: false).userModel!;
+    // DoctorModel doctor = Provider.of<DoctorProvider>(context, listen: false)
+    //     .selectedDoctor!;
+    // SlotModel slot = Provider.of<SlotProvider>(context, listen: false)
+    //     .selectedSlot!;  ${doctor.doctorName} ${slot.scheduleDate} at ${slot.avgSlotTiming}
+    //     .selectedSlot!;  ${doctor.doctorName} ${slot.scheduleDate} at ${slot.avgSlotTiming} ${user.userName}
+
+    String userName = "";
+    String password = "";
+
+    String subject = "Appointment Confirmation";
+    String body =
+        "Dear ,\n\nYour appointment with Dr. has been confirmed on .\n\nRegards,\nTeam MindSmith";
+
+    final smtpServer = gmail(userName, password);
+    final message = Message()
+      ..from = Address(userName, 'Team MindSmith')
+      ..recipients.add("shivanuj13@gmail.com")
+      ..subject = subject
+      ..text = body;
+
+    try {
+      final sendReport = await send(message, smtpServer);
+      print('Message sent: ' + sendReport.toString());
+    } on MailerException catch (e) {
+      print('Message not sent.');
+      print(e);
+      for (var p in e.problems) {
+        print('Problem: ${p.code}: ${p.msg}');
+      }
+    }
+  }
 }
 
 class SlotDataSource extends CalendarDataSource {
   SlotDataSource(List<SlotModel> appointments) {
+    List<SlotModel> slotList = appointments;
+    slotList.removeWhere((element) =>
+        DateTime.now().millisecondsSinceEpoch >
+        DateTime.parse('${element.scheduleDate} ${element.startTime}')
+            .millisecondsSinceEpoch);
     this.appointments = appointments;
   }
   SlotModel getSlot(int index) => appointments![index] as SlotModel;

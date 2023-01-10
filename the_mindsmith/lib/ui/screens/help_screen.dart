@@ -14,7 +14,7 @@ class _HelpPageState extends State<HelpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBar(context, "Help"),
+      appBar: customAppBar(context, "FAQs"),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(18.0),

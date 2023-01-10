@@ -52,12 +52,12 @@ class _EWalletPageState extends State<EWalletPage> {
                                         child: CircleAvatar(
                                           backgroundColor: Colors.grey[300],
                                           radius: 40,
-                                          child: Image.network(
+                                          foregroundImage: NetworkImage(
                                             "$imgUrl/${context.watch<AuthProvider>().doctorModel!.doctorImage}",
-                                            errorBuilder: ((context, error,
-                                                    stackTrace) =>
-                                                Image.asset(
-                                                    'assets/images/user2.png')),
+                                            // errorBuilder: ((context, error,
+                                            //         stackTrace) =>
+                                            //     Image.asset(
+                                            //         'assets/images/user2.png')),
                                           ),
                                         ),
                                       ),

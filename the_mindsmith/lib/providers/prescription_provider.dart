@@ -33,9 +33,9 @@ class PrescriptionProvider extends ChangeNotifier {
 
   Future<void> uploadPrescription(BuildContext context, String remarks) async {
     String userId = Provider.of<AuthProvider>(context, listen: false)
-        .userResponse!['users']['id'];
+        .userModel!.id;
     String userName = Provider.of<AuthProvider>(context, listen: false)
-        .userResponse!['users']['user_name'];
+        .userModel!.userName;
     showDialog(
         context: context,
         builder: (context) => const Center(child: CircularProgressIndicator()));
@@ -62,7 +62,7 @@ class PrescriptionProvider extends ChangeNotifier {
     isLoading = true;
     notifyListeners();
     String userId = Provider.of<AuthProvider>(context, listen: false)
-        .userResponse!['users']['id'];
+        .userModel!.id;
 
     prescriptionModel = await _prescriptionRepo.fetchPrescription(userId);
     isLoading = false;

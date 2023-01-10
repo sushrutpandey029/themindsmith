@@ -105,7 +105,7 @@ class _AgoraVideoCallState extends State<AgoraVideoCall> {
                       id: createUniqueId(),
                       channelKey: 'call_channel',
                       title:
-                          'Ongoing Call from ${Provider.of<NotificationProvider>(context, listen: false).selectedAllotment?.userName ?? 'caller'} ',
+                          'Ongoing Call from ${Provider.of<NotificationProvider>(context, listen: false).selectedAppointment?.userName ?? 'caller'} ',
                       notificationLayout: NotificationLayout.Default,
                       color: Colors.teal,
                     ),
@@ -130,7 +130,7 @@ class _AgoraVideoCallState extends State<AgoraVideoCall> {
                         ?.logout();
                   }
                   await value.agoraClient?.sessionController.value.engine
-                      ?.destroy();
+                      ;
                 },
                 child: const Text('Yes'),
               ),

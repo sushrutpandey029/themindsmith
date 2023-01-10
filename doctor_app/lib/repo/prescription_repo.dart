@@ -23,6 +23,7 @@ class PrescriptionRepo {
         list.add(PrescriptionModel.fromMap(map));
       }
     }
+    // log(response.data.toString());
     return list;
   }
 }

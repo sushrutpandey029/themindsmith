@@ -96,21 +96,37 @@ class _ConsultWidgetState extends State<ConsultWidget> {
                           ),
 
                         SfCalendar(
+                          initialDisplayDate: slotList.isNotEmpty
+                              ? DateTime.parse(
+                                  "${slotList.first.scheduleDate} ${slotList.first.startTime}")
+                              : DateTime.now(),
+                          timeSlotViewSettings: TimeSlotViewSettings(
+                            timeInterval: const Duration(minutes: 15),
+                            timeFormat: 'hh:mm a',
+                          ),
                           view: CalendarView.week,
                           dataSource: SlotDataSource(slotList),
                           onTap: (calendarTapDetails) {
-                            setState(() {
-                              selectedslot =
-                                  calendarTapDetails.appointments!.first;
-                            });
-                            if (calendarTapDetails.appointments!.first.status ==
-                                'not book') {
-                              value.selectSlot(
-                                  calendarTapDetails.appointments!.first);
-                            } else {
+                            if (calendarTapDetails.appointments == null) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
-                                      content: Text('Slot already booked!')));
+                                      content:
+                                          Text('Please Select a valid slot!')));
+                            } else {
+                              setState(() {
+                                selectedslot =
+                                    calendarTapDetails.appointments!.first;
+                              });
+                              if (calendarTapDetails
+                                      .appointments!.first.status ==
+                                  'not book') {
+                                value.selectSlot(
+                                    calendarTapDetails.appointments!.first);
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                        content: Text('Slot already booked!')));
+                              }
                             }
                           },
                         ),

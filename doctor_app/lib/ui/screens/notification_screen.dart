@@ -1,4 +1,4 @@
-import 'package:doctor_app/model/appointment_notification_model.dart';
+import 'package:doctor_app/model/appointment_model.dart';
 import 'package:doctor_app/util/date_time_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -28,7 +28,7 @@ class _NotificationPageState extends State<NotificationPage> {
           padding: const EdgeInsets.all(8),
           child: RefreshIndicator(
             onRefresh: () async {
-              value.fetchNotification(context);
+              value.fetchNotification(context, isFirst: false);
             },
             child: ListView(
               children: [
@@ -61,8 +61,8 @@ class _NotificationPageState extends State<NotificationPage> {
                           color: Colors.black,
                         )),
                   ),
-                for (AllotmentNotificationModel allotmentNotificationModel
-                    in value.allotmentNotificationList)
+                for (AppointmentModel appointmentNotificationModel
+                    in value.appointmentNotificationList)
                   Card(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20)),
@@ -71,19 +71,20 @@ class _NotificationPageState extends State<NotificationPage> {
                     child: ListTile(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20)),
-                      tileColor: allotmentNotificationModel.readStatus == "read"
-                          ? Colors.transparent
-                          : const Color.fromARGB(255, 141, 190, 231),
+                      tileColor:
+                          appointmentNotificationModel.readStatus == "read"
+                              ? Colors.transparent
+                              : const Color.fromARGB(255, 141, 190, 231),
                       onTap: () {
                         Provider.of<NotificationProvider>(context,
                                 listen: false)
                             .selectAllotment(
-                                allotmentNotificationModel, context);
+                                appointmentNotificationModel, context);
                       },
                       leading: const Icon(Icons.person),
-                      title: Text(allotmentNotificationModel.userName),
+                      title: Text(appointmentNotificationModel.userName),
                       subtitle: Text(formateDate1(
-                          allotmentNotificationModel.appointmentDate)),
+                          appointmentNotificationModel.appointmentDate)),
                     ),
                   ),
                 for (NotificationModel notificationModel

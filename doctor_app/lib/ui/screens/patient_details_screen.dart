@@ -7,8 +7,10 @@ import 'package:doctor_app/ui/screens/video_consultation_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../provider/prescription_provider.dart';
 import '../../util/date_time_helper.dart';
 import '../widgets/comman/app_bar.dart';
+import 'prescription_listing_screen.dart';
 
 class PatientDetailsPage extends StatefulWidget {
   const PatientDetailsPage({Key? key}) : super(key: key);
@@ -60,14 +62,14 @@ class _PatientDetailsPageState extends State<PatientDetailsPage> {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
-                                'Hi ${value.selectedSlot!.doctorName},',
+                                'Hi ${value.selectedAppointment!.doctorName},',
                                 style: heading2,
                               ),
                             ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
-                                'Your Appointment with ${value.selectedSlot!.userName} is booked successfully and Scheduled on ${formateDate(value.selectedSlot!.appointmentDate)} at  ${formateTime(value.selectedSlot!.startedTime)} for ${value.selectedSlot!.timeSlot}.',
+                                'Your Appointment with ${value.selectedAppointment!.userName} is booked successfully and Scheduled on ${formateDate(value.selectedAppointment!.appointmentDate)} at  ${formateTime(value.selectedAppointment!.startedTime)} for ${value.selectedAppointment!.timeSlot}.',
                                 style: text2,
                               ),
                             ),
@@ -98,19 +100,21 @@ class _PatientDetailsPageState extends State<PatientDetailsPage> {
                   ),
                   ElevatedButton(
                       style: smallBlackButtonStyle1,
-                      onPressed:
-                          compareDate(value.selectedSlot!.appointmentDate)
-                              ? () async {
-                                  await Provider.of<VideoCallProvider>(context,
-                                          listen: false)
-                                      .connectCall(context, true);
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: ((context) =>
-                                              const VideoConsultationPage())));
-                                }
-                              : null,
+                      onPressed: compareDate(
+                              value.selectedAppointment!.appointmentDate,
+                              value.selectedAppointment!.startedTime,
+                              value.selectedAppointment!.endTime)
+                          ? () async {
+                              await Provider.of<VideoCallProvider>(context,
+                                      listen: false)
+                                  .connectCall(context, true);
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: ((context) =>
+                                          const VideoConsultationPage())));
+                            }
+                          : null,
                       child: const Text('Join Call')),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -118,11 +122,13 @@ class _PatientDetailsPageState extends State<PatientDetailsPage> {
                         style: smallBlackButtonStyle1,
                         onPressed: () {
                           // AgoraTokenRepo().generateToken('channelName', 'userId');
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: ((context) =>
-                                      const MedicalHistoryPage())));
+                          context
+                              .read<PrescriptionProvider>()
+                              .fetchPrescription(context);
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) =>
+                                  const PrescriptionListingPage(
+                                      isHistoryPage: true)));
                         },
                         child: const Text('Medical History')),
                   ),

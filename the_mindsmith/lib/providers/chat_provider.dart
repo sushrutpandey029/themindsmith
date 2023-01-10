@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:the_mindsmith/models/chat_model.dart';
 import 'package:the_mindsmith/models/doctor_model.dart';
+import 'package:the_mindsmith/models/user_model.dart';
 import 'package:the_mindsmith/providers/auth_provider.dart';
 import 'package:the_mindsmith/services/repo/chat_repo.dart';
 import 'package:the_mindsmith/ui/screens/chat_screen.dart';
@@ -23,7 +24,7 @@ class ChatProvider extends ChangeNotifier {
         builder: (context) => const Center(child: CircularProgressIndicator()));
     selectedDoctor = doctor;
     String userId = Provider.of<AuthProvider>(context, listen: false)
-        .userResponse?['users']["id"];
+        .userModel!.id;
     await fetchChat(userId);
     Navigator.pop(context);
     Navigator.of(context)
@@ -64,15 +65,15 @@ class ChatProvider extends ChangeNotifier {
   Future<void> sendMessage(BuildContext context, String message) async {
     isSending = true;
 
-    Map<String, dynamic> userMap =
-        Provider.of<AuthProvider>(context, listen: false).userResponse!;
+    UserModel userModel =
+        Provider.of<AuthProvider>(context, listen: false).userModel!;
     await _chatRepo.sendMessage(
-        userMap['users']['id'],
-        userMap['users']['user_name'],
+        userModel.id,
+        userModel.userName,
         selectedDoctor!.doctorId,
         selectedDoctor!.doctorName,
         message);
-    await fetchChat(userMap['users']['id']);
+    await fetchChat(userModel.id);
     // initialIndex = finalChatList.length - 10;
     // finalIndex = finalChatList.length;
     isSending = false;

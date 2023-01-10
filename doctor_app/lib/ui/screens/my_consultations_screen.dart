@@ -61,7 +61,7 @@ class _ConsulationPageState extends State<ConsulationPage> {
                         borderRadius: BorderRadius.circular(20)),
                     child: ListTile(
                       onTap: () {
-                        context.read<SlotProvider>().fetchSlots(context);
+                        context.read<SlotProvider>().fetchAppointment(context);
                         Navigator.push(
                             context,
                             MaterialPageRoute(

@@ -9,7 +9,8 @@ class VideoLinkRepo {
   Future<List<String>> fetchLink(doctorId) async {
     String url = "$_doctorApi/doc_show_videolink";
 
-    Response response = await Dio().post(url, data: {"doctor_id": doctorId});
+    Response response = await Dio().post(url);
+    print(response);
     List<String> list = [];
 
     if (response.data['status'] == 1) {

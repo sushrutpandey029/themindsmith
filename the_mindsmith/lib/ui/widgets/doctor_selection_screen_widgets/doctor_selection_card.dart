@@ -68,29 +68,32 @@ class _DoctorSelectionCardState extends State<DoctorSelectionCard> {
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 28.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  widget.doctorModel.doctorName,
-                  style: text2,
-                  // textAlign: TextAlign.left,
-                ),
-                Text(
-                  widget.doctorModel.doctorQualification,
-                  // textAlign: TextAlign.left,
-                ),
-                // Text(
-                //   '\u{20B9} ${widget.doctorModel.doctorFee}',
-                //   // textAlign: TextAlign.left,
-                // ),
-                Text(
-                  widget.doctorModel.doctorStatus,
-                  // textAlign: TextAlign.left,
-                ),
-              ],
+          Flexible(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 28.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    widget.doctorModel.doctorName,
+                    style: text2,
+                    // textAlign: TextAlign.left,
+                  ),
+                  Text(
+                    widget.doctorModel.doctorQualification,
+                    // style: TextStyle(overflow: TextOverflow.visible),
+                    // textAlign: TextAlign.left,
+                  ),
+                  // Text(
+                  //   '\u{20B9} ${widget.doctorModel.doctorFee}',
+                  //   // textAlign: TextAlign.left,
+                  // ),
+                  Text(
+                    widget.doctorModel.doctorStatus,
+                    // textAlign: TextAlign.left,
+                  ),
+                ],
+              ),
             ),
           )
         ]),

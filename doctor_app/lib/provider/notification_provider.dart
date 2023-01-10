@@ -1,8 +1,9 @@
-import 'package:doctor_app/model/appointment_notification_model.dart';
+import 'package:doctor_app/provider/slot_provider.dart';
 import 'package:doctor_app/ui/screens/appointment_details.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../model/appointment_model.dart';
 import '../model/notification_model.dart';
 import '../repo/notification_repo.dart';
 import '../ui/screens/notification_screen.dart';
@@ -13,35 +14,48 @@ class NotificationProvider extends ChangeNotifier {
   final NotificationRepo _notificationRepo = NotificationRepo();
   List<NotificationModel> notificationList = [];
   int unreadNotificationCount = 0;
-  List<AllotmentNotificationModel> allotmentNotificationList = [];
-  AllotmentNotificationModel? selectedAllotment;
+  List<AppointmentModel> appointmentNotificationList = [];
+  AppointmentModel? selectedAppointment;
 
   Future<void> fetchNotification(BuildContext context,
-      {bool isfirst = true}) async {
-    unreadNotificationCount = 0;
-    isLoading = true;
-    String id =
-        Provider.of<AuthProvider>(context, listen: false).doctorModel!.doctorId;
-    if (isfirst) {
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => const NotificationPage()));
+      {bool isFirst = true}) async {
+    if (isFirst) {
+      isLoading = true;
     }
-
-    notificationList = await _notificationRepo.fetchNotification(id);
-    allotmentNotificationList =
-        await _notificationRepo.fetchAllotmentNotification(id);
-    isLoading = false;
-    for (var element in notificationList) {
-      if (element.status != "read") {
-        unreadNotificationCount++;
+    try {
+      String id = Provider.of<AuthProvider>(context, listen: false)
+          .doctorModel!
+          .doctorId;
+      if (isFirst) {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const NotificationPage()));
       }
+
+      notificationList = await _notificationRepo.fetchNotification(id);
+      appointmentNotificationList =
+          await _notificationRepo.fetchAppointmentNotification(id);
+      isLoading = false;
+      await context.read<SlotProvider>().fetchAppointment(context);
+      unreadNotificationCount = 0;
+      for (var element in notificationList) {
+        if (element.status != "read") {
+          unreadNotificationCount++;
+        }
+      }
+      for (var element in appointmentNotificationList) {
+        if (element.readStatus != "read") {
+          unreadNotificationCount++;
+        }
+      }
+      notifyListeners();
+      if(!isFirst) {
+        await Future.delayed(const Duration(seconds: 10), () async {
+        await fetchNotification(context, isFirst: false);
+      });
+      }
+    } on Exception catch (e) {
+      print(e);
     }
-    Future.delayed(const Duration(seconds: 2)).then(
-      (value) {
-        fetchNotification(context, isfirst: false);
-      },
-    );
-    notifyListeners();
   }
 
   // void selectAllotment(AllotmentNotificationModel allotment,BuildContext context) {
@@ -51,8 +65,8 @@ class NotificationProvider extends ChangeNotifier {
   //   Navigator.push(context, MaterialPageRoute(builder: (context)=>AppointmentDetailsPage()));
   // }
   Future<void> selectAllotment(
-      AllotmentNotificationModel allotment, BuildContext context) async {
-    selectedAllotment = allotment;
+      AppointmentModel appointment, BuildContext context) async {
+    selectedAppointment = appointment;
     // if (allotment.readStatus != "read") {
     //   await updateReadStatusAppointment(allotment.appointmentId);
     // }

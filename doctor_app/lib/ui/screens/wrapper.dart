@@ -1,6 +1,7 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:badges/badges.dart';
 import 'package:doctor_app/provider/slot_provider.dart';
+import 'package:doctor_app/repo/slot_repo.dart';
 import 'package:doctor_app/ui/screens/resources_screen.dart';
 import 'package:doctor_app/ui/screens/prescriptions_locker_screen.dart';
 import 'package:doctor_app/ui/screens/profile_screen.dart';
@@ -8,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
+import '../../provider/auth_provider.dart';
 import '../../provider/notification_provider.dart';
 import 'e_wallet_screen.dart';
 import 'home_screen.dart';
@@ -99,6 +101,8 @@ class _WrapperState extends State<Wrapper> {
 
   @override
   void initState() {
+    Provider.of<NotificationProvider>(context, listen: false)
+        .fetchNotification(context,isFirst:false);
     AwesomeNotifications().isNotificationAllowed().then(
       (isAllowed) {
         if (!isAllowed) {
@@ -172,6 +176,8 @@ class _WrapperState extends State<Wrapper> {
                       await Provider.of<NotificationProvider>(context,
                               listen: false)
                           .fetchNotification(context);
+                      await Provider.of<SlotProvider>(context, listen: false)
+                          .fetchAppointment(context);
                     },
                     icon: Consumer<NotificationProvider>(
                         builder: (context, value, widget) {
@@ -205,7 +211,8 @@ class _WrapperState extends State<Wrapper> {
                     color: Colors.black,
                   ),
                   IconButton(
-                    onPressed: () {
+                    onPressed: () async {
+                      context.read<SlotProvider>().fetchSlots(context);
                       Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -237,7 +244,7 @@ class _WrapperState extends State<Wrapper> {
                 setState(() {
                   if (index == 3) {
                     Provider.of<SlotProvider>(context, listen: false)
-                        .fetchSlots(context);
+                        .fetchAppointment(context);
                   }
                   _selectedIndex = index;
                 });

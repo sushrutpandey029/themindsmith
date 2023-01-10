@@ -27,30 +27,32 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  agora_uikit: null
+  agora_uikit:
   awesome_notifications: ^0.7.4+1
-  badges: null
+  badges:
   cupertino_icons: ^1.0.2
-  dio: null
+  dio:
   dotted_line: ^3.1.0
-  file_picker: null
+  file_picker:
+  firebase_core: ^2.4.0
+  firebase_messaging: ^14.2.0
   flutter:
     sdk: flutter
-  flutter_mailer: null
-  flutter_pdfview: null
+  flutter_mailer:
+  flutter_pdfview:
   flutter_secure_storage: ^6.0.0
-  image_picker: null
-  intl: null
+  image_picker:
+  intl:
   lottie: ^2.0.0
-  open_file: null
-  path_provider: null
-  pdf: null
-  provider: null
-  share_plus: null
-  shared_preferences: null
+  open_file: ^3.2.1
+  path_provider:
+  pdf:
+  provider:
+  share_plus:
+  shared_preferences:
   syncfusion_flutter_calendar: ^20.3.57
-  url_launcher: null
-  youtube_player_flutter: null
+  url_launcher:
+  youtube_player_flutter:
 
 dev_dependencies:
   flutter_lints: ^2.0.0

@@ -17,7 +17,7 @@ class AppointmentBarWidget extends StatelessWidget {
       child: InkWell(
         onTap: () {
           Provider.of<SlotProvider>(context, listen: false)
-              .selectSlot(context, index);
+              .selectAppointment(context, index);
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -43,7 +43,7 @@ class AppointmentBarWidget extends StatelessWidget {
                     BoxShadow(offset: Offset(4, 4), blurRadius: 6)
                   ],
                   color: Provider.of<SlotProvider>(context, listen: false)
-                              .slotList
+                              .appointmentList
                               .elementAt(index)
                               .readStatus ==
                           "read"
@@ -58,7 +58,7 @@ class AppointmentBarWidget extends StatelessWidget {
                     Text(name),
                     Text(context
                         .read<SlotProvider>()
-                        .slotList
+                        .appointmentList
                         .elementAt(index)
                         .userRegNo)
                   ],
